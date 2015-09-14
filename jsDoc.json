@@ -1,0 +1,17 @@
+{
+  "source": {
+    "include": [
+      "lib/index.js",
+      "lib/ext"
+    ],
+    "includePattern": ".+\\.js(doc)?$"
+  },
+  "templates": {
+    "default": {
+      "layoutFile": "static/layout.html"
+    }
+  },
+  "plugins": [
+    "plugins/markdown"
+  ]
+}
