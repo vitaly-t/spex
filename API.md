@@ -16,12 +16,14 @@ any of the promises rejects.</p>
 <dd></dd>
 <dt><a href="#channel">channel(source, dest)</a></dt>
 <dd></dd>
-<dt><a href="#page">page(source, dest)</a></dt>
+<dt><a href="#page">page(source, cb)</a></dt>
 <dd></dd>
 <dt><a href="#sequence">sequence(factory, [noTracking], [cb])</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
 <dt><a href="#stream">stream(source, dest)</a></dt>
-<dd></dd>
+<dd><p>Acquires promise objects dynamically from the source function, resolves them,
+and passes the result into the destination function.</p>
+</dd>
 <dt><a href="#throttle">throttle(values)</a></dt>
 <dd></dd>
 </dl>
@@ -48,7 +50,7 @@ This method is a fusion of `promise.all` + `promise.settle` logic,to resolve wi
 
 **Kind**: global function  
 **Summary**: Attempts to resolve every value in the input array.  
-**Returns**: <code>Promise</code> - Result for the entire batch, which resolves whenevery promise in the input array has been resolved, and rejects when oneor more promise objects in the array rejected:- resolves with an array of individual resolved results, the same as `promise.all`;- rejects with an array of objects `{success, result}`:  - `success`: `true/false`, indicates whether the corresponding value    in the input array was resolved.  - `result`: resolved data, if `success=true`, or else the rejection reason.  The array comes extended with function `getErrors`, which returns the list  of just errors, with support for nested batch results.  Calling `getErrors()[0]`, for example, will get the same result as the  rejection reason that `promise.all` would provide.In both cases the output array is always the same size as the input one,providing index mapping between input and output values.  
+**Returns**: <code>Promise</code> - Result for the entire batch, which resolves whenevery promise in the input array has been resolved, and rejects when oneor more promise objects in the array rejected:- resolves with an array of individual resolved results, the same as `promise.all`;  The array comes extended with property `duration` - number of milliseconds  taken to resolve all the data.- rejects with an array of objects `{success, result}`:  - `success`: `true/false`, indicates whether the corresponding value    in the input array was resolved.  - `result`: resolved data, if `success=true`, or else the rejection reason.  The array comes extended with function `getErrors`, which returns the list  of just errors, with support for nested batch results.  Calling `getErrors()[0]`, for example, will get the same result as the  rejection reason that `promise.all` would provide.In both cases the output array is always the same size as the input one,providing index mapping between input and output values.  
 <table>
   <thead>
     <tr>
@@ -77,6 +79,7 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 <a name="cascade"></a>
 ## cascade(route, context)
 **Kind**: global function  
+**Summary**: Sequentially resolves a chain of dependent dynamic promises.  
 <table>
   <thead>
     <tr>
@@ -109,8 +112,9 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 </table>
 
 <a name="page"></a>
-## page(source, dest)
+## page(source, cb)
 **Kind**: global function  
+**Summary**: Resolves dynamic arrays of promises page-by-page, till no data left;  
 <table>
   <thead>
     <tr>
@@ -121,14 +125,14 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 <tr>
     <td>source</td>
     </tr><tr>
-    <td>dest</td>
+    <td>cb</td>
     </tr>  </tbody>
 </table>
 
 <a name="sequence"></a>
 ## sequence(factory, [noTracking], [cb]) ⇒ <code>Promise</code>
 **Kind**: global function  
-**Summary**: Sequentially resolves dynamic promises returned by a promise factory.  
+**Summary**: Sequentially resolves a chain of independent dynamic promises.  
 **Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
 <table>
   <thead>
@@ -154,7 +158,10 @@ individual query requests, to avoid memory overuse when processing massive data.
 
 <a name="stream"></a>
 ## stream(source, dest)
+Acquires promise objects dynamically from the source function, resolves them,and passes the result into the destination function.
+
 **Kind**: global function  
+**Summary**: Resolves promises one-by-one from source to destination.  
 <table>
   <thead>
     <tr>
@@ -172,6 +179,7 @@ individual query requests, to avoid memory overuse when processing massive data.
 <a name="throttle"></a>
 ## throttle(values)
 **Kind**: global function  
+**Summary**: Not yet formulated.  
 <table>
   <thead>
     <tr>
