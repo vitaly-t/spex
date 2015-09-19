@@ -1,6 +1,6 @@
 {
   "name": "spex",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Specialized Promise Extensions",
   "main": "lib/index.js",
   "scripts": {
@@ -33,6 +33,7 @@
   "dependencies": {
   },
   "devDependencies": {
+    "bluebird": "2.x",
     "coveralls": "2.x",
     "grunt": "0.4.x",
     "grunt-jsdoc-to-markdown": "1.x",

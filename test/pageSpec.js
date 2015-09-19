@@ -1,0 +1,3 @@
+describe("Method page", function () {
+
+});

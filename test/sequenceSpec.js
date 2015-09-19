@@ -1,0 +1,3 @@
+describe("Method sequence", function () {
+
+});
