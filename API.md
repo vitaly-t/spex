@@ -1,6 +1,6 @@
 ## Modules
 <dl>
-<dt><a href="#module_spe">spe</a></dt>
+<dt><a href="#module_spex">spex</a></dt>
 <dd><p>Specialized Promise Extensions</p>
 </dd>
 </dl>
@@ -12,23 +12,19 @@ to resolve with the same type of result as <code>promise.all</code>, while also
 settling all the promises, and providing a detailed summary in case
 any of the promises rejects.</p>
 </dd>
-<dt><a href="#cascade">cascade(route, context)</a></dt>
+<dt><a href="#chain">chain(source)</a></dt>
 <dd></dd>
-<dt><a href="#channel">channel(source, dest)</a></dt>
-<dd></dd>
-<dt><a href="#page">page(source, cb)</a></dt>
+<dt><a href="#page">page(source, [dest])</a></dt>
 <dd></dd>
 <dt><a href="#sequence">sequence(factory, [noTracking], [cb])</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
-<dt><a href="#stream">stream(source, dest)</a></dt>
+<dt><a href="#stream">stream(source, [dest])</a></dt>
 <dd><p>Acquires promise objects dynamically from the source function, resolves them,
 and passes the result into the destination function.</p>
 </dd>
-<dt><a href="#throttle">throttle(values)</a></dt>
-<dd></dd>
 </dl>
-<a name="module_spe"></a>
-## spe
+<a name="module_spex"></a>
+## spex
 Specialized Promise Extensions
 
 **Author:** Vitaly Tomilov  
@@ -41,6 +37,8 @@ Specialized Promise Extensions
   <tbody>
 <tr>
     <td>promiseLib</td><td><code>Object</code> | <code>function</code></td>
+    </tr><tr>
+    <td>options</td><td><code>Object</code></td>
     </tr>  </tbody>
 </table>
 
@@ -76,27 +74,10 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
     </tr>  </tbody>
 </table>
 
-<a name="cascade"></a>
-## cascade(route, context)
+<a name="chain"></a>
+## chain(source)
 **Kind**: global function  
-**Summary**: Sequentially resolves a chain of dependent dynamic promises.  
-<table>
-  <thead>
-    <tr>
-      <th>Param</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>route</td>
-    </tr><tr>
-    <td>context</td>
-    </tr>  </tbody>
-</table>
-
-<a name="channel"></a>
-## channel(source, dest)
-**Kind**: global function  
+**Summary**: Resolves a linked sequence of dynamic promises.  
 <table>
   <thead>
     <tr>
@@ -106,33 +87,31 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
   <tbody>
 <tr>
     <td>source</td>
-    </tr><tr>
-    <td>dest</td>
     </tr>  </tbody>
 </table>
 
 <a name="page"></a>
-## page(source, cb)
+## page(source, [dest])
 **Kind**: global function  
-**Summary**: Resolves dynamic arrays of promises page-by-page, till no data left;  
+**Summary**: Resolves dynamic arrays/pages of promises;  
 <table>
   <thead>
     <tr>
-      <th>Param</th>
+      <th>Param</th><th>Type</th>
     </tr>
   </thead>
   <tbody>
 <tr>
-    <td>source</td>
+    <td>source</td><td><code>function</code></td>
     </tr><tr>
-    <td>cb</td>
+    <td>[dest]</td><td><code>function</code></td>
     </tr>  </tbody>
 </table>
 
 <a name="sequence"></a>
 ## sequence(factory, [noTracking], [cb]) ⇒ <code>Promise</code>
 **Kind**: global function  
-**Summary**: Sequentially resolves a chain of independent dynamic promises.  
+**Summary**: Resolves an independent sequence of dynamic promises until no data left.  
 **Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
 <table>
   <thead>
@@ -157,7 +136,7 @@ individual query requests, to avoid memory overuse when processing massive data.
 </table>
 
 <a name="stream"></a>
-## stream(source, dest)
+## stream(source, [dest])
 Acquires promise objects dynamically from the source function, resolves them,and passes the result into the destination function.
 
 **Kind**: global function  
@@ -165,30 +144,14 @@ Acquires promise objects dynamically from the source function, resolves them,an
 <table>
   <thead>
     <tr>
-      <th>Param</th>
+      <th>Param</th><th>Type</th>
     </tr>
   </thead>
   <tbody>
 <tr>
-    <td>source</td>
+    <td>source</td><td><code>function</code></td>
     </tr><tr>
-    <td>dest</td>
-    </tr>  </tbody>
-</table>
-
-<a name="throttle"></a>
-## throttle(values)
-**Kind**: global function  
-**Summary**: Not yet formulated.  
-<table>
-  <thead>
-    <tr>
-      <th>Param</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>values</td>
+    <td>[dest]</td><td><code>function</code></td>
     </tr>  </tbody>
 </table>
 
