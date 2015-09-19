@@ -12,16 +12,10 @@ to resolve with the same type of result as <code>promise.all</code>, while also
 settling all the promises, and providing a detailed summary in case
 any of the promises rejects.</p>
 </dd>
-<dt><a href="#chain">chain(source)</a></dt>
-<dd></dd>
 <dt><a href="#page">page(source, [dest])</a></dt>
 <dd></dd>
-<dt><a href="#sequence">sequence(factory, [noTracking], [cb])</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#sequence">sequence(source, [noTracking], [cb])</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
-<dt><a href="#stream">stream(source, [dest])</a></dt>
-<dd><p>Acquires promise objects dynamically from the source function, resolves them,
-and passes the result into the destination function.</p>
-</dd>
 </dl>
 <a name="module_spex"></a>
 ## spex
@@ -74,22 +68,6 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
     </tr>  </tbody>
 </table>
 
-<a name="chain"></a>
-## chain(source)
-**Kind**: global function  
-**Summary**: Resolves a linked sequence of dynamic promises.  
-<table>
-  <thead>
-    <tr>
-      <th>Param</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>source</td>
-    </tr>  </tbody>
-</table>
-
 <a name="page"></a>
 ## page(source, [dest])
 **Kind**: global function  
@@ -109,9 +87,9 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 </table>
 
 <a name="sequence"></a>
-## sequence(factory, [noTracking], [cb]) ⇒ <code>Promise</code>
+## sequence(source, [noTracking], [cb]) ⇒ <code>Promise</code>
 **Kind**: global function  
-**Summary**: Resolves an independent sequence of dynamic promises until no data left.  
+**Summary**: Resolves a sequence of dynamic promises until no data left.  
 **Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
 <table>
   <thead>
@@ -121,7 +99,7 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
   </thead>
   <tbody>
 <tr>
-    <td>factory</td><td><code>function</code></td><td></td><td><p>a callback function <code>(idx, t)</code> to create and return a new promise,
+    <td>source</td><td><code>function</code></td><td></td><td><p>a callback function <code>(idx, data)</code> to create and return a new promise,
 based on the request index passed. When the value is anything other than a function, an error
 is thrown: <code>Invalid factory function specified.</code></p>
 </td>
@@ -132,26 +110,6 @@ individual query requests, to avoid memory overuse when processing massive data.
     </tr><tr>
     <td>[cb]</td><td><code>function</code></td><td></td><td><p>notification callback with <code>(idx, data)</code>, for every request resolved.</p>
 </td>
-    </tr>  </tbody>
-</table>
-
-<a name="stream"></a>
-## stream(source, [dest])
-Acquires promise objects dynamically from the source function, resolves them,and passes the result into the destination function.
-
-**Kind**: global function  
-**Summary**: Resolves promises one-by-one from source to destination.  
-<table>
-  <thead>
-    <tr>
-      <th>Param</th><th>Type</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>source</td><td><code>function</code></td>
-    </tr><tr>
-    <td>[dest]</td><td><code>function</code></td>
     </tr>  </tbody>
 </table>
 
