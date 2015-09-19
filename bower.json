@@ -10,6 +10,12 @@
     "coverage": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test",
     "doc": "./node_modules/.bin/jsdoc -c jsDoc.json"
   },
+  "ignore": [
+    "test",
+    "static",
+    "spec",
+    "node_modules"
+  ],
   "homepage": "https://github.com/vitaly-t/spex",
   "repository": {
     "type": "git",
