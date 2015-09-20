@@ -15,7 +15,8 @@ any of the promises rejects.</p>
 <dt><a href="#page">page(source, [dest], [limit])</a></dt>
 <dd></dd>
 <dt><a href="#sequence">sequence(source, [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
-<dd><p>Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them.</p>
+<dd><p>Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,
+till either no more values left in the sequence or an error occurs.</p>
 </dd>
 </dl>
 <a name="module_spex"></a>
@@ -91,7 +92,7 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 
 <a name="sequence"></a>
 ## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
-Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them.
+Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,till either no more values left in the sequence or an error occurs.
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
@@ -104,14 +105,16 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Creates and returns the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved.
-Returning nothing / <code>undefined</code> indicates the end of the sequence.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. When the function
+returns nothing (<code>undefined</code>), it indicates the end of the sequence.</p>
 <p>Function parameters:</p>
 <ul>
-<li><code>index</code> - current index of the sequence;</li>
-<li><code>data</code> - resolved value from the previous call to the function. It is <code>undefined</code>
-for the initial call.</li>
+<li><code>index</code> - current request index in the sequence;</li>
+<li><code>data</code> - resolved data from the previous call to the function (<code>undefined</code>
+for the initial call).</li>
 </ul>
+<p>If the function throws an error or returns a rejected promise, the sequence terminates,
+and the method rejects.</p>
 <p>based on the request index passed. When the value is anything other than a function, an error
 is thrown: <code>Invalid factory function specified.</code></p>
 </td>
