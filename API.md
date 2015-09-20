@@ -15,7 +15,7 @@ any of the promises rejects.</p>
 <dt><a href="#page">page(source, [dest], [limit])</a></dt>
 <dd></dd>
 <dt><a href="#sequence">sequence(source, [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
-<dd><p>Acquires {@link https://github.com/vitaly-t/spex/wiki/Mixed-Values|mixed values} from the source function, one at a time, and resolves them.</p>
+<dd><p>Acquires <a href='https://github.com/vitaly-t/spex/wiki/Mixed-Values'>mixed values</a> from the source function, one at a time, and resolves them.</p>
 </dd>
 </dl>
 <a name="module_spex"></a>
@@ -91,10 +91,10 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 
 <a name="sequence"></a>
 ## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
-Acquires {@link https://github.com/vitaly-t/spex/wiki/Mixed-Values|mixed values} from the source function, one at a time, and resolves them.
+Acquires <a href='https://github.com/vitaly-t/spex/wiki/Mixed-Values'>mixed values</a> from the source function, one at a time, and resolves them.
 
 **Kind**: global function  
-**Summary**: Resolves a dynamic sequence of {@link https://github.com/vitaly-t/spex/wiki/Mixed-Values|mixed values}.  
+**Summary**: Resolves a dynamic sequence of <a href='https://github.com/vitaly-t/spex/wiki/Mixed-Values'>mixed values</a>.  
 **Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
 <table>
   <thead>
@@ -104,7 +104,7 @@ Acquires {@link https://github.com/vitaly-t/spex/wiki/Mixed-Values|mixed values}
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Creates and returns the next {@link https://github.com/vitaly-t/spex/wiki/Mixed-Values|mixed value} to be resolved.
+    <td>source</td><td><code>function</code></td><td></td><td><p>Creates and returns the next <a href='https://github.com/vitaly-t/spex/wiki/Mixed-Values'>mixed value</a> to be resolved.
 Returning nothing / <code>undefined</code> indicates the end of the sequence.</p>
 <p>Function parameters:</p>
 <ul>
