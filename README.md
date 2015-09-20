@@ -18,4 +18,4 @@ This one is DONE! :)
 
 ### Stage 3: Tests + Documentation 
 
-Currently working on it...
+Currently working on the [API documentation](API.md)
