@@ -23,7 +23,6 @@ module.exports = function (grunt) {
             data = data.replace(/\$\[[a-z0-9\s]+\]/gi, function (name) {
                 var svn = name.replace(/\$\[|\]/g, ''); // stripped variable name;
                 if (svn in links) {
-                    //return "{@link " + links[svn] + "|" + svn + "}";
                     return "<a href='" + links[svn] + "'>" + svn + "</a>"
                 } else {
                     return name;
