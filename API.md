@@ -96,7 +96,7 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
+**Returns**: <code>Promise</code> - When successful, it resolves with data depending on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved in the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved.The array comes extended with read-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which of the two functions causedthe reject - `source` or `dest`. See the two parameters for the rejection details.  
 <table>
   <thead>
     <tr>
@@ -120,22 +120,39 @@ and the method rejects with object <code>{index, error, source}</code>:</p>
 <li><code>error</code> - the error thrown or the reject reason</li>
 <li><code>source</code> - resolved data that was passed into the function</li>
 </ul>
-<p>Passing in anything other than a function will throw error <code>Invalid sequence source.</code>.</p>
+<p>Passing in anything other than a function will throw <code>Invalid sequence source.</code>.</p>
 </td>
     </tr><tr>
-    <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive each resolved data,
+    <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive resolved data for each index,
 process it and respond as required.</p>
 <p>Function parameters:</p>
 <ul>
-<li><code>index</code> - index of resolved data in the sequence</li>
-<li><code>data</code> - the resolved data</li>
+<li><code>index</code> - index of the resolved data in the sequence</li>
+<li><code>data</code> - the data resolved</li>
 </ul>
+<p>The function can optionally return a promise object, if data processing is done asynchronously.
+If a promise is returned, the method will not request the next value from the <code>source</code> function,
+until the promise has been resolved.</p>
+<p>If the function throws an error or returns a promise that rejects, the sequence terminates,
+and the method rejects with object <code>{index, error, dest}</code>:</p>
+<ul>
+<li><code>index</code> - index of the data that was processed</li>
+<li><code>error</code> - the error thrown or the reject reason</li>
+<li><code>dest</code> - resolved data that was passed into the function</li>
+</ul>
+<p>Passing in anything other than a function will throw <code>Invalid sequence destination.</code>.</p>
 </td>
     </tr><tr>
-    <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td><td></td>
+    <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td><td><p>Limits the maximum size of the sequence. If the value is an integer greater than 0,
+the method will successfully resolve once the specified size limit has been reached.
+By default, the sequence is unlimited.</p>
+</td>
     </tr><tr>
-    <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>when <code>true</code>, it prevents tracking resolved results from
-individual query requests, to avoid memory overuse when processing massive data.</p>
+    <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>The value of this parameter changes the type of data to be resolved by this method.
+When set to be <code>true</code>, it instructs the method to track/collect all resolved data into
+an array internally, so it can be resolved with once the method has finished successfully.</p>
+<p>It must be used with caution, as to the size of the sequence, because accumulating data for
+a very large sequence can result in consuming too much memory.</p>
 </td>
     </tr>  </tbody>
 </table>
