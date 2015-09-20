@@ -96,7 +96,7 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - When successful, it resolves with data depending on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved in the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved.The array comes extended with read-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which of the two functions causedthe reject - `source` or `dest`. See the two parameters for the rejection details.  
+**Returns**: <code>Promise</code> - When successful, it resolves with data depending on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved from the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved.The array comes extended with read-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which of the two functions causedthe failure - `source` or `dest`. See the two parameters for the rejection details.  
 <table>
   <thead>
     <tr>
@@ -113,6 +113,7 @@ returns nothing (<code>undefined</code>), it indicates the end of the sequence.<
 <li><code>data</code> - resolved data from the previous call to the function (<code>undefined</code>
 for the initial call).</li>
 </ul>
+<p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
 and the method rejects with object <code>{index, error, source}</code>:</p>
 <ul>
@@ -130,7 +131,8 @@ process it and respond as required.</p>
 <li><code>index</code> - index of the resolved data in the sequence</li>
 <li><code>data</code> - the data resolved</li>
 </ul>
-<p>The function can optionally return a promise object, if data processing is done asynchronously.
+<p>The function is called with the same <code>this</code> context as the calling method.</p>
+<p>It can optionally return a promise object, if data processing is done asynchronously.
 If a promise is returned, the method will not request the next value from the <code>source</code> function,
 until the promise has been resolved.</p>
 <p>If the function throws an error or returns a promise that rejects, the sequence terminates,
