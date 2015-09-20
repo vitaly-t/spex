@@ -107,7 +107,7 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
 <tr>
     <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. When the function
 returns nothing (<code>undefined</code>), it indicates the end of the sequence.</p>
-<p>Function parameters:</p>
+<p>Parameters:</p>
 <ul>
 <li><code>index</code> - current request index in the sequence;</li>
 <li><code>data</code> - resolved data from the previous call to the function (<code>undefined</code>
@@ -119,14 +119,14 @@ and the method rejects with object <code>{index, error, source}</code>:</p>
 <ul>
 <li><code>index</code> - index of the request that failed</li>
 <li><code>error</code> - the error thrown or the reject reason</li>
-<li><code>source</code> - resolved data that was passed into the function</li>
+<li><code>source</code> - resolved <code>data</code> that was passed into the function</li>
 </ul>
-<p>Passing in anything other than a function will throw <code>Invalid sequence source.</code>.</p>
+<p>Passing in anything other than a function will throw <code>Invalid sequence source.</code></p>
 </td>
     </tr><tr>
     <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive resolved data for each index,
 process it and respond as required.</p>
-<p>Function parameters:</p>
+<p>Parameters:</p>
 <ul>
 <li><code>index</code> - index of the resolved data in the sequence</li>
 <li><code>data</code> - the data resolved</li>
@@ -142,12 +142,13 @@ and the method rejects with object <code>{index, error, dest}</code>:</p>
 <li><code>error</code> - the error thrown or the reject reason</li>
 <li><code>dest</code> - resolved data that was passed into the function</li>
 </ul>
-<p>Passing in anything other than a function will throw <code>Invalid sequence destination.</code>.</p>
+<p>Passing in anything other than a function will throw <code>Invalid sequence destination.</code></p>
 </td>
     </tr><tr>
     <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td><td><p>Limits the maximum size of the sequence. If the value is an integer greater than 0,
 the method will successfully resolve once the specified size limit has been reached.
-By default, the sequence is unlimited.</p>
+By default, the sequence is unlimited, and will continue till either <code>source</code> function
+returns <code>undefined</code> or an error/reject occurs.</p>
 </td>
     </tr><tr>
     <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>The value of this parameter changes the type of data to be resolved by this method.
