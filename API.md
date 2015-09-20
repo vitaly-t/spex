@@ -14,7 +14,7 @@ any of the promises rejects.</p>
 </dd>
 <dt><a href="#page">page(source, [dest], [limit])</a></dt>
 <dd></dd>
-<dt><a href="#sequence">sequence(source, [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#sequence">sequence(source., [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
 <dd><p>Acquires mixed values from the source function, one at a time, and resolves them.</p>
 </dd>
 </dl>
@@ -90,7 +90,7 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 </table>
 
 <a name="sequence"></a>
-## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
+## sequence(source., [dest], [limit], [track]) ⇒ <code>Promise</code>
 Acquires mixed values from the source function, one at a time, and resolves them.
 
 **Kind**: global function  
@@ -104,9 +104,9 @@ Acquires mixed values from the source function, one at a time, and resolves them
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>a function that creates and returns a new mixed value
-to be resolved. Returning nothing/<code>undefined</code> indicates the end of the sequence.</p>
-<p>The function takes the following parameters:</p>
+    <td>source.</td><td><code>function</code></td><td></td><td><p>Creates and returns the next mixed value to be resolved.
+Returning nothing/<code>undefined</code> indicates the end of the sequence.</p>
+<p>Function parameters:</p>
 <ul>
 <li><code>index</code> - current index of the sequence;</li>
 <li><code>data</code> - resolved value from the previous call to the function. It is <code>undefined</code>
