@@ -94,7 +94,7 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 Acquires [mixed values] from the source function, one at a time, and resolves them.
 
 **Kind**: global function  
-**Summary**: Sequentially resolves a dynamic chain of promises.  
+**Summary**: Resolves a dynamic sequence of [mixed values].  
 **Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
 <table>
   <thead>
