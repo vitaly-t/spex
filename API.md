@@ -114,12 +114,22 @@ returns nothing (<code>undefined</code>), it indicates the end of the sequence.<
 for the initial call).</li>
 </ul>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
-and the method rejects.</p>
-<p>based on the request index passed. When the value is anything other than a function, an error
-is thrown: <code>Invalid factory function specified.</code></p>
+and the method rejects with object <code>{index, error, source}</code>:</p>
+<ul>
+<li><code>index</code> - index of the request that failed</li>
+<li><code>error</code> - the error thrown or the reject reason</li>
+<li><code>source</code> - resolved data that was passed into the function</li>
+</ul>
+<p>Passing in anything other than a function will throw error <code>Invalid sequence source.</code>.</p>
 </td>
     </tr><tr>
-    <td>[dest]</td><td><code>function</code></td><td></td><td><p>notification callback with <code>(idx, data)</code>, for every request resolved.</p>
+    <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive each resolved data,
+process it and respond as required.</p>
+<p>Function parameters:</p>
+<ul>
+<li><code>index</code> - index of resolved data in the sequence</li>
+<li><code>data</code> - the resolved data</li>
+</ul>
 </td>
     </tr><tr>
     <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td><td></td>
