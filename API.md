@@ -14,8 +14,9 @@ any of the promises rejects.</p>
 </dd>
 <dt><a href="#page">page(source, [dest], [limit])</a></dt>
 <dd></dd>
-<dt><a href="#sequence">sequence(source, [track], [cb])</a> ⇒ <code>Promise</code></dt>
-<dd></dd>
+<dt><a href="#sequence">sequence(source, [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
+<dd><p>Acquires mixed values from the source function, one at a time, and resolves them.</p>
+</dd>
 </dl>
 <a name="module_spex"></a>
 ## spex
@@ -89,9 +90,11 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 </table>
 
 <a name="sequence"></a>
-## sequence(source, [track], [cb]) ⇒ <code>Promise</code>
+## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
+Acquires mixed values from the source function, one at a time, and resolves them.
+
 **Kind**: global function  
-**Summary**: Resolves a sequence of dynamic promises until no data left.  
+**Summary**: Sequentially resolves a dynamic chain of promises.  
 **Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
 <table>
   <thead>
@@ -101,16 +104,25 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>a callback function <code>(idx, data)</code> to create and return a new promise,
-based on the request index passed. When the value is anything other than a function, an error
+    <td>source</td><td><code>function</code></td><td></td><td><p>a function that creates and returns a new mixed value
+to be resolved. Returning nothing/<code>undefined</code> indicates the end of the sequence.</p>
+<p>The function takes the following parameters:</p>
+<ul>
+<li><code>index</code> - current index of the sequence;</li>
+<li><code>data</code> - resolved value from the previous call to the function. It is <code>undefined</code>
+for the initial call.</li>
+</ul>
+<p>based on the request index passed. When the value is anything other than a function, an error
 is thrown: <code>Invalid factory function specified.</code></p>
 </td>
     </tr><tr>
-    <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>when <code>true</code>, it prevents tracking resolved results from
-individual query requests, to avoid memory overuse when processing massive data.</p>
+    <td>[dest]</td><td><code>function</code></td><td></td><td><p>notification callback with <code>(idx, data)</code>, for every request resolved.</p>
 </td>
     </tr><tr>
-    <td>[cb]</td><td><code>function</code></td><td></td><td><p>notification callback with <code>(idx, data)</code>, for every request resolved.</p>
+    <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td><td></td>
+    </tr><tr>
+    <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>when <code>true</code>, it prevents tracking resolved results from
+individual query requests, to avoid memory overuse when processing massive data.</p>
 </td>
     </tr>  </tbody>
 </table>
