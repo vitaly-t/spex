@@ -15,7 +15,7 @@ any of the promises rejects.</p>
 <dt><a href="#page">page(source, [dest], [limit])</a></dt>
 <dd></dd>
 <dt><a href="#sequence">sequence(source, [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
-<dd><p>Acquires mixed values from the source function, one at a time, and resolves them.</p>
+<dd><p>Acquires [mixed values] from the source function, one at a time, and resolves them.</p>
 </dd>
 </dl>
 <a name="module_spex"></a>
@@ -91,7 +91,7 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 
 <a name="sequence"></a>
 ## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
-Acquires mixed values from the source function, one at a time, and resolves them.
+Acquires [mixed values] from the source function, one at a time, and resolves them.
 
 **Kind**: global function  
 **Summary**: Sequentially resolves a dynamic chain of promises.  
@@ -127,3 +127,5 @@ individual query requests, to avoid memory overuse when processing massive data.
     </tr>  </tbody>
 </table>
 
+[mixed value]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
+[mixed values]:https://github.com/vitaly-t/spex/wiki/Mixed-Values

@@ -37,6 +37,7 @@
     "coveralls": "2.x",
     "grunt": "0.4.x",
     "grunt-jsdoc-to-markdown": "1.x",
+    "grunt-contrib-concat": "0.5",
     "istanbul": "0.3",
     "jasmine-node": "1.x",
     "jsdoc": "3.x"
