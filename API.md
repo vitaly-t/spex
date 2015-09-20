@@ -12,9 +12,9 @@ to resolve with the same type of result as <code>promise.all</code>, while also
 settling all the promises, and providing a detailed summary in case
 any of the promises rejects.</p>
 </dd>
-<dt><a href="#page">page(source, [dest])</a></dt>
+<dt><a href="#page">page(source, [dest], [limit])</a></dt>
 <dd></dd>
-<dt><a href="#sequence">sequence(source, [noTracking], [cb])</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#sequence">sequence(source, [track], [cb])</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
 </dl>
 <a name="module_spex"></a>
@@ -69,7 +69,7 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
 </table>
 
 <a name="page"></a>
-## page(source, [dest])
+## page(source, [dest], [limit])
 **Kind**: global function  
 **Summary**: Resolves dynamic arrays/pages of promises;  
 <table>
@@ -83,11 +83,13 @@ be thrown: <code>Array of values is required to execute a batch.</code></p>
     <td>source</td><td><code>function</code></td>
     </tr><tr>
     <td>[dest]</td><td><code>function</code></td>
+    </tr><tr>
+    <td>[limit]</td><td><code>function</code></td>
     </tr>  </tbody>
 </table>
 
 <a name="sequence"></a>
-## sequence(source, [noTracking], [cb]) ⇒ <code>Promise</code>
+## sequence(source, [track], [cb]) ⇒ <code>Promise</code>
 **Kind**: global function  
 **Summary**: Resolves a sequence of dynamic promises until no data left.  
 **Returns**: <code>Promise</code> - Result of the sequence, depending on `noTracking`:- resolves with an array of resolved data, if `noTracking = false`;- resolves with an integer - total number of resolved requests, if `noTracking = true`;- rejects with the reason when the factory function throws an error or returns a rejected promise.  
@@ -104,7 +106,7 @@ based on the request index passed. When the value is anything other than a funct
 is thrown: <code>Invalid factory function specified.</code></p>
 </td>
     </tr><tr>
-    <td>[noTracking]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>when <code>true</code>, it prevents tracking resolved results from
+    <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>when <code>true</code>, it prevents tracking resolved results from
 individual query requests, to avoid memory overuse when processing massive data.</p>
 </td>
     </tr><tr>
