@@ -96,7 +96,7 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - When successful, it resolves with data depending on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved from the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved.The array comes extended with read-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which of the two functions causedthe failure - `source` or `dest`. See the two parameters for the rejection details.  
+**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved from the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved.The array comes extended with read-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which of the two functions causedthe failure - `source` or `dest`. See the two parameters for the rejection details.  
 <table>
   <thead>
     <tr>
