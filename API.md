@@ -13,7 +13,7 @@ results, if all values resolved, or rejects when one or more values rejected.</p
 the same type of result as the standard <code>promise.all</code>, while also settling all the promises,
 and providing a comprehensive rejection summary in case of any reject.</p>
 </dd>
-<dt><a href="#page">page(source, [dest], [limit])</a></dt>
+<dt><a href="#page">page(source, [dest], [limit])</a> ⇒ <code>Promise</code></dt>
 <dd><p>Documentation is currently in the works...</p>
 </dd>
 <dt><a href="#sequence">sequence(source, [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
@@ -82,11 +82,11 @@ rejected element is replaced with object <code>{success, result, origin}</code>:
 </table>
 
 <a name="page"></a>
-## page(source, [dest], [limit])
+## page(source, [dest], [limit]) ⇒ <code>Promise</code>
 Documentation is currently in the works...
 
 **Kind**: global function  
-**Summary**: Resolves dynamic arrays/pages of promises;  
+**Summary**: Resolves a dynamic sequence of arrays/pages with <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 <table>
   <thead>
     <tr>
