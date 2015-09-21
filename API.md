@@ -10,11 +10,12 @@
 <dd><p>Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array, and resolves with the array of
 results, if all values resolved, or rejects when one or more values rejected.</p>
 <p>This method is a fusion of <code>promise.all</code> + <code>promise.settle</code> logic, to resolve with
-the same type of result as <code>promise.all</code>, while also settling all the promises, and
-providing a comprehensive rejection summary in case of sny reject.</p>
+the same type of result as the standard <code>promise.all</code>, while also settling all the promises,
+and providing a comprehensive rejection summary in case of any reject.</p>
 </dd>
 <dt><a href="#page">page(source, [dest], [limit])</a></dt>
-<dd></dd>
+<dd><p>Documentation is currently in the works...</p>
+</dd>
 <dt><a href="#sequence">sequence(source, [dest], [limit], [track])</a> ⇒ <code>Promise</code></dt>
 <dd><p>Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,
 till either no more values left in the sequence or an error occurs.</p>
@@ -41,7 +42,7 @@ Specialized Promise Extensions
 
 <a name="batch"></a>
 ## batch(values, [cb]) ⇒ <code>Promise</code>
-Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array, and resolves with the array ofresults, if all values resolved, or rejects when one or more values rejected.This method is a fusion of `promise.all` + `promise.settle` logic, to resolve withthe same type of result as `promise.all`, while also settling all the promises, andproviding a comprehensive rejection summary in case of sny reject.
+Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array, and resolves with the array ofresults, if all values resolved, or rejects when one or more values rejected.This method is a fusion of `promise.all` + `promise.settle` logic, to resolve withthe same type of result as the standard `promise.all`, while also settling all the promises,and providing a comprehensive rejection summary in case of any reject.
 
 **Kind**: global function  
 **Summary**: Resolves a predefined array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
@@ -82,6 +83,8 @@ rejected element is replaced with object <code>{success, result, origin}</code>:
 
 <a name="page"></a>
 ## page(source, [dest], [limit])
+Documentation is currently in the works...
+
 **Kind**: global function  
 **Summary**: Resolves dynamic arrays/pages of promises;  
 <table>
