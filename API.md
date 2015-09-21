@@ -96,7 +96,7 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved from the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved.The array comes extended with read-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which of the two functions causedthe failure - `source` or `dest`. See the two parameters for the rejection details.  
+**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved from the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved.The array comes extended with read-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which function causedthe failure - `source` or `dest`. See the two parameters for the rejection details.  
 <table>
   <thead>
     <tr>
@@ -142,7 +142,7 @@ and the method rejects with object <code>{index, error, dest}</code>:</p>
 <li><code>error</code> - the error thrown or the reject reason</li>
 <li><code>dest</code> - resolved data that was passed into the function</li>
 </ul>
-<p>Passing in anything other than a function will throw <code>Invalid sequence destination.</code></p>
+<p>Passing in a non-empty value other than a function will throw <code>Invalid sequence destination.</code></p>
 </td>
     </tr><tr>
     <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td><td><p>Limits the maximum size of the sequence. If the value is an integer greater than 0,
