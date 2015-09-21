@@ -7,10 +7,11 @@
 ## Functions
 <dl>
 <dt><a href="#batch">batch(values, [cb])</a> ⇒ <code>Promise</code></dt>
-<dd><p>This method is a fusion of <code>promise.all</code> + <code>promise.settle</code> logic,
-to resolve with the same type of result as <code>promise.all</code>, while also
-settling all the promises, and providing a detailed summary in case
-any of the promises rejects.</p>
+<dd><p>Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array, and resolves with the array of
+results, if all values resolved, or rejects when one or more values rejected.</p>
+<p>This method is a fusion of <code>promise.all</code> + <code>promise.settle</code> logic, to resolve with
+the same type of result as <code>promise.all</code>, while also settling all the promises, and
+providing a comprehensive rejection summary in case any of the promises rejects.</p>
 </dd>
 <dt><a href="#page">page(source, [dest], [limit])</a></dt>
 <dd></dd>
@@ -40,11 +41,11 @@ Specialized Promise Extensions
 
 <a name="batch"></a>
 ## batch(values, [cb]) ⇒ <code>Promise</code>
-This method is a fusion of `promise.all` + `promise.settle` logic,to resolve with the same type of result as `promise.all`, while alsosettling all the promises, and providing a detailed summary in caseany of the promises rejects.
+Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array, and resolves with the array ofresults, if all values resolved, or rejects when one or more values rejected.This method is a fusion of `promise.all` + `promise.settle` logic, to resolve withthe same type of result as `promise.all`, while also settling all the promises, andproviding a comprehensive rejection summary in case any of the promises rejects.
 
 **Kind**: global function  
-**Summary**: Attempts to resolve every value in the input array.  
-**Returns**: <code>Promise</code> - Result for the entire batch, which resolves whenevery promise in the input array has been resolved, and rejects when oneor more promise objects in the array rejected:- resolves with an array of individual resolved results, the same as `promise.all`;  The array comes extended with read-only property `duration` - number of  milliseconds taken to resolve all the data.- rejects with an array of objects `{success, result}`:  - `success`: `true/false`, indicates whether the corresponding value    in the input array was resolved.  - `result`: resolved data, if `success=true`, or else the rejection reason.  The array comes extended with function `getErrors`, which returns the list  of just errors, with support for nested batch results.  Calling `getErrors()[0]`, for example, will get the same result as the  rejection reason that `promise.all` would provide.In both cases the output array is always the same size as the input one,providing index mapping between input and output values.  
+**Summary**: Resolves a predefined array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
+**Returns**: <code>Promise</code> - Result for the entire batch, which resolves when every value in the input array has been resolved,and rejects when: - one or more values in the array rejected - one or more calls into the notification callback returned a rejected promise or threw an errorThe method resolves with an array of individual resolved results, the same as `promise.all`.In addition, the array is extended with read-only property `duration` - number of millisecondstaken to resolve all the data.When failed, the method rejects with an array of objects `{success, result}`: - `success`: `true/false`, indicates whether the corresponding value in the input array was resolved. - `result`: resolved data, if `success=true`, or else the rejection reason.In addition, the array is extended with function `getErrors`, which returns the list of just errors,with support for nested batch results. Calling `getErrors()[0]`, for example, will get the sameresult as the rejection reason that `promise.all` would provide.When a value in the array represents a failure that's the result of an unsuccessful call into thenotification callback, it also has property `origin`. See documentation for `cb` parameter.In both cases the output array is always the same size as the input one, providing index mappingbetween input and output values.  
 <table>
   <thead>
     <tr>
@@ -53,20 +54,29 @@ This method is a fusion of `promise.all` + `promise.settle` logic,to resolve wi
   </thead>
   <tbody>
 <tr>
-    <td>values</td><td><code>Array</code></td><td><p>array of values of the following types:</p>
-<ul>
-<li>a simple value or object, to resolve with by default;</li>
-<li>a promise object to be either resolved or rejected;</li>
-<li>a function, to be called with the task/transaction context,
-so it can return a value, an object or a promise.
-If it returns another function, the call will be repeated,
-until the returned type is a value, an object or a promise.</li>
-</ul>
-<p>If the parameter is anything other than an array, an error will
-be thrown: <code>Array of values is required to execute a batch.</code></p>
+    <td>values</td><td><code>Array</code></td><td><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> to be resolved asynchronously, i.e. in no particular order.</p>
+<p>If the parameter is anything other than an array, an error is thrown:
+<code>Array of values is required to execute a batch.</code></p>
 </td>
     </tr><tr>
-    <td>[cb]</td><td><code>function</code></td><td></td>
+    <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive a notification about the resolution result for each value.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>index</code> - index of the value in the array</li>
+<li><code>success</code> - indicates whether the value was resolved (<code>true</code>), or rejected (<code>false</code>)</li>
+<li><code>data</code> - resolved data, if <code>success</code>=<code>true</code>, or else the rejection reason</li>
+</ul>
+<p>The function is called with the same <code>this</code> context as the calling method.</p>
+<p>It can optionally return a promise object, to indicate that it handles notifications asynchronously.
+If the returned promise resolves, it signals a successful notification, while any resolved data is ignored.</p>
+<p>If the function returns a rejected promise or throws an error, the entire method rejects, while the
+rejected element is replaced with object <code>{success, result, origin}</code>:</p>
+<ul>
+<li><code>success</code> = <code>false</code></li>
+<li><code>result</code> - the rejection reason or the error thrown by the notification callback</li>
+<li><code>origin</code> - the original data passed into the callback, as object <code>{success, result}</code></li>
+</ul>
+</td>
     </tr>  </tbody>
 </table>
 
