@@ -29,7 +29,7 @@ This one is DONE! :)
 
 ### Stage 3: Tests + Documentation 
 
-Currently working on the [API documentation](API.md)
+Currently working on tests + [API documentation](API.md)
 
 [batch]:API.md#batch
 [page]:API.md#page
