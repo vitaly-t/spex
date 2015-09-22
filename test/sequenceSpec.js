@@ -134,4 +134,28 @@ describe("Sequence - negative", function () {
 
 describe("Sequence - positive", function () {
 
+    describe("with a limit", function () {
+        var result, limit = 100;
+
+        function source() {
+            return 123;
+        }
+
+        beforeEach(function (done) {
+            spex.sequence(source, null, limit)
+                .then(function (data) {
+                    result = data;
+                })
+                .finally(function () {
+                    done();
+                });
+        });
+
+        it("must match the limit", function () {
+            expect(result && result instanceof Object).toBeTruthy();
+            expect(result.total).toBe(limit);
+            expect('duration' in result).toBe(true);
+        });
+
+    });
 });
