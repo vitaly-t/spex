@@ -5,7 +5,7 @@ var fs = require("fs");
 var files = [
     {
         src: "lib/index.js",
-        dest: "API/index.md"
+        dest: "API/module.md"
     },
     {
         src: "lib/ext/batch.js",

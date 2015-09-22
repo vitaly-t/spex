@@ -1,19 +1,12 @@
-<a name="module_spex"></a>
-## spex
-Specialized Promise Extensions
+# SPEX API
 
-**Author:** Vitaly Tomilov  
-<table>
-  <thead>
-    <tr>
-      <th>Param</th><th>Type</th>
-    </tr>
-  </thead>
-  <tbody>
-<tr>
-    <td>promiseLib</td><td><code>Object</code> | <code>function</code></td>
-    </tr><tr>
-    <td>options</td><td><code>Object</code></td>
-    </tr>  </tbody>
-</table>
+* Module
+* Methods
+ - [batch]
+ - [page]
+ - [sequence]
 
+[module]:API/module.md 
+[batch]:API/batch.md
+[page]:API/page.md
+[sequence]:API/sequence.md

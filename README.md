@@ -31,6 +31,7 @@ This one is DONE! :)
 
 Currently working on tests + [API documentation](API/index.md)
 
-[batch]:API.md#batch
-[page]:API.md#page
-[sequence]:API.md#sequence
+[batch]:API/batch.md
+[page]:API/page.md
+[sequence]:API/sequence.md
+
