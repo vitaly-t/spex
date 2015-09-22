@@ -7,6 +7,17 @@ This project is a work-in-progress, but you already can try it:
 ```
 $ npm install spex
 ```
+For third-party promise libraries:
+```javascript
+var promise = require('bluebird');
+var spex = require('spex')(promise);
+```
+For ES6 promises:
+```javascript
+var spex = require('spex')(promise);
+```
+
+Methods implemented: [batch], [page] and [sequence]. 
 
 ### Stage 1: Formulating the protocol
 
@@ -19,3 +30,7 @@ This one is DONE! :)
 ### Stage 3: Tests + Documentation 
 
 Currently working on the [API documentation](API.md)
+
+[batch]:API.md#batch
+[page]:API.md#page
+[sequence]:API.md#sequence
