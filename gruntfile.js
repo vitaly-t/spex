@@ -1,7 +1,31 @@
 "use strict";
 
 var fs = require("fs");
-var mdFile = "API.md";
+
+var files = [
+    {
+        src: "lib/index.js",
+        dest: "API/index.md"
+    },
+    {
+        src: "lib/ext/batch.js",
+        dest: "API/batch.md"
+    },
+    {
+        src: "lib/ext/page.js",
+        dest: "API/page.md"
+    },
+    {
+        src: "lib/ext/sequence.js",
+        dest: "API/sequence.md"
+    }
+];
+
+// Automatic links:
+var links = {
+    "mixed value": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
+    "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values"
+};
 
 module.exports = function (grunt) {
     grunt.initConfig({
@@ -10,8 +34,7 @@ module.exports = function (grunt) {
                 options: {
                     "no-gfm": true
                 },
-                src: "lib/**/*.js",
-                dest: mdFile
+                files: files
             }
         }
     });
@@ -21,25 +44,26 @@ module.exports = function (grunt) {
     grunt.registerTask("default", ["jsdoc2md", "fixLinks"]);
 };
 
-// Automatic links:
-var links = {
-    "mixed value": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
-    "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values"
-};
-
 //////////////////////////////////////////////////////////
 // Replaces all `$[link name]` occurrences in file API.md
 // with the corresponding link tag as defined on the list.
 function fixLinks() {
-    var done = this.async();
-    fs.readFile(mdFile, "utf-8", function (_, data) {
-        data = data.replace(/\$\[[a-z0-9\s]+\]/gi, function (name) {
-            var sln = name.replace(/\$\[|\]/g, ''); // stripped link name;
-            if (sln in links) {
-                return "<a href=\"" + links[sln] + "\">" + sln + "</a>"
-            }
-            return name;
+    var done = this.async(), count = 0;
+    files.forEach(function (f) {
+        fs.readFile(f.dest, "utf-8", function (_, data) {
+            data = data.replace(/\$\[[a-z0-9\s]+\]/gi, function (name) {
+                var sln = name.replace(/\$\[|\]/g, ''); // stripped link name;
+                if (sln in links) {
+                    return "<a href=\"" + links[sln] + "\">" + sln + "</a>"
+                }
+                return name;
+            });
+            fs.writeFile(f.dest, data, check);
         });
-        fs.writeFile(mdFile, data, done);
     });
+    function check() {
+        if (++count === files.length) {
+            done();
+        }
+    }
 }
