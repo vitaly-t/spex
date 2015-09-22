@@ -48,20 +48,20 @@ describe("Batch - negative", function () {
         })
     });
 
-    /*
-
-    // Doesn't pass, because the current batch implementation doesn't
-    // handle a promise from the callback.
     describe("callback reject", function () {
 
         var r, msg = "callback reject";
         beforeEach(function (done) {
 
-            function cb() {
-                return promise.reject(msg);
+            function cb(index) {
+                if (index) {
+                    return promise.resolve();
+                } else {
+                    return promise.reject(msg);
+                }
             }
 
-            spex.batch([1], cb)
+            spex.batch([1, 2], cb)
                 .catch(function (reason) {
                     r = reason;
                     done();
@@ -70,12 +70,16 @@ describe("Batch - negative", function () {
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                dest: 123
-            });
+            expect(r).toEqual([
+                {
+                    success: false,
+                    result: msg,
+                    origin: {success: true, result: 1}
+                },
+                {
+                    success: true,
+                    result: 2
+                }]);
         })
     });
-*/
 });
