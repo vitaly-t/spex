@@ -14,7 +14,7 @@ var spex = require('spex')(promise);
 ```
 For ES6 promises:
 ```javascript
-var spex = require('spex')(promise);
+var spex = require('spex')(Promise);
 ```
 
 Methods implemented: [batch], [page] and [sequence]. 
