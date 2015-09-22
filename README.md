@@ -7,6 +7,9 @@ This project is a work-in-progress, but you already can try it:
 ```
 $ npm install spex
 ```
+
+### Usage
+
 For third-party promise libraries:
 ```javascript
 var promise = require('bluebird');
