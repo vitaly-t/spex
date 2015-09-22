@@ -6,8 +6,7 @@
   "scripts": {
     "test": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test --captureExceptions && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "test-only": "jasmine-node test",
-    "coverage": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test",
-    "doc": "./node_modules/.bin/jsdoc -c jsDoc.json"
+    "coverage": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test"
   },
   "homepage": "https://github.com/vitaly-t/spex",
   "repository": {
@@ -38,7 +37,6 @@
     "grunt": "0.4.x",
     "grunt-jsdoc-to-markdown": "1.x",
     "istanbul": "0.3",
-    "jasmine-node": "1.x",
-    "jsdoc": "3.x"
+    "jasmine-node": "1.x"
   }
 }
