@@ -7,7 +7,20 @@ var spex = lib.main(promise);
 var dummy = function () {
 };
 
-describe("Sequence", function () {
+describe("Sequence - negative", function () {
+
+    describe("with invalid parameters", function () {
+        it("must detect invalid source", function () {
+            expect(function () {
+                spex.sequence();
+            }).toThrow("Invalid sequence source.");
+        });
+        it("must detect invalid destination", function () {
+            expect(function () {
+                spex.sequence(dummy, 123);
+            }).toThrow("Invalid sequence destination.");
+        });
+    });
 
     describe("source error", function () {
 
@@ -33,5 +46,92 @@ describe("Sequence", function () {
             });
         })
     });
+
+    describe("source reject", function () {
+
+        var r, msg = "source reject";
+        beforeEach(function (done) {
+            function source() {
+                return promise.reject(msg);
+            }
+
+            spex.sequence(source)
+                .catch(function (reason) {
+                    r = reason;
+                    done();
+                })
+
+        });
+
+        it("must reject correctly", function () {
+            expect(r).toEqual({
+                index: 0,
+                error: msg,
+                source: undefined
+            });
+        })
+    });
+
+    describe("destination error", function () {
+
+        var r, msg = "destination error";
+        beforeEach(function (done) {
+            function source() {
+                return 123;
+            }
+
+            function dest() {
+                throw msg;
+            }
+
+            spex.sequence(source, dest)
+                .catch(function (reason) {
+                    r = reason;
+                    done();
+                })
+
+        });
+
+        it("must reject correctly", function () {
+            expect(r).toEqual({
+                index: 0,
+                error: msg,
+                dest: 123
+            });
+        })
+    });
+
+    describe("destination reject", function () {
+
+        var r, msg = "destination reject";
+        beforeEach(function (done) {
+            function source() {
+                return 123;
+            }
+
+            function dest() {
+                return promise.reject(msg);
+            }
+
+            spex.sequence(source, dest)
+                .catch(function (reason) {
+                    r = reason;
+                    done();
+                })
+
+        });
+
+        it("must reject correctly", function () {
+            expect(r).toEqual({
+                index: 0,
+                error: msg,
+                dest: 123
+            });
+        })
+    });
+
+});
+
+describe("Sequence - positive", function () {
 
 });
