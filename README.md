@@ -7,8 +7,8 @@ This project is a work-in-progress, and I'm currently working on tests + [API do
 
 But you already can try the methods implemented:
 * [batch]
-* [sequence]
 * [page]
+* [sequence]
 
 ### Usage
 
