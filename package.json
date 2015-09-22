@@ -1,6 +1,6 @@
 {
   "name": "spex",
-  "version": "0.0.32",
+  "version": "0.0.34",
   "description": "Specialized Promise Extensions",
   "main": "lib/index.js",
   "scripts": {

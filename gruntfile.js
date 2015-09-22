@@ -5,19 +5,19 @@ var fs = require("fs");
 var files = [
     {
         src: "lib/index.js",
-        dest: "API/module.md"
+        dest: "docs/module.md"
     },
     {
         src: "lib/ext/batch.js",
-        dest: "API/batch.md"
+        dest: "docs/batch.md"
     },
     {
         src: "lib/ext/page.js",
-        dest: "API/page.md"
+        dest: "docs/page.md"
     },
     {
         src: "lib/ext/sequence.js",
-        dest: "API/sequence.md"
+        dest: "docs/sequence.md"
     }
 ];
 
