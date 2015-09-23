@@ -20,7 +20,7 @@ $ npm test
 ```
 
 ### Usage
-* For any [Promises/A+] library - [Promise], [Bluebird], [When], [Q], [RSVP], etc.:
+* For any [Promises/A+] library - [Promise], [Bluebird], [When], [Q], [RSVP], etc...
 ```javascript
 var promise = require('bluebird');
 var spex = require('spex')(promise);
@@ -29,7 +29,10 @@ var spex = require('spex')(promise);
 ```javascript
 var spex = require('spex')(Promise);
 ```
+`spex` has methods [batch], [sequence] and [page].
+Also see the [API].
 
+[API]:docs/index.md
 [batch]:docs/batch.md
 [page]:docs/page.md
 [sequence]:docs/sequence.md
@@ -39,5 +42,3 @@ var spex = require('spex')(Promise);
 [When]:https://github.com/cujojs/when
 [Q]:https://github.com/kriskowal/q
 [RSVP]:https://github.com/tildeio/rsvp.js
-
-
