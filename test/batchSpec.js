@@ -13,7 +13,7 @@ describe("Batch - negative", function () {
         it("must detect invalid array of values", function () {
             expect(function () {
                 spex.batch();
-            }).toThrow("Array of values is required to execute a batch.");
+            }).toThrow("Batch requires an array of values.");
         });
         it("must detect invalid callback", function () {
             expect(function () {

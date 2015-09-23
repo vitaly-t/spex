@@ -14,8 +14,7 @@ Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed
   <tbody>
 <tr>
     <td>values</td><td><code>Array</code></td><td><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> to be resolved asynchronously, i.e. in no particular order.</p>
-<p>If the parameter is anything other than an array, an error is thrown:
-<code>Array of values is required to execute a batch.</code></p>
+<p>Passing in anything other than an array will throw <code>Batch requires an array of values.</code></p>
 </td>
     </tr><tr>
     <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive a notification about the resolution result for each value.</p>
