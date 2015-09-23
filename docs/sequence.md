@@ -1,6 +1,6 @@
 <a name="sequence"></a>
 ## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
-Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,till either no more values left in the sequence or an error occurs.
+Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,till either no more values left in the sequence or an error/reject occurs.
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
@@ -13,19 +13,19 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning nothing (<code>undefined</code>)
-signals the end of the sequence.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. If the value resolves
+into <code>undefined</code>, it signals the end of the sequence, and the method resolves.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>index</code> - current request index in the sequence</li>
-<li><code>data</code> - resolved data from the previous call to the function (<code>undefined</code> when <code>index=0</code>)</li>
+<li><code>index</code> = current request index in the sequence</li>
+<li><code>data</code> = resolved data from the previous call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
 and the method rejects with object <code>{index, error, source}</code>:</p>
 <ul>
 <li><code>index</code> - index of the request that failed</li>
-<li><code>error</code> - the error thrown or the reject reason</li>
+<li><code>error</code> - the error thrown or the rejection reason</li>
 <li><code>source</code> - resolved <code>data</code> that was passed into the function</li>
 </ul>
 <p>Passing in anything other than a function will throw <code>Invalid sequence source.</code></p>
@@ -46,7 +46,7 @@ until the promise has been resolved.</p>
 and the method rejects with object <code>{index, error, dest}</code>:</p>
 <ul>
 <li><code>index</code> - index of the data that was processed</li>
-<li><code>error</code> - the error thrown or the reject reason</li>
+<li><code>error</code> - the error thrown or the rejection reason</li>
 <li><code>dest</code> - resolved data that was passed into the function</li>
 </ul>
 <p>Passing in a non-empty value other than a function will throw <code>Invalid sequence destination.</code></p>
