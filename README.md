@@ -20,12 +20,12 @@ $ npm test
 ```
 
 ### Usage
-For third-party promise libraries:
+* For third-party promise libraries:
 ```javascript
 var promise = require('bluebird');
 var spex = require('spex')(promise);
 ```
-For ES6 promises:
+* For ES6 promises:
 ```javascript
 var spex = require('spex')(Promise);
 ```
