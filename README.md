@@ -7,6 +7,7 @@
 * throttling and load balancing
 * linked and detached sequencing
 * streaming and paging
+* batch processing
 
 ### Usage
 
