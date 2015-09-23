@@ -20,7 +20,7 @@ $ npm test
 ```
 
 ### Usage
-* For any [Promises/A+] library - [Promise], [Bluebird], [When], [Q], [RSVP], etc...
+* For any [Promises/A+] library - [Promise], [Bluebird], [When], [Q], [RSVP], etc.
 ```javascript
 var promise = require('bluebird');
 var spex = require('spex')(promise);

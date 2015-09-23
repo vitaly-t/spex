@@ -4,7 +4,7 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - total number of values resolved from the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved,the same way that the standard `promise.all` resolves. In addition, the array comes extended withread-only property `duration` - number of milliseconds consumed by the method.If the method fails, it rejects with an object according to which function causedthe failure - `source` or `dest`. See the two parameters for the rejection details.  
+**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - number of values resolved by the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved,the same way that the standard `promise.all` resolves. In addition, the array comes extended withread-only property `duration` - number of milliseconds consumed by the method.When the method fails, the reject result depends on which function caused the failure - `source`or `dest`. See the two parameters for the rejection details.  
 <table>
   <thead>
     <tr>
@@ -13,8 +13,8 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning nothing (<code>undefined</code>)
-indicates the end of the sequence.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a>. Returning nothing (<code>undefined</code>) indicates
+the end of the sequence.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> - current request index in the sequence</li>

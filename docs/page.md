@@ -20,6 +20,14 @@ Returning nothing (<code>undefined</code>) or an empty array indicates the end o
 <li><code>index</code> - index of the page being requested</li>
 <li><code>data</code> - previously returned page, resolved as a <a href="batch.md">batch</a>, <code>undefined</code> when <code>index=0</code></li>
 </ul>
+<p>If the function throws an error or returns a rejected promise, the sequence terminates,
+and the method rejects with object <code>{index, error, source}</code>:</p>
+<ul>
+<li><code>index</code> - index of the request that failed</li>
+<li><code>error</code> - the error thrown or the reject reason</li>
+<li><code>source</code> - resolved <code>data</code> that was passed into the function</li>
+</ul>
+<p>Passing in anything other than a function will throw <code>Invalid page source.</code></p>
 </td>
     </tr><tr>
     <td>[dest]</td><td><code>function</code></td><td></td><td></td>
