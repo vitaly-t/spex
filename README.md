@@ -20,12 +20,11 @@ $ npm test
 ```
 
 ### Usage
-* For any [Promises/A+] library:
+* For any [Promises/A+] library - [Promise], [Bluebird], [When], [Q], [RSVP], etc.:
 ```javascript
 var promise = require('bluebird');
 var spex = require('spex')(promise);
 ```
-It can be [Promise], [Bluebird], [When], [Q], [RSVP], etc.
 * For ES6 promises:
 ```javascript
 var spex = require('spex')(Promise);
