@@ -4,7 +4,7 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
 
 **Kind**: global function  
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` - number of values resolved by the sequence - `duration` - number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved,the same way that the standard `promise.all` resolves. In addition, the array comes extended withread-only property `duration` - number of milliseconds consumed by the method.When the method fails, the reject result depends on which function caused the failure - `source`or `dest`. See the two parameters for the rejection details.  
+**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` = number of values resolved by the sequence - `duration` = number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved,the same way that the standard `promise.all` resolves. In addition, the array comes extended withread-only property `duration` - number of milliseconds consumed by the method.When the method fails, the reject result depends on which function caused the failure - `source`or `dest`. See the two parameters for the rejection details.  
 <table>
   <thead>
     <tr>
@@ -24,9 +24,9 @@ into <code>undefined</code>, it signals the end of the sequence, and the method 
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
 and the method rejects with object <code>{index, error, source}</code>:</p>
 <ul>
-<li><code>index</code> - index of the request that failed</li>
-<li><code>error</code> - the error thrown or the rejection reason</li>
-<li><code>source</code> - resolved <code>data</code> that was passed into the function</li>
+<li><code>index</code> = index of the request that failed</li>
+<li><code>error</code> = the error thrown or the rejection reason</li>
+<li><code>source</code> = resolved <code>data</code> that was passed into the function</li>
 </ul>
 <p>Passing in anything other than a function will throw <code>Invalid sequence source.</code></p>
 </td>
@@ -35,8 +35,8 @@ and the method rejects with object <code>{index, error, source}</code>:</p>
 process it and respond as required.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>index</code> - index of the resolved data in the sequence</li>
-<li><code>data</code> - the data resolved</li>
+<li><code>index</code> = index of the resolved data in the sequence</li>
+<li><code>data</code> = the data resolved</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise object, if data processing is done asynchronously.
@@ -45,9 +45,9 @@ until the promise has been resolved.</p>
 <p>If the function throws an error or returns a promise that rejects, the sequence terminates,
 and the method rejects with object <code>{index, error, dest}</code>:</p>
 <ul>
-<li><code>index</code> - index of the data that was processed</li>
-<li><code>error</code> - the error thrown or the rejection reason</li>
-<li><code>dest</code> - resolved data that was passed into the function</li>
+<li><code>index</code> = index of the data that was processed</li>
+<li><code>error</code> = the error thrown or the rejection reason</li>
+<li><code>dest</code> = resolved data that was passed into the function</li>
 </ul>
 <p>Passing in a non-empty value other than a function will throw <code>Invalid sequence destination.</code></p>
 </td>

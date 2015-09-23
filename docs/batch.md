@@ -4,7 +4,7 @@ Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed
 
 **Kind**: global function  
 **Summary**: Resolves a predefined array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - Result for the entire batch, which resolves when every value in the input array has been resolved,and rejects when: - one or more values in the array rejected or threw an error as a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> - one or more calls into the notification callback returned a rejected promise or threw an errorThe method resolves with an array of individual resolved results, the same as `promise.all`.In addition, the array is extended with read-only property `duration` - number of millisecondstaken to resolve all the data.When failed, the method rejects with an array of objects `{success, result, [origin]}`: - `success`: `true/false`, indicates whether the corresponding value in the input array was resolved. - `result`: resolved data, if `success=true`, or else the rejection reason. - `origin`: set only when failed as a result of an unsuccessful call into the notification callback (see documentation for parameter `cb`)In addition, the array is extended with function `getErrors`, which returns the list of just errors,with support for nested batch results. Calling `getErrors()[0]`, for example, will get the sameresult as the rejection reason that `promise.all` would provide.In both cases the output array is always the same size as the input one, providing index mappingbetween input and output values.  
+**Returns**: <code>Promise</code> - Result for the entire batch, which resolves when every value in the input array has been resolved,and rejects when: - one or more values in the array rejected or threw an error as a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> - one or more calls into the notification callback returned a rejected promise or threw an errorThe method resolves with an array of individual resolved results, the same as `promise.all`.In addition, the array is extended with read-only property `duration` - number of millisecondstaken to resolve all the data.When failed, the method rejects with an array of objects `{success, result, [origin]}`: - `success` = `true/false`, indicates whether the corresponding value in the input array was resolved. - `result` = resolved data, if `success=true`, or else the rejection reason. - `origin` - set only when failed as a result of an unsuccessful call into the notification callback (see documentation for parameter `cb`)In addition, the array is extended with function `getErrors`, which returns the list of just errors,with support for nested batch results. Calling `getErrors()[0]`, for example, will get the sameresult as the rejection reason that `promise.all` would provide.In both cases the output array is always the same size as the input one, providing index mappingbetween input and output values.  
 <table>
   <thead>
     <tr>
@@ -20,9 +20,9 @@ Settles every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed
     <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive a notification about the resolution result for each value.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>index</code> - index of the value in the array</li>
+<li><code>index</code> = index of the value in the array</li>
 <li><code>success</code> - indicates whether the value was resolved (<code>true</code>), or rejected (<code>false</code>)</li>
-<li><code>data</code> - resolved data, if <code>success</code>=<code>true</code>, or else the rejection reason</li>
+<li><code>data</code> = resolved data, if <code>success</code>=<code>true</code>, or else the rejection reason</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise to indicate that notifications are handled asynchronously.
@@ -32,8 +32,8 @@ data is ignored.</p>
 while the rejected element is replaced with object <code>{success, result, origin}</code>:</p>
 <ul>
 <li><code>success</code> = <code>false</code></li>
-<li><code>result</code> - the rejection reason or the error thrown by the notification callback</li>
-<li><code>origin</code> - the original data passed into the callback, as object <code>{success, result}</code></li>
+<li><code>result</code> = the rejection reason or the error thrown by the notification callback</li>
+<li><code>origin</code> = the original data passed into the callback, as object <code>{success, result}</code></li>
 </ul>
 </td>
     </tr>  </tbody>
