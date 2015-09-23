@@ -9,11 +9,17 @@
 * streaming and paging
 * batch processing
 
-### Usage
-
+### Installing
 ```
 $ npm install spex
 ```
+
+### Testing
+```
+$ npm test
+```
+
+### Usage
 For third-party promise libraries:
 ```javascript
 var promise = require('bluebird');
