@@ -18,8 +18,7 @@ Returning nothing (<code>undefined</code>) or an empty array indicates the end o
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> - index of the page being requested</li>
-<li><code>data</code> - result from the previously returned page, resolved as a <a href="batch.md">batch</a> (<code>undefined</code>
-when <code>index=0</code>)</li>
+<li><code>data</code> - previously returned page, resolved as a <a href="batch.md">batch</a>, <code>undefined</code> when <code>index=0</code></li>
 </ul>
 </td>
     </tr><tr>
