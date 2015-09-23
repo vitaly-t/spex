@@ -13,7 +13,7 @@ Acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-V
   <tbody>
 <tr>
     <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) to be resolved.
-Returning nothing (<code>undefined</code>) or an empty array indicates the end of the sequence.</p>
+Returning nothing (<code>undefined</code>) or an empty array signals the end of the sequence.</p>
 <p>If the function returns anything other than an array or <code>undefined</code>, the method will
 reject with object <code>{index, error}</code>:</p>
 <ul>
