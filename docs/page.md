@@ -16,7 +16,7 @@ Documentation is currently in the works...
     </tr><tr>
     <td>[dest]</td><td><code>function</code></td><td></td>
     </tr><tr>
-    <td>[limit]</td><td><code>function</code></td><td><code>0</code></td>
+    <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td>
     </tr>  </tbody>
 </table>
 
