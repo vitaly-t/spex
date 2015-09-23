@@ -24,7 +24,10 @@ var files = [
 // Automatic links:
 var links = {
     "mixed value": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
-    "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values"
+    "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
+    "batch": "batch.md",
+    "page": "page.md",
+    "sequence": "sequence.md"
 };
 
 module.exports = function (grunt) {

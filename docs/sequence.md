@@ -13,13 +13,12 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. When the function
-returns nothing (<code>undefined</code>), it indicates the end of the sequence.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning nothing (<code>undefined</code>)
+indicates the end of the sequence.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>index</code> - current request index in the sequence;</li>
-<li><code>data</code> - resolved data from the previous call to the function (<code>undefined</code>
-for the initial call).</li>
+<li><code>index</code> - current request index in the sequence</li>
+<li><code>data</code> - resolved data from the previous call to the function (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
