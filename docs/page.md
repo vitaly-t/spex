@@ -14,6 +14,12 @@ Acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-V
 <tr>
     <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) to be resolved.
 Returning nothing (<code>undefined</code>) or an empty array indicates the end of the sequence.</p>
+<p>If the function returns anything other than an array or <code>undefined</code>, the method will
+reject with object <code>{index, error}</code>:</p>
+<ul>
+<li><code>index</code> - index of the page for which the request failed</li>
+<li><code>error</code> = <code>Unexpected data returned from the source.</code></li>
+</ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>Parameters:</p>
 <ul>

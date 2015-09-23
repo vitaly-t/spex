@@ -13,8 +13,8 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a>. Returning nothing (<code>undefined</code>) indicates
-the end of the sequence.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning nothing (<code>undefined</code>)
+indicates the end of the sequence.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> - current request index in the sequence</li>
