@@ -1,10 +1,8 @@
 <a name="sequence"></a>
 ## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
+**Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,till either no more values left in the sequence or an error/reject occurs.
 
-**Kind**: global function  
-**Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
-**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` = number of values resolved by the sequence - `duration` = number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved,the same way that the standard `promise.all` resolves. In addition, the array comes extended withread-only property `duration` - number of milliseconds consumed by the method.When the method fails, the reject result depends on which function caused the failure - `source`or `dest`. See the two parameters for the rejection details.  
 <table>
   <thead>
     <tr>
@@ -68,3 +66,4 @@ a very large sequence can result in consuming too much memory.</p>
     </tr>  </tbody>
 </table>
 
+**Returns**: <code>Promise</code> - When successful, the resolved data depends on parameter `track`. When `track` is `false`(default), the method resolves with object `{total, duration}`: - `total` = number of values resolved by the sequence - `duration` = number of milliseconds consumed by the methodWhen `track` is `true`, the method resolves with an array of all the data that has been resolved,the same way that the standard `promise.all` resolves. In addition, the array comes extended withread-only property `duration` - number of milliseconds consumed by the method.When the method fails, the reject result depends on which function caused the failure - `source`or `dest`. See the two parameters for the rejection details.  

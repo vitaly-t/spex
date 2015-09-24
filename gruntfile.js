@@ -6,7 +6,7 @@ module.exports = function (grunt) {
             output: {
                 options: {
                     "no-gfm": true,
-                    "partial": "docs/template.hbs"
+                    "partial": "docs/body.hbs"
                 },
                 files: files
             }

@@ -1,11 +1,8 @@
 <a name="module_spex"></a>
 ## spex ⇒ <code>Object</code>
+**Summary**: Specialized Promise Extensions  
 Attaches to an external promise library to provide additional methods built solelyon the basic promise operations: - construct a new promise with a callback function - resolve a promise with result data - reject a promise with a reason## usageFor third-party promise libraries:```jsvar promise = require('bluebird');var spex = require('spex')(promise);```For ES6 promises:```jsvar spex = require('spex')(Promise);```
 
-**Summary**: Specialized Promise Extensions  
-**Returns**: <code>Object</code> - Namespace with all supported methods.  
-**See**: <a href="batch.md">batch</a>, <a href="page.md">page</a>, <a href="sequence.md">sequence</a>  
-**Author:** Vitaly Tomilov  
 <table>
   <thead>
     <tr>
@@ -27,3 +24,4 @@ others use the module&#39;s function for it. The two types are supported the sam
     </tr>  </tbody>
 </table>
 
+**Returns**: <code>Object</code> - Namespace with all supported methods.  
