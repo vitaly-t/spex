@@ -27,7 +27,13 @@ var links = {
     "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "batch": "batch.md",
     "page": "page.md",
-    "sequence": "sequence.md"
+    "sequence": "sequence.md",
+    "Promise": "https://github.com/then/promise",
+    "Bluebird": "https://github.com/petkaantonov/bluebird",
+    "When": "https://github.com/cujojs/when",
+    "Q": "https://github.com/kriskowal/q",
+    "RSVP": "https://github.com/tildeio/rsvp.js",
+    "Lie": "https://github.com/calvinmetcalf/lie"
 };
 
 module.exports = function (grunt) {
