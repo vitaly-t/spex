@@ -42,7 +42,7 @@ module.exports = function (grunt) {
             oneOutputFile: {
                 options: {
                     "no-gfm": true,
-                    "partial": "docs/.hbs"
+                    "partial": "docs/template.hbs"
                 },
                 files: files
             }
