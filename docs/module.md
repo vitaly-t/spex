@@ -5,7 +5,7 @@
 ---
 Attaches to an external promise library to provide additional methods built solelyon the basic promise operations: - construct a new promise with a callback function - resolve a promise with result data - reject a promise with a reason## usageFor third-party promise libraries:```jsvar promise = require('bluebird');var spex = require('spex')(promise);```For ES6 promises:```jsvar spex = require('spex')(Promise);```
 
-## Parameters
+### Parameters
 <table>
   <thead>
     <tr>
