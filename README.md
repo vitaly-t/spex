@@ -29,8 +29,7 @@ var spex = require('spex')(promise);
 ```javascript
 var spex = require('spex')(Promise);
 ```
-`spex` has methods [batch], [sequence] and [page].
-Also see the [API].
+See the [API].
 
 [API]:docs/index.md
 [batch]:docs/batch.md

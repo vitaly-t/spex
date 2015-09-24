@@ -1,4 +1,4 @@
-# SPEX API
+# spex API
 
 * [Module]
 * Methods
