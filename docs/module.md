@@ -15,7 +15,7 @@ Attaches to an external promise library to provide additional methods built sole
   <tbody>
 <tr>
     <td>promiseLib</td><td><code>Object</code> | <code>function</code></td><td><p>Instance of a promise library to be used by this module.</p>
-<p>Some implementations expose the standard <code>Promise</code> constructor, like <a href="https://github.com/petkaantonov/bluebird">Bluebird</a>, <a href="https://github.com/cujojs/when">When</a>, <a href="https://github.com/kriskowal/q">Q</a>,
+<p>Some implementations expose the standard <code>Promise</code> constructor - <a href="https://github.com/petkaantonov/bluebird">Bluebird</a>, <a href="https://github.com/cujojs/when">When</a>, <a href="https://github.com/kriskowal/q">Q</a>,
 while others use the module&#39;s main function for the same, like <a href="https://github.com/then/promise">Promise</a> and <a href="https://github.com/calvinmetcalf/lie">Lie</a>. Both types
 are supported and initialized in the same way.</p>
 <p>If the parameter isn&#39;t recognized as a promise library, the method will throw

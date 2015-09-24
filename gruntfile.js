@@ -41,7 +41,8 @@ module.exports = function (grunt) {
         jsdoc2md: {
             oneOutputFile: {
                 options: {
-                    "no-gfm": true
+                    "no-gfm": true,
+                    "partial": "docs/.hbs"
                 },
                 files: files
             }
