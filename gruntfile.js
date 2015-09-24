@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         jsdoc2md: {
-            oneOutputFile: {
+            output: {
                 options: {
                     "no-gfm": true,
                     "partial": "docs/template.hbs"
@@ -55,7 +55,7 @@ var links = {
 var fs = require("fs");
 
 //////////////////////////////////////////////////////////
-// Replaces all `$[link name]` occurrences in file API.md
+// Replaces all `$[link name]` occurrences in each MD file
 // with the corresponding link tag as defined on the list.
 function fixLinks() {
     var done = this.async(), count = 0;
