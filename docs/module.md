@@ -28,3 +28,4 @@ others use the module&#39;s function for it. The two types are supported the sam
 </table>
 
 **Returns**: <code>Object</code> - Namespace with all supported methods.  
+**See**: <a href="batch.md">batch</a>, <a href="page.md">page</a>, <a href="sequence.md">sequence</a>  
