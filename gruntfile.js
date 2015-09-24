@@ -1,6 +1,22 @@
 "use strict";
 
-var fs = require("fs");
+module.exports = function (grunt) {
+    grunt.initConfig({
+        jsdoc2md: {
+            oneOutputFile: {
+                options: {
+                    "no-gfm": true,
+                    "partial": "docs/template.hbs"
+                },
+                files: files
+            }
+        }
+    });
+
+    grunt.registerTask("fixLinks", fixLinks);
+    grunt.loadNpmTasks("grunt-jsdoc-to-markdown");
+    grunt.registerTask("default", ["jsdoc2md", "fixLinks"]);
+};
 
 var files = [
     {
@@ -36,23 +52,7 @@ var links = {
     "Lie": "https://github.com/calvinmetcalf/lie"
 };
 
-module.exports = function (grunt) {
-    grunt.initConfig({
-        jsdoc2md: {
-            oneOutputFile: {
-                options: {
-                    "no-gfm": true,
-                    "partial": "docs/template.hbs"
-                },
-                files: files
-            }
-        }
-    });
-
-    grunt.registerTask("fixLinks", fixLinks);
-    grunt.loadNpmTasks("grunt-jsdoc-to-markdown");
-    grunt.registerTask("default", ["jsdoc2md", "fixLinks"]);
-};
+var fs = require("fs");
 
 //////////////////////////////////////////////////////////
 // Replaces all `$[link name]` occurrences in file API.md
