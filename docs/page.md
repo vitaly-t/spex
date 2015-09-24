@@ -60,7 +60,7 @@ and the method rejects with object <code>{index, error, dest}</code>:</p>
 <p>Passing in a non-empty value other than a function will throw <code>Invalid page destination.</code></p>
 </td>
     </tr><tr>
-    <td>[limit]</td><td><code>Integer</code></td><td><code>0</code></td><td><p>Limits the maximum number of pages to be requested from the <code>source</code>. If the value is an
+    <td>[limit]</td><td><code>Number</code></td><td><code>0</code></td><td><p>Limits the maximum number of pages to be requested from the <code>source</code>. If the value is an
 integer greater than 0, the method will successfully resolve once the specified limit has
 been reached.</p>
 <p>By default, the sequence is unlimited, and will continue till the <code>source</code> function returns
