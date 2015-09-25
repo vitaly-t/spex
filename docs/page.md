@@ -24,19 +24,15 @@ and the method resolves.</p>
 <li><code>index</code> = index of the page being requested</li>
 <li><code>data</code> = previously returned page, resolved as a <a href="batch.md">batch</a>, <code>undefined</code> when <code>index=0</code></li>
 </ul>
-<p>If the returned <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> resolves into anything other than an array or <code>undefined</code>,
-the method will reject with object <code>{index, error}</code>:</p>
-<ul>
-<li><code>index</code> = index of the page for which the request failed</li>
-<li><code>error</code> = <code>Unexpected data returned from the source.</code></li>
-</ul>
-<p>If the function throws an error or returns a rejected promise, the sequence terminates,
-and the method rejects with object <code>{index, error, source}</code>:</p>
+<p>If the function throws an error or returns a rejected promise, the method rejects with
+object <code>{index, error, source}</code>:</p>
 <ul>
 <li><code>index</code> = index of the request that failed</li>
 <li><code>error</code> = the error thrown or the rejection reason</li>
 <li><code>source</code> = resolved <code>data</code> that was passed into the function</li>
 </ul>
+<p>And if the function resolves with anything other than an array or <code>undefined</code>, the method
+rejects with the same object, but with <code>error</code> = <code>Unexpected data returned from the source.</code></p>
 <p>Passing in anything other than a function will throw <code>Invalid page source.</code></p>
 </td>
     </tr><tr>
