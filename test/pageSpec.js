@@ -201,7 +201,7 @@ describe("Page - negative", function () {
 
 describe("Page - positive", function () {
 
-    describe("with all kinds of data", function () {
+    describe("with mixed data types", function () {
 
         var result, tracking = [];
 
@@ -212,7 +212,7 @@ describe("Page - positive", function () {
         function source(idx) {
             switch (idx) {
                 case 0:
-                    return [1, promise.resolve(2), 3]
+                    return [1, promise.resolve(2), 3];
                 case 1:
                     return [];
                 case 2:
@@ -242,6 +242,9 @@ describe("Page - positive", function () {
             expect(result.pages).toBe(3);
             expect(result.total).toBe(7);
             expect(typeof result.duration).toBe('number');
+            expect(tracking).toEqual([
+                [1, 2, 3], [], [undefined, undefined, true, ['one']]
+            ]);
         });
     });
 

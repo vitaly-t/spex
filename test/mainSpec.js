@@ -16,11 +16,12 @@ describe("Main - negative", function () {
             it("must throw an error", function () {
                 expect(function () {
                     lib.main();
-                }).toThrow(error);
+                })
+                    .toThrow(error);
             });
         });
 
-        describe("as wrong type", function () {
+        describe("as a wrong type", function () {
             it("must throw an error", function () {
                 expect(function () {
                     lib.main(123);
@@ -28,18 +29,30 @@ describe("Main - negative", function () {
             });
         });
 
-        describe("as wrong function", function () {
+        describe("as a dummy function", function () {
             it("must throw an error", function () {
                 expect(function () {
                     lib.main(dummy);
-                }).toThrow(error);
+                })
+                    .toThrow(error);
             });
         });
 
     });
-
 });
 
 describe("Main - positive", function () {
 
+    describe("protocol", function () {
+        var inst;
+        beforeEach(function () {
+            inst = lib.main(promise);
+        });
+        it("must be complete", function () {
+            expect(inst && inst instanceof Object).toBeTruthy();
+            expect(inst.batch instanceof Function).toBe(true);
+            expect(inst.page instanceof Function).toBe(true);
+            expect(inst.sequence instanceof Function).toBe(true);
+        });
+    });
 });
