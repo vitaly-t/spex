@@ -22,7 +22,7 @@ function run_all(spex, lib, done) {
     $spex = spex;
     $lib = lib;
     $p = spex.$p;
-    var sizes = [10, 100, 1000, 10000, 100000, 1000000];
+    var sizes = [10, 100, 1000, 10000, 100000, 1000000, 10000000];
 
     function loop(idx) {
         run(sizes[idx], function () {

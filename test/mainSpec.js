@@ -53,6 +53,7 @@ describe("Main - positive", function () {
             expect(inst.batch instanceof Function).toBe(true);
             expect(inst.page instanceof Function).toBe(true);
             expect(inst.sequence instanceof Function).toBe(true);
+            expect(inst.$p instanceof Function).toBe(true);
         });
     });
 });
