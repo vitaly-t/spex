@@ -14,13 +14,14 @@ in order to avoid execution against a released context.
 
 The standard method `promise.all` isn't suitable in this case, because it does not guarantee to
 settle all the values in the array. And while some libraries offer a separate method to settle
-an array of promises, it becomes difficult to combine the logic into one meaningful result. 
+an array of promises, it becomes awkward to combine the logic into one meaningful result, and
+certainly not without a loss in performance. 
 
 And this is where method [batch] comes into play:
 
 * It settles all of the promises in the array
 * It resolves in same way as `promise.all` when each value in the array resolves
-* It rejects when any value in the array rejects, and with complete details
-* It offers an extensive support for the results reporting and diagnostics
+* It rejects when any value in the array rejects, with complete details
+* It has additional diagnostics and results reporting features
 
 [batch]:../code/batch.md
