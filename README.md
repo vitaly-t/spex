@@ -4,10 +4,10 @@
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/spex/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/spex?branch=master)
 
 [batch], [page], [sequence] - commonly missing promise methods for dealing with:
-* throttling and load balancing
-* linked and detached sequencing
-* streaming and paging
-* batch processing
+* [throttling and load balancing](docs/concept/throttling.md)
+* [linked and detached sequencing](docs/concept/sequencing.md)
+* [streaming and paging](docs/concept/streaming.md)
+* [batch processing](docs/concept/batch.md)
 
 ### Installing
 ```
