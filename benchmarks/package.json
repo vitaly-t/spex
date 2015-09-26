@@ -12,10 +12,11 @@
     "npm": ">=1.4"
   },
   "devDependencies": {
-    "promise": "7.x",
     "bluebird": "2.x",
-    "when": "3.x",
+    "promise": "7.x",
     "q": "1.x",
-    "rsvp": "3.x"
+    "rsvp": "3.x",
+    "when": "3.x",
+    "lie": "3.x"
   }
 }
