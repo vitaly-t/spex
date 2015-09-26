@@ -1,0 +1,21 @@
+{
+  "name": "spex-benchmarks",
+  "description": "Performance Tests for Spex",
+  "private": true,
+  "author": {
+    "name": "Vitaly Tomilov",
+    "email": "vitaly.tomilov@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10",
+    "npm": ">=1.4"
+  },
+  "devDependencies": {
+    "promise": "7.x",
+    "bluebird": "2.x",
+    "when": "3.x",
+    "q": "1.x",
+    "rsvp": "3.x"
+  }
+}
