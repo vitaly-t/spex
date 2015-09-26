@@ -44,6 +44,7 @@ describe("Page - negative", function () {
                 error: msg,
                 source: undefined
             });
+            expect(r.getError()).toBe(msg);
         })
     });
 
@@ -129,4 +130,141 @@ describe("Page - negative", function () {
         })
     });
 
+    describe("page return wrong value", function () {
+        var error, msg = "Unexpected data returned from the source.";
+
+        function source(idx) {
+            if (!idx) {
+                return [1, promise.resolve(2), 3];
+            }
+            return 123;
+        }
+
+        beforeEach(function (done) {
+            spex.page(source)
+                .catch(function (reason) {
+                    error = reason;
+                    done();
+                });
+        });
+
+        it("must reject correctly", function () {
+            expect(error).toEqual({
+                index: 1,
+                source: [1, 2, 3],
+                error: msg
+            });
+        });
+    });
+
+    describe("page data fail", function () {
+        var error;
+
+        function source(idx) {
+            if (idx > 1) {
+                return [1, promise.reject(2), 3];
+            }
+            return [];
+        }
+
+        beforeEach(function (done) {
+            spex.page(source)
+                .catch(function (reason) {
+                    error = reason;
+                    done();
+                });
+        });
+
+        it("must reject correctly", function () {
+            expect(error).toEqual({
+                index: 2,
+                data: [
+                    {
+                        success: true,
+                        result: 1
+                    },
+                    {
+                        success: false,
+                        result: 2
+                    },
+                    {
+                        success: true,
+                        result: 3
+                    }
+                ]
+            });
+            expect(error.getError()).toBe(2);
+        });
+    });
+
+});
+
+describe("Page - positive", function () {
+
+    describe("with all kinds of data", function () {
+
+        var result, tracking = [];
+
+        function val() {
+            return spex.batch(['one']);
+        }
+
+        function source(idx) {
+            switch (idx) {
+                case 0:
+                    return [1, promise.resolve(2), 3]
+                case 1:
+                    return [];
+                case 2:
+                    return [undefined, promise.resolve(), true, val];
+                default:
+                    break;
+            }
+        }
+
+        function dest(idx, data) {
+            tracking.push(data);
+            if (!idx) {
+                return promise.resolve();
+            }
+        }
+
+        beforeEach(function (done) {
+            spex.page(source, dest)
+                .then(function (data) {
+                    result = data;
+                    done();
+                });
+        });
+
+        it("must return all the data", function () {
+            expect(result && result instanceof Object).toBeTruthy();
+            expect(result.pages).toBe(3);
+            expect(result.total).toBe(7);
+            expect(typeof result.duration).toBe('number');
+        });
+    });
+
+    describe("reaching limit", function () {
+        var result, limit = 100;
+
+        function source(idx) {
+            return [1, idx, 'last'];
+        }
+
+        beforeEach(function (done) {
+            spex.page(source, null, limit)
+                .then(function (data) {
+                    result = data;
+                    done();
+                });
+        });
+
+        it("must resolve correctly", function () {
+            expect(result && result instanceof Object).toBeTruthy();
+            expect(result.pages).toBe(limit);
+            expect(result.total).toBe(limit * 3);
+            expect('duration' in result).toBe(true);
+        });
+    });
 });

@@ -158,4 +158,40 @@ describe("Sequence - positive", function () {
         });
 
     });
+
+    describe("tracking", function () {
+        var result, tracked = [];
+
+        function source(idx) {
+            if (idx < 3) {
+                return idx;
+            }
+        }
+
+        function dest(idx, data) {
+            tracked.push(data);
+            if (idx) {
+                return promise.resolve();
+            }
+        }
+
+        beforeEach(function (done) {
+            spex.sequence(source, dest, 0, true)
+                .then(function (data) {
+                    result = data;
+                })
+                .finally(function () {
+                    done();
+                });
+        });
+
+        it("must track and return the sequence", function () {
+            expect(result instanceof Array).toBe(true);
+            expect('duration' in result).toBe(true);
+            expect(result).toEqual([0, 1, 2]);
+            expect(result).toEqual(tracked);
+        });
+
+    });
+
 });
