@@ -23,4 +23,4 @@ And this is where method [batch] comes into play:
 * It rejects when any value in the array rejects, and with complete details
 * It offers an extensive support for the results reporting and diagnostics
 
-[batch]:code/batch.md
+[batch]:../code/batch.md
