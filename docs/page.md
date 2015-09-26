@@ -14,15 +14,13 @@ Acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-V
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with either <code>undefined</code> or the
-next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) to be resolved. If the returned value
-resolves into <code>undefined</code> or an empty array, it signals the end of the sequence,
-and the method resolves.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>).
+Returning a value that resolves into <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = index of the page being requested</li>
-<li><code>data</code> = previously returned page, resolved as a <a href="batch.md">batch</a>, <code>undefined</code> when <code>index=0</code></li>
+<li><code>data</code> = previously returned page, resolved as a <a href="batch.md">batch</a> (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>If the function throws an error or returns a rejected promise, the method rejects with
 object <code>{index, error, source}</code>:</p>
@@ -61,7 +59,7 @@ and the method rejects with object <code>{index, error, dest}</code>:</p>
 integer greater than 0, the method will successfully resolve once the specified limit has
 been reached.</p>
 <p>By default, the sequence is unlimited, and will continue till the <code>source</code> function returns
-<code>undefined</code> or an empty array, or when an error/reject occurs.</p>
+<code>undefined</code>, or when an error/reject occurs.</p>
 </td>
     </tr>  </tbody>
 </table>
