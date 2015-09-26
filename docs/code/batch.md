@@ -18,7 +18,7 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
 <p>Passing in anything other than an array will throw <code>Batch requires an array of values.</code></p>
 </td>
     </tr><tr>
-    <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive the result for each value.</p>
+    <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive the result for each settled value.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = index of the value in the array</li>
@@ -30,7 +30,7 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
 And if the returned promise resolves, it signals a successful handling, while any resolved
 data is ignored.</p>
 <p>If the function returns a rejected promise or throws an error, the entire method rejects,
-while the rejected value is reported as object <code>{success, result, origin}</code>:</p>
+while the value in the rejected array is reported as object <code>{success, result, origin}</code>:</p>
 <ul>
 <li><code>success</code> = <code>false</code></li>
 <li><code>result</code> = the rejection reason or the error thrown by the notification callback</li>
