@@ -32,9 +32,9 @@ var spex = require('spex')(Promise);
 See the [API].
 
 [API]:docs/index.md
-[batch]:docs/batch.md
-[page]:docs/page.md
-[sequence]:docs/sequence.md
+[batch]:docs/code/batch.md
+[page]:docs/code/page.md
+[sequence]:docs/code/sequence.md
 [Promises/A+]:https://promisesaplus.com/
 [Promise]:https://github.com/then/promise
 [Bluebird]:https://github.com/petkaantonov/bluebird

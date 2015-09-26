@@ -6,7 +6,7 @@
  - [page]
  - [sequence]
 
-[Module]:module.md 
-[batch]:batch.md
-[page]:page.md
-[sequence]:sequence.md
+[Module]:code/module.md 
+[batch]:code/batch.md
+[page]:code/page.md
+[sequence]:code/sequence.md

@@ -18,22 +18,24 @@ module.exports = function (grunt) {
     grunt.registerTask("default", ["jsdoc2md", "fixLinks"]);
 };
 
+var codePath = "docs/code/"; // folder for all generated code documentation;
+
 var files = [
     {
         src: "lib/index.js",
-        dest: "docs/module.md"
+        dest: codePath + "module.md"
     },
     {
         src: "lib/ext/batch.js",
-        dest: "docs/batch.md"
+        dest: codePath + "batch.md"
     },
     {
         src: "lib/ext/page.js",
-        dest: "docs/page.md"
+        dest: codePath + "page.md"
     },
     {
         src: "lib/ext/sequence.js",
-        dest: "docs/sequence.md"
+        dest: codePath + "sequence.md"
     }
 ];
 
