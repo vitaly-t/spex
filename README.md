@@ -20,21 +20,21 @@ $ npm test
 ```
 
 ### Usage
-* For any [Promises/A+] library - [Promise], [Bluebird], [When], [Q], [RSVP], etc.
+* For any [Promises/A+] library: [Promise], [Bluebird], [When], [Q], [RSVP], etc.
 ```javascript
 var promise = require('bluebird');
 var spex = require('spex')(promise);
 ```
-* For ES6 promises:
+* For ES6 Promise:
 ```javascript
 var spex = require('spex')(Promise);
 ```
 See the [API].
 
-[API]:docs/index.md
-[batch]:docs/code/batch.md
-[page]:docs/code/page.md
-[sequence]:docs/code/sequence.md
+[API]:https://github.com/vitaly-t/spex/blob/master/docs/index.md
+[batch]:https://github.com/vitaly-t/spex/blob/master/docs/code/batch.md
+[page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
+[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
 [Promises/A+]:https://promisesaplus.com/
 [Promise]:https://github.com/then/promise
 [Bluebird]:https://github.com/petkaantonov/bluebird
