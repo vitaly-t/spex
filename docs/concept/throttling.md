@@ -2,8 +2,9 @@
 
 #### Terminology
 
-*Data throttling* is about processing data in chunks, an intentional bottleneck added for predictable rate of processing and thus resources consumption. 
-
-*Load balancing* is about enforcing a time quota on operations that need to execute in parallel with other tasks in the system. As such, its implementation
-is usually limited to a single system, as opposed to data throttling that can be used by multiple systems independently.
+*Data throttling* is processing data in limited chunks, as an intentional bottleneck added for predictable rate of processing.
+It adds quantifiable throughput to control either resource consumption or a traffic quota.  
+ 
+*Load balancing* is about enforcing a time quota on operations that need to take turns with other tasks in the system.
+As such, its implementation is usually limited to a single system, while *data throttling* can be employed by multiple systems independently.
 
