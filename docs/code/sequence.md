@@ -3,7 +3,7 @@
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 
 ---
-Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,till either no more values left in the sequence or an error/reject occurs.It supports both [linked and detached sequences](../concept/sequencing.md).
+Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,till either no more values left in the sequence or an error/reject occurs.It supports both [linked and detached sequencing](../concept/sequencing.md).
 
 ### Parameters
 <table>
