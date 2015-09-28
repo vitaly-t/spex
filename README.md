@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/vitaly-t/spex.svg?branch=master)](https://travis-ci.org/vitaly-t/spex)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/spex/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/spex?branch=master)
 
-[batch], [page], [sequence] - commonly missing promise methods for dealing with:
+[batch], [page], [sequence] - promise methods for the following patterns:
 * [Data Throttling & Load Balancing](docs/concept/throttling.md)
 * [Linked and Detached Sequencing](docs/concept/sequencing.md)
 * [Streaming and Paging](docs/concept/streaming.md)
