@@ -73,10 +73,6 @@ It will produce the identical output as before:
 Result: [ 2, 5, 7, 11, 13, 17, 19, 23, 29, 31 ]
 ```
 
-Out `sequence` function can return
-
-And since the `source` function can return a [mixed value]
-
 #### Benchmarks
 
 In the example above our `sequence` function returns a number directly, but it can be any [mixed value].
@@ -91,5 +87,9 @@ function source(idx, data) {
     return Promise.resolve(nextPrime(data));
 }
 ```
+
+
+
+[mixed value]:/vitaly-t/spex/wiki/Mixed-Values
 
 
