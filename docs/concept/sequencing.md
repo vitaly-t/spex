@@ -92,9 +92,9 @@ function source(idx, data) {
     <th>10</th>
     <th>100</th>
     <th>1,000</th>
-    <th>10,0000</th>
-    <th>100,0000</th>
-    <th>1,000,0000</th>
+    <th>10,000</th>
+    <th>100,000</th>
+    <th>1,000,000</th>
    </tr>
    <tr>
     <td>direct</td>
@@ -124,6 +124,9 @@ function source(idx, data) {
     <td>12,140 / 11,890</td>
    </tr>   
 </table>
+
+* All values are given in milliseconds;
+* Two values provided for the spex sequence: ES6 Promise / Bluebird
 
 [mixed value]:/vitaly-t/spex/blob/master/vitaly-t/spex/wiki/Mixed-Values
 [sequence]:../code/sequence.md
