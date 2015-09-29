@@ -11,8 +11,6 @@ In a *linked sequence* elements are created with one or both of the dependencies
 
 Method [sequence] supports each of the three sequence variations.
 
-[sequence]:../code/sequence.md
-
 #### Example
 
 Let's create an academic example of a linked sequence that calculates primes from a previous result.
@@ -75,9 +73,9 @@ Result: [ 2, 5, 7, 11, 13, 17, 19, 23, 29, 31 ]
 
 #### Benchmarks
 
-In the example above our `sequence` function returns a number directly, but it can be any [mixed value].
+In the example above our `source` function returns a number directly, but it can be any [mixed value].
 
-Let's benchmark how the spex sequence performs compared to the direct calculation.
+Let's benchmark how the spex [sequence] performs compared to the direct calculation.
 
 We previously used the `direct` approach, a sequence that returns numbers directly (call it `number`),
 and now let's add the `promise` one:
@@ -88,8 +86,19 @@ function source(idx, data) {
 }
 ```
 
-
+<table>
+   <tr>
+    <th></th>
+    <th>10</th>
+    <th>100</th>
+    <th>1,000</th>
+    <th>10,0000</th>
+    <th>100,0000</th>
+    <th>1,000,0000</th>
+   </tr>
+</table>
 
 [mixed value]:/vitaly-t/spex/wiki/Mixed-Values
+[sequence]:../code/sequence.md
 
 
