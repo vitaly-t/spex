@@ -78,9 +78,6 @@ In the example above our `source` function returns a number directly, but it can
 Let's benchmark how the spex [sequence] performs compared to the direct calculation as we increase
 the size of the sequence.
 
-We previously used the `direct` approach, a sequence that returns numbers directly (call it `number`),
-and now let's add the `promise` one, and use it with ES6 Promise and with [Bluebird]:
-
 ```javascript
 function source(idx, data) {
     return Promise.resolve(nextPrime(data));
@@ -126,9 +123,12 @@ function source(idx, data) {
    </tr>   
 </table>
 
+* `direct` - direct sequence calculation;
+* `number` - using [sequence] with the `source` that returns numbers;
+* `promise` - using [sequence] with the `source` that returns promises; 
 * All values are given in milliseconds;
 * Two values provided for the spex sequence: ES6 Promise / Bluebird
-* Measured under NodeJS 4.1.1, 64-bit, with i7-4770 CPU 
+* Measured under NodeJS 4.1.1, 64-bit, with i7-4770 CPU
 
 [mixed value]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
 [sequence]:../code/sequence.md
