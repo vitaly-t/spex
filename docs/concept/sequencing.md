@@ -92,9 +92,9 @@ Let's see how the [sequence] performs compared to the direct calculation as we i
     <td>0</td>
     <td>0</td>
     <td>1</td>
-    <td>31</td>
-    <td>1,008</td>
-    <td>17,556</td>
+    <td>10</td>
+    <td>310</td>
+    <td>10,015</td>
    </tr>
    <tr>
     <td>number</td>
