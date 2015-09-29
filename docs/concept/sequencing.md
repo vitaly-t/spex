@@ -75,14 +75,7 @@ Result: [ 2, 5, 7, 11, 13, 17, 19, 23, 29, 31 ]
 
 In the example above our `source` function returns a number directly, but it can be any [mixed value].
 
-Let's benchmark how the spex [sequence] performs compared to the direct calculation as we increase
-the size of the sequence.
-
-```javascript
-function source(idx, data) {
-    return Promise.resolve(nextPrime(data));
-}
-```
+Let's see how the [sequence] performs compared to the direct calculation as we increase the sequence size.
 
 <table>
    <tr>
@@ -125,7 +118,12 @@ function source(idx, data) {
 
 * `direct` - direct sequence calculation;
 * `number` - using [sequence] with the `source` that returns numbers;
-* `promise` - using [sequence] with the `source` that returns promises; 
+* `promise` - using [sequence] with the `source` that returns promises:
+```javascript
+function source(idx, data) {
+    return Promise.resolve(nextPrime(data));
+}
+```
 * All values are given in milliseconds;
 * Two measurements for the [sequence]: ES6 Promise / Bluebird
 * Measured under NodeJS 4.1.1, 64-bit, with i7-4770 CPU
