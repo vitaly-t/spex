@@ -130,6 +130,6 @@ function source(idx, data) {
 * Two values provided for the spex sequence: ES6 Promise / Bluebird
 * Measured under NodeJS 4.1.1, 64-bit, with i7-4770 CPU 
 
-[mixed value]:/vitaly-t/spex/blob/master/vitaly-t/spex/wiki/Mixed-Values
+[mixed value]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
 [sequence]:../code/sequence.md
 [Bluebird]:https://github.com/petkaantonov/bluebird
