@@ -95,7 +95,38 @@ function source(idx, data) {
     <th>10,0000</th>
     <th>100,0000</th>
     <th>1,000,0000</th>
+    <th>10,000,0000</th>
    </tr>
+   <tr>
+    <td>direct</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+   </tr>
+   <tr>
+    <td>number</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+   </tr>
+   <tr>
+    <td>promise</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+   </tr>   
 </table>
 
 [mixed value]:/vitaly-t/spex/wiki/Mixed-Values
