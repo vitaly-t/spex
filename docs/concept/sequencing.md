@@ -127,9 +127,9 @@ function source(idx, data) {
 * `number` - using [sequence] with the `source` that returns numbers;
 * `promise` - using [sequence] with the `source` that returns promises; 
 * All values are given in milliseconds;
-* Two values provided for the spex sequence: ES6 Promise / Bluebird
+* Two measurements for the [sequence]: ES6 Promise / Bluebird
 * Measured under NodeJS 4.1.1, 64-bit, with i7-4770 CPU
 
 [mixed value]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
-[sequence]:../code/sequence.md
+[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
 [Bluebird]:https://github.com/petkaantonov/bluebird
