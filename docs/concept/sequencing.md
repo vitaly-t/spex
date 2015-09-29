@@ -117,7 +117,12 @@ Let's see how the [sequence] performs compared to the direct calculation as we i
 </table>
 
 * `direct` - direct sequence calculation;
-* `number` - using [sequence] with the `source` that returns numbers;
+* `number` - using [sequence] with the `source` that returns numbers:
+```javascript
+function source(idx, data) {
+    return nextPrime(data);
+}
+```
 * `promise` - using [sequence] with the `source` that returns promises:
 ```javascript
 function source(idx, data) {
