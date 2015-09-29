@@ -75,10 +75,11 @@ Result: [ 2, 5, 7, 11, 13, 17, 19, 23, 29, 31 ]
 
 In the example above our `source` function returns a number directly, but it can be any [mixed value].
 
-Let's benchmark how the spex [sequence] performs compared to the direct calculation.
+Let's benchmark how the spex [sequence] performs compared to the direct calculation as we increase
+the size of the sequence.
 
 We previously used the `direct` approach, a sequence that returns numbers directly (call it `number`),
-and now let's add the `promise` one:
+and now let's add the `promise` one, and use it with ES6 Promise and with [Bluebird]:
 
 ```javascript
 function source(idx, data) {
@@ -130,3 +131,4 @@ function source(idx, data) {
 
 [mixed value]:/vitaly-t/spex/blob/master/vitaly-t/spex/wiki/Mixed-Values
 [sequence]:../code/sequence.md
+[Bluebird]:https://github.com/petkaantonov/bluebird
