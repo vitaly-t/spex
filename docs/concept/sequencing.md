@@ -95,41 +95,35 @@ function source(idx, data) {
     <th>10,0000</th>
     <th>100,0000</th>
     <th>1,000,0000</th>
-    <th>10,000,0000</th>
    </tr>
    <tr>
     <td>direct</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>31</td>
+    <td>1,008</td>
+    <td>17,556</td>
    </tr>
    <tr>
     <td>number</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>0 / 0</td>
+    <td>0 / 0</td>
+    <td>2 / 2</td>
+    <td>27 / 20</td>
+    <td>485 / 406</td>
+    <td>11,984 / 11,080</td>
    </tr>
    <tr>
     <td>promise</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>0 / 0</td>
+    <td>1 / 1</td>
+    <td>2 / 2</td>
+    <td>28 / 20</td>
+    <td>490 / 430</td>
+    <td>12,140 / 11,890</td>
    </tr>   
 </table>
 
-[mixed value]:/vitaly-t/spex/wiki/Mixed-Values
+[mixed value]:/vitaly-t/spex/blob/master/vitaly-t/spex/wiki/Mixed-Values
 [sequence]:../code/sequence.md
-
-
