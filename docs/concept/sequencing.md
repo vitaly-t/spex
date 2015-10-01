@@ -89,28 +89,28 @@ Let's see how the [sequence] performs compared to the direct calculation as we i
     <td>direct</td>
     <td>0</td>
     <td>0</td>
-    <td>1</td>
-    <td>10</td>
-    <td>310</td>
-    <td>10,015</td>
+    <td>0</td>
+    <td>9</td>
+    <td>306</td>
+    <td>9,860</td>
    </tr>
    <tr>
     <td>number</td>
     <td>0 / 0</td>
-    <td>0 / 0</td>
-    <td>2 / 2</td>
-    <td>27 / 20</td>
-    <td>485 / 406</td>
-    <td>11,984 / 11,080</td>
+    <td>0.2 / 0.1</td>
+    <td>2 / 1.3</td>
+    <td>26 / 20</td>
+    <td>458 / 380</td>
+    <td>11,025 / 10,250</td>
    </tr>
    <tr>
     <td>promise</td>
     <td>0 / 0</td>
-    <td>1 / 1</td>
-    <td>2 / 2</td>
-    <td>28 / 20</td>
-    <td>490 / 430</td>
-    <td>12,140 / 11,890</td>
+    <td>0.2 / 0.1</td>
+    <td>2 / 1.2</td>
+    <td>26 / 18</td>
+    <td>460 / 382</td>
+    <td>11,040 / 10,290</td>
    </tr>   
 </table>
 
@@ -129,7 +129,7 @@ function source(idx, data) {
 ```
 * All values are given in milliseconds;
 * Two measurements for the [sequence]: ES6 Promise / Bluebird
-* Measured under NodeJS 4.1.1, 64-bit, with i7-4770 CPU
+* Measured under NodeJS 4.1.1, 64-bit, with i7-4770 @ 3.85GHz
 
 [mixed value]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
 [sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
