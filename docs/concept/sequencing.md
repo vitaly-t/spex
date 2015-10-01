@@ -88,9 +88,9 @@ Let's see how the [sequence] performs compared to the direct calculation as we i
    <tr>
     <td>direct</td>
     <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>9</td>
+    <td>0.02</td>
+    <td>0.28</td>
+    <td>8.9</td>
     <td>306</td>
     <td>9,860</td>
    </tr>
