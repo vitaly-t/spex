@@ -18,17 +18,15 @@ Let's create an academic example of a linked sequence that calculates primes fro
  ```javascript
 function nextPrime(value) {
     if (value >= 2) {
-        var found;
+        var i, q;
         do {
-            var q = Math.floor(Math.sqrt(++value));
-            for (var i = 2; i <= q; i++) {
-                found = i;
+            q = Math.floor(Math.sqrt(++value));
+            for (i = 2; i <= q; i++) {
                 if (value % i === 0) {
-                    found = 0;
                     break;
                 }
             }
-        } while (!found);
+        } while (i <= q);
         return value;
     }
     return 2;
@@ -49,7 +47,7 @@ console.log("Result:", result);
 we get the following output:
 
 ```javascript
-Result: [ 2, 5, 7, 11, 13, 17, 19, 23, 29, 31 ]
+Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]
 ```
 
 Now let's create the same sequence using spex:
@@ -68,7 +66,7 @@ spex.sequence(source, null, 10, true)
 It will produce the identical output as before:
 
 ```javascript
-Result: [ 2, 5, 7, 11, 13, 17, 19, 23, 29, 31 ]
+Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]
 ```
 
 #### Benchmarks
