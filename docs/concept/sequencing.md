@@ -17,19 +17,19 @@ Let's create an academic example of a linked sequence that calculates primes fro
 
  ```javascript
 function nextPrime(value) {
-    if (value >= 2) {
+    if (value > 2) {
         var i, q;
         do {
-            q = Math.floor(Math.sqrt(++value));
-            for (i = 2; i <= q; i++) {
-                if (value % i === 0) {
-                    break;
-                }
+            i = 3;
+            value += 2;
+            q = Math.floor(Math.sqrt(value));
+            while (i <= q && value % i) {
+                i += 2;
             }
         } while (i <= q);
         return value;
     }
-    return 2;
+    return value === 2 ? 3 : 2;
 }
 ```
 
@@ -87,30 +87,30 @@ Let's see how the [sequence] performs compared to the direct calculation as we i
    </tr>
    <tr>
     <td>direct</td>
-    <td>0</td>
-    <td>0.02</td>
-    <td>0.28</td>
-    <td>8.9</td>
-    <td>306</td>
-    <td>9,860</td>
+    <td>0.00</td>
+    <td>0.00</td>
+    <td>0.14</td>
+    <td>4.56</td>
+    <td>143</td>
+    <td>4,650</td>
    </tr>
    <tr>
     <td>number</td>
-    <td>0 / 0</td>
-    <td>0.2 / 0.1</td>
-    <td>2 / 1.3</td>
-    <td>26 / 20</td>
-    <td>458 / 380</td>
-    <td>11,025 / 10,250</td>
+    <td>0.02 / 0.02</td>
+    <td>0.18 / 0.12</td>
+    <td>1.89 / 1.08</td>
+    <td>22.5 / 13.8</td>
+    <td>306 / 227</td>
+    <td>5,985 / 5,192</td>
    </tr>
    <tr>
     <td>promise</td>
-    <td>0 / 0</td>
-    <td>0.2 / 0.1</td>
-    <td>2 / 1.2</td>
-    <td>26 / 18</td>
-    <td>460 / 382</td>
-    <td>11,040 / 10,290</td>
+    <td>0.02 / 0.01</td>
+    <td>0.17 / 0.11</td>
+    <td>1.85 / 1.08</td>
+    <td>21.5 / 13.7</td>
+    <td>306 / 228</td>
+    <td>5,990 / 5,172</td>
    </tr>   
 </table>
 
