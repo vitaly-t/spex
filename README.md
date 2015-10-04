@@ -37,9 +37,9 @@ var spex = require('spex')(Promise);
 
 * [Module]
 * Methods
- - [batch]
- - [page]
- - [sequence]
+  - [batch]
+  - [page]
+  - [sequence]
 
 [Module]:https://github.com/vitaly-t/spex/blob/master/docs/code/module.md
 [batch]:https://github.com/vitaly-t/spex/blob/master/docs/code/batch.md
