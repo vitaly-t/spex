@@ -18,7 +18,7 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
 <p>Passing in anything other than an array will throw <code>Batch requires an array of values.</code></p>
 </td>
     </tr><tr>
-    <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive the result for each value as it gets settled.</p>
+    <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive the result for each settled value.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = index of the value in the array</li>
