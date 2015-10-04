@@ -9,7 +9,7 @@ Consider executing a batch/array of promises within a temporary context:
 Each time you are likely to open a receiving context, execute a batch of independent promises,
 and then release the context. 
 
-And while rejected promises may or may not be ignored, they often need to be finalized/settled
+And while rejected promises may or may not be ignored, they often need to be finalized (settled)
 in order to avoid execution against a released context.
 
 The standard method `promise.all` isn't suitable in this case, because it does not guarantee to
@@ -17,7 +17,7 @@ settle all the values in the array. And while some libraries offer a separate me
 an array of promises, it becomes awkward to combine the logic into one meaningful result, and
 certainly not without a loss in performance. 
 
-And this is where method [batch] comes into play:
+And this is where method [batch] helps:
 
 * It settles all of the promises in the array
 * It resolves in same way as `promise.all` when each value in the array resolves
