@@ -21,9 +21,10 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
     <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive the result for each settled value.</p>
 <p>Parameters:</p>
 <ul>
-<li><code>index</code> = index of the value in the array</li>
+<li><code>index</code> = index of the value in the source array</li>
 <li><code>success</code> - indicates whether the value was resolved (<code>true</code>), or rejected (<code>false</code>)</li>
 <li><code>data</code> = resolved data, if <code>success</code>=<code>true</code>, or else the rejection reason</li>
+<li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise to indicate that notifications are handled asynchronously.

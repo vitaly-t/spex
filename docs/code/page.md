@@ -21,6 +21,7 @@ Returning a value that resolves into <code>undefined</code> ends the sequence, a
 <ul>
 <li><code>index</code> = index of the page being requested</li>
 <li><code>data</code> = previously returned page, resolved as a <a href="batch.md">batch</a> (<code>undefined</code> when <code>index=0</code>)</li>
+<li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>If the function throws an error or returns a rejected promise, the method rejects with
 object <code>{index, error, source}</code>:</p>
@@ -40,6 +41,7 @@ for each page, process it and respond as required.</p>
 <ul>
 <li><code>index</code> = page index in the sequence</li>
 <li><code>data</code> = page data resolved as a <a href="batch.md">batch</a></li>
+<li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise object, if notifications are handled asynchronously.

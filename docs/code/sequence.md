@@ -20,6 +20,7 @@ into <code>undefined</code>, it signals the end of the sequence, and the method 
 <ul>
 <li><code>index</code> = current request index in the sequence</li>
 <li><code>data</code> = resolved data from the previous call (<code>undefined</code> when <code>index=0</code>)</li>
+<li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
@@ -38,6 +39,7 @@ process it and respond as required.</p>
 <ul>
 <li><code>index</code> = index of the resolved data in the sequence</li>
 <li><code>data</code> = the data resolved</li>
+<li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise object, if data processing is done asynchronously.
