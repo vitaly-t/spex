@@ -44,7 +44,6 @@ var links = {
     "mixed value": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "batch": "batch.md",
-    "delay": "delay.md",
     "page": "page.md",
     "sequence": "sequence.md",
     "Promise": "https://github.com/then/promise",
