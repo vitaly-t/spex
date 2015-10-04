@@ -10,16 +10,19 @@
 * [Batch Processing](docs/concept/batch.md)
 
 ### Installing
+
 ```
 $ npm install spex
 ```
 
 ### Testing
+
 ```
 $ npm test
 ```
 
 ### Usage
+
 * For any [Promises/A+] library: [Promise], [Bluebird], [When], [Q], [RSVP], etc.
 ```javascript
 var promise = require('bluebird');
@@ -29,9 +32,16 @@ var spex = require('spex')(promise);
 ```javascript
 var spex = require('spex')(Promise);
 ```
-See the [API].
 
-[API]:https://github.com/vitaly-t/spex/blob/master/docs/index.md
+### API
+
+* [Module]
+* Methods
+ - [batch]
+ - [page]
+ - [sequence]
+
+[Module]:https://github.com/vitaly-t/spex/blob/master/docs/code/module.md
 [batch]:https://github.com/vitaly-t/spex/blob/master/docs/code/batch.md
 [page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
 [sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
