@@ -30,10 +30,6 @@ var files = [
         dest: codePath + "batch.md"
     },
     {
-        src: "lib/ext/delay.js",
-        dest: codePath + "delay.md"
-    },
-    {
         src: "lib/ext/page.js",
         dest: codePath + "page.md"
     },

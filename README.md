@@ -37,8 +37,7 @@ var spex = require('spex')(Promise);
 
 * [Module]
 * Methods
-  - [batch]
-  - [delay]  
+  - [batch] 
   - [page]
   - [sequence]
   
