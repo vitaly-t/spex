@@ -14,9 +14,9 @@
 <tr>
     <td>timeout</td><td><code>Number</code></td>
     </tr><tr>
-    <td>[condition]</td><td></td>
+    <td>[condition]</td><td><code>Boolean</code></td>
     </tr><tr>
-    <td>[data]</td><td></td>
+    <td>[data]</td><td><code>Object</code></td>
     </tr>  </tbody>
 </table>
 
