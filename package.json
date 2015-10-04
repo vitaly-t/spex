@@ -18,7 +18,10 @@
     "email": "vitaly.tomilov@gmail.com"
   },
   "keywords": [
-    "promise"
+    "promise",
+    "throttle",
+    "throttling",
+    "load balancing"
   ],
   "author": {
     "name": "Vitaly Tomilov",
