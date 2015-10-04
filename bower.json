@@ -16,7 +16,10 @@
     "url": "git://github.com/vitaly-t/spex.git"
   },
   "keywords": [
-    "promise"
+    "promise",
+    "throttle",
+    "throttling",
+    "load balancing"
   ],
   "author": {
     "name": "Vitaly Tomilov",

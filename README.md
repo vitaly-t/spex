@@ -38,11 +38,13 @@ var spex = require('spex')(Promise);
 * [Module]
 * Methods
   - [batch]
+  - [delay]  
   - [page]
   - [sequence]
-
+  
 [Module]:https://github.com/vitaly-t/spex/blob/master/docs/code/module.md
 [batch]:https://github.com/vitaly-t/spex/blob/master/docs/code/batch.md
+[delay]:https://github.com/vitaly-t/spex/blob/master/docs/code/delay.md
 [page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
 [sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
 [Promises/A+]:https://promisesaplus.com/

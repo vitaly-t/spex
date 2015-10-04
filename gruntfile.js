@@ -30,6 +30,10 @@ var files = [
         dest: codePath + "batch.md"
     },
     {
+        src: "lib/ext/delay.js",
+        dest: codePath + "delay.md"
+    },
+    {
         src: "lib/ext/page.js",
         dest: codePath + "page.md"
     },
@@ -44,6 +48,7 @@ var links = {
     "mixed value": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "batch": "batch.md",
+    "delay": "delay.md",
     "page": "page.md",
     "sequence": "sequence.md",
     "Promise": "https://github.com/then/promise",
