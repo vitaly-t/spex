@@ -56,9 +56,13 @@ and the method rejects with object <code>{index, error, dest}</code>:</p>
 </td>
     </tr><tr>
     <td>[limit]</td><td><code>Number</code></td><td><code>0</code></td><td><p>Limits the maximum size of the sequence. If the value is an integer greater than 0,
-the method will successfully resolve once the specified limit has been reached.
-By default, the sequence is unlimited, and will continue till either <code>source</code> function
-returns <code>undefined</code> or an error/reject occurs.</p>
+the method will successfully resolve once the specified limit has been reached.</p>
+<p>When <code>limit</code> isn&#39;t specified (default), the sequence is unlimited, and it will continue
+till one of the following occurs:</p>
+<ul>
+<li><code>source</code> either returns <code>undefined</code> or resolves with <code>undefined</code></li>
+<li>either <code>source</code> or <code>dest</code> functions throw an error or return a rejected promise</li>
+</ul>
 </td>
     </tr><tr>
     <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>This parameter changes the type of data to be resolved by this method.
