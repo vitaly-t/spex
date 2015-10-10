@@ -20,8 +20,8 @@ certainly not without a loss in performance.
 And this is where method [batch] helps:
 
 * It settles all of the promises in the array
-* It resolves in same way as `promise.all` when each value in the array resolves
-* It rejects when any value in the array rejects, with complete details
+* It resolves in the same way as `promise.all` when each value in the array resolves
+* It rejects when any value in the array rejects, providing complete details
 * It has additional diagnostics and results reporting features
 
 [batch]:../code/batch.md
