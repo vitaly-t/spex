@@ -15,7 +15,7 @@ Method [sequence] supports each of the three sequence variations.
 
 Let's create an academic example of a linked sequence that calculates primes from a previous result.
 
- ```javascript
+```javascript
 function nextPrime(value) {
     if (value > 2) {
         var i, q;
