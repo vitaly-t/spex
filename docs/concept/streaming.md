@@ -53,5 +53,21 @@ LOG: 3 three 0
 DATA: [ 'zero', 'one', 'two', 'three' ]
 ```
 
+And if we run the sequence without tracking (default):
+```javascript
+spex.sequence(source, dest)
+    .then(function (data) {
+        console.log("DATA:", data); // print result;
+    });
+```
+then the output will be:
+```
+LOG: 0 zero undefined
+LOG: 1 one 9
+LOG: 2 two 0
+LOG: 3 three 0
+DATA: { total: 4, duration: 10 }
+```
+
 [page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
 [sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
