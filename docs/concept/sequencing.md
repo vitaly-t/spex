@@ -41,7 +41,7 @@ for (var i = 0; i < 10; i++) {
     value = nextPrime(value);
     result.push(value);
 }
-console.log("Result:", result);
+console.log('Result:', result);
 ```
 
 we get the following output:
@@ -53,13 +53,13 @@ Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]
 Now let's create the same sequence using spex:
 
 ```javascript
-function source(idx, data) {
+function source(index, data) {
     return nextPrime(data);
 }
 
 spex.sequence(source, null, 10, true)
     .then(function (data) {
-        console.log("Result:", data);
+        console.log('Result:', data);
     });
 ```
 
@@ -117,13 +117,13 @@ Let's see how the [sequence] performs compared to the direct calculation as we i
 * `direct` - direct sequence calculation;
 * `number` - using [sequence] with the `source` that returns numbers:
 ```javascript
-function source(idx, data) {
+function source(index, data) {
     return nextPrime(data);
 }
 ```
 * `promise` - using [sequence] with the `source` that returns promises:
 ```javascript
-function source(idx, data) {
+function source(index, data) {
     return Promise.resolve(nextPrime(data));
 }
 ```

@@ -17,10 +17,10 @@ It also includes a destination function for logging purposes.
 ```javascript
 var spex = require('spex')(Promise);
 
-function source(idx, data, delay) {
+function source(index, data, delay) {
     // create and return a promise objects dynamically,
-    // based on the index of the sequence (parameter idx);
-    switch (idx) {
+    // based on the index of the sequence;
+    switch (index) {
         case 0:
             return Promise.resolve('zero');
         case 1:
@@ -34,13 +34,13 @@ function source(idx, data, delay) {
     // throwing an error will result in a reject;
 }
 
-function dest(idx, data, delay) {
-    console.log("LOG:", idx, data, delay);
+function dest(index, data, delay) {
+    console.log('LOG:', index, data, delay);
 }
 
 spex.sequence(source, dest, 0, true)
     .then(function (data) {
-        console.log("DATA:", data); // print result;
+        console.log('DATA:', data); // print result;
     });
 ```
 
@@ -53,14 +53,14 @@ LOG: 3 three 0
 DATA: [ 'zero', 'one', 'two', 'three' ]
 ```
 
-And if we run the sequence without tracking (default):
+And if we run the same sequence without tracking (default):
 ```javascript
 spex.sequence(source, dest)
     .then(function (data) {
-        console.log("DATA:", data); // print result;
+        console.log('DATA:', data); // print result;
     });
 ```
-then the output will be:
+then the output will change to:
 ```
 LOG: 0 zero undefined
 LOG: 1 one 9
