@@ -23,7 +23,7 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
 <ul>
 <li><code>index</code> = index of the value in the source array</li>
 <li><code>success</code> - indicates whether the value was resolved (<code>true</code>), or rejected (<code>false</code>)</li>
-<li><code>data</code> = resolved data, if <code>success</code>=<code>true</code>, or else the rejection reason</li>
+<li><code>result</code> = resolved data, if <code>success</code>=<code>true</code>, or else the rejection reason</li>
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
