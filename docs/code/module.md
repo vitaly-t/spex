@@ -20,10 +20,6 @@ others use the module&#39;s function for it. The two types are supported herewit
 <p>Passing in a promise library that cannot be recognized will throw
 <code>Invalid promise library specified.</code></p>
 </td>
-    </tr><tr>
-    <td>[options]</td><td><code>Object</code></td><td><p>Optional configuration object with properties - options.</p>
-<p>Not used in the current version of the library.</p>
-</td>
     </tr>  </tbody>
 </table>
 
