@@ -3,7 +3,7 @@
 **Summary**: Resolves a predefined array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 
 ---
-Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array, and resolveswith an array of results, if all values have been resolved, or else rejects.This method resembles a fusion of `promise.all` + `promise.settle` logic, to resolve withthe same type of result as `promise.all`, while also settling all the promises, similar to`promise.settle`, adding comprehensive details in case of a reject.<img src="../images/batch.png" width="881px" height="217px" alt="batch">
+Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array, and resolveswith an array of results, if all values have been resolved, or else rejects.This method resembles a fusion of `promise.all` + `promise.settle` logic, to resolve withthe same type of result as `promise.all`, while also settling all the promises, similar to`promise.settle`, adding comprehensive details in case of a reject.<img src="../images/batch.png" width="836px" height="210px" alt="batch">
 
 ### Parameters
 <table>
