@@ -14,8 +14,8 @@ Acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-V
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>).
-Returning a value that resolves into <code>undefined</code> ends the sequence, and the method resolves.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with the next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>).
+Returning or resolving with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>Parameters:</p>
 <ul>
@@ -35,7 +35,7 @@ rejects with the same object, but with <code>error</code> = <code>Unexpected dat
 <p>Passing in anything other than a function will throw <code>Invalid page source.</code></p>
 </td>
     </tr><tr>
-    <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive resolved <a href="batch.md">batch</a> of data
+    <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive a resolved <a href="batch.md">batch</a> of data
 for each page, process it and respond as required.</p>
 <p>Parameters:</p>
 <ul>
@@ -45,7 +45,7 @@ for each page, process it and respond as required.</p>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise object, if notifications are handled asynchronously.
-And if a promise is returned, the method will not request the next page from the <code>source</code>
+And if a promise is returned, the method will not request another page from the <code>source</code>
 function until the promise has been resolved.</p>
 <p>If the function throws an error or returns a promise that rejects, the sequence terminates,
 and the method rejects with object <code>{index, error, dest}</code>:</p>
@@ -70,4 +70,4 @@ till one of the following occurs:</p>
     </tr>  </tbody>
 </table>
 
-**Returns**: <code>Promise</code> - When successful, the method resolves with object `{pages, total, duration}`: - `pages` = number of pages resolved - `total` = the sum of all page sizes (total number of values resolved) - `duration` = number of milliseconds consumed by the methodWhen the method fails, there are two types of rejects that may occur: - *Normal Reject*: when one of the pages failed to resolve as a <a href="batch.md">batch</a> - *Internal Reject*: caused by either the `source` or the `dest` functions*Normal Rejects* provide object `{index, data}`: - `index` = index of the page rejected by method <a href="batch.md">batch</a> - `data` = the rejection data from method <a href="batch.md">batch</a>*Internal Rejects* provide object `{index, error, [source], [dest]}`: - `index` = index of the page for which the error/reject occurred - `error` = the error thrown or the rejection reason - `source` - set when caused by the `source` function (see `source` parameter) - `dest` - set when caused by the `dest` function (see `dest` parameter)Object for both reject types has method `getError()` to simplify access to the error.For *Normal Rejects* it will return `data.getErrors()[0]` (see method <a href="batch.md">batch</a>),and `error` value for the *Internal Rejects*.  
+**Returns**: <code>Promise</code> - When successful, the method resolves with object `{pages, total, duration}`: - `pages` = number of pages resolved - `total` = the sum of all page sizes (total number of values resolved) - `duration` = number of milliseconds consumed by the methodWhen the method fails, there are two types of rejects that may occur: - *Normal Reject*: when one of the pages failed to resolve as a <a href="batch.md">batch</a> - *Internal Reject*: caused by either the `source` or the `dest` functions*Normal Rejects* are reported with object `{index, data}`: - `index` = index of the page rejected by method <a href="batch.md">batch</a> - `data` = the rejection data from method <a href="batch.md">batch</a>*Internal Rejects* are reported with object `{index, error, [source], [dest]}`: - `index` = index of the page for which the error/reject occurred - `error` = the error thrown or the rejection reason - `source` - set when caused by the `source` function (see `source` parameter) - `dest` - set when caused by the `dest` function (see `dest` parameter)Object for both reject types has method `getError()` to simplify access to the error.For *Normal Rejects* it will return `data.getErrors()[0]` (see method <a href="batch.md">batch</a>),and `error` value for the *Internal Rejects*.  

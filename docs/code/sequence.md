@@ -14,8 +14,8 @@ Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed valu
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. If the value resolves
-into <code>undefined</code>, it signals the end of the sequence, and the method resolves.</p>
+    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning or resolving
+with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = current request index in the sequence</li>
@@ -43,7 +43,7 @@ process it and respond as required.</p>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise object, if data processing is done asynchronously.
-If a promise is returned, the method will not request the next value from the <code>source</code> function,
+If a promise is returned, the method will not request another value from the <code>source</code> function,
 until the promise has been resolved.</p>
 <p>If the function throws an error or returns a promise that rejects, the sequence terminates,
 and the method rejects with object <code>{index, error, dest}</code>:</p>
