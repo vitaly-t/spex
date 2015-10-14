@@ -24,4 +24,72 @@ And this is where method [batch] helps:
 * It rejects when any value in the array rejects, providing complete details
 * It has additional diagnostics and results reporting features
 
+#### Examples
+
+Let's start with a positive example, and throw in a few combinations of [mixed values]:
+ 
+```javascript
+var spex = require('spex')(Promise);
+
+// function that returns a promise;
+function getWord() {
+    return Promise.resolve("World");
+}
+
+// function that returns a value;
+function getExcl() {
+    return '!';
+}
+
+// function that returns another function;
+function nested() {
+    return getExcl;
+}
+
+var values = [
+    123,
+    "Hello",
+    getWord,
+    Promise.resolve(nested)
+];
+
+spex.batch(values)
+    .then(function (data) {
+        console.log("DATA:", data);
+    }, function (reason) {
+        console.log("REASON:", reason);
+    });
+```
+This outputs:
+```
+DATA: [ 123, 'Hello', 'World', '!' ]
+```
+
+Now let's make it fail by changing `getWord` to this:
+
+```javascript
+function getWord() {
+    return Promise.reject("World");
+}
+```
+Now the output is:
+```
+REASON: [ { success: true, result: 123 },
+  { success: true, result: 'Hello' },
+  { success: false, result: 'World' },
+  { success: true, result: '!' } ]
+```
+i.e. the entire array is settled, reporting index-bound results. 
+
+And if instead of reporting the entire reason we call `getErrors()`:
+```javascript
+console.log("REASON:", reason.getErrors());
+```
+then the output will be:
+```
+REASON: [ 'World' ]
+```
+This is just to simplify quick access to the list of errors that occurred.
+
 [batch]:../code/batch.md
+[mixed values]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
