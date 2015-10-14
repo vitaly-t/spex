@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/spex/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/spex?branch=master)
 
 [batch], [page], [sequence] - promise methods for the following patterns:
-<img src="docs/images/main.png" width="260px" height="273px" align="right" alt="main">
+<img src="docs/images/main.png" width="200px" height="210px" align="right" alt="main">
 * [Data Throttling & Load Balancing](docs/concept/throttling.md)
 * [Linked and Detached Sequencing](docs/concept/sequencing.md)
 * [Streaming and Paging](docs/concept/streaming.md)
