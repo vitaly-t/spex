@@ -4,10 +4,18 @@
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/spex/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/spex?branch=master)
 
 [batch], [page], [sequence] - promise methods for the following patterns:
+
+<table><tr>
+<td>
 * [Data Throttling & Load Balancing](docs/concept/throttling.md)
 * [Linked and Detached Sequencing](docs/concept/sequencing.md)
 * [Streaming and Paging](docs/concept/streaming.md)
 * [Batch Processing](docs/concept/batch.md)
+</td>
+<td>
+<img src="../images/main.png" width="260px" height="273px" alt="main">
+</td>
+</tr></table>
 
 ### Installing
 
