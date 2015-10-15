@@ -26,7 +26,7 @@ And this is where method [batch] helps:
 
 #### Examples
 
-Let's start with a positive example, and throw in a few combinations of [mixed values]:
+Let's start with a positive example, and throw in a few combinations of [mixed values].
  
 ```javascript
 var spex = require('spex')(Promise);

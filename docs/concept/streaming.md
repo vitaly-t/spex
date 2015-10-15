@@ -7,7 +7,7 @@ the result into a destination handler for processing or as a notification.
 
 And this is one of the things that methods [page] and [sequence] can do - resolving and tunnelling data through.
 The two methods can handle both limited and infinite streams, and they can stream data either one-by-one (method [sequence])
-or in packages/batches (method [page]).
+or in bundles (method [page]).
 
 #### Examples
 
