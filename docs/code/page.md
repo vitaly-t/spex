@@ -63,7 +63,7 @@ been reached.</p>
 <p>When <code>limit</code> isn&#39;t specified (default), the sequence is unlimited, and it will continue
 till one of the following occurs:</p>
 <ul>
-<li><code>source</code> either returns <code>undefined</code> or resolves with <code>undefined</code></li>
+<li><code>source</code> returns or resolves with <code>undefined</code> or an invalid value (non-array)</li>
 <li>either <code>source</code> or <code>dest</code> functions throw an error or return a rejected promise</li>
 </ul>
 </td>
