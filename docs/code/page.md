@@ -30,8 +30,9 @@ object <code>{index, error, source}</code>:</p>
 <li><code>error</code> = the error thrown or the rejection reason</li>
 <li><code>source</code> = resolved <code>data</code> that was passed into the function</li>
 </ul>
-<p>And if the function resolves with anything other than an array or <code>undefined</code>, the method
-rejects with the same object, but with <code>error</code> = <code>Unexpected data returned from the source.</code></p>
+<p>And if the function returns or resolves with anything other than an array or <code>undefined</code>,
+the method rejects with the same object, but with <code>error</code> set to <code>Unexpected data returned
+from the source.</code></p>
 <p>Passing in anything other than a function will throw <code>Invalid page source.</code></p>
 </td>
     </tr><tr>

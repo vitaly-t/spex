@@ -60,15 +60,14 @@ the method will successfully resolve once the specified limit has been reached.<
 <p>When <code>limit</code> isn&#39;t specified (default), the sequence is unlimited, and it will continue
 till one of the following occurs:</p>
 <ul>
-<li><code>source</code> either returns <code>undefined</code> or resolves with <code>undefined</code></li>
+<li><code>source</code> either returns or resolves with <code>undefined</code></li>
 <li>either <code>source</code> or <code>dest</code> functions throw an error or return a rejected promise</li>
 </ul>
 </td>
     </tr><tr>
-    <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>This parameter changes the type of data to be resolved by this method.
-By default, it is <code>false</code> (see the return result).
-When set to be <code>true</code>, it instructs the method to track/collect all resolved data into
-an array internally, so it can be resolved with once the method has finished successfully.</p>
+    <td>[track]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>Changes the type of data to be resolved by this method. By default, it is <code>false</code>
+(see the return result). When set to be <code>true</code>, the method tracks/collects all resolved data
+into an array internally, and resolves with that array once the method has finished successfully.</p>
 <p>It must be used with caution, as to the size of the sequence, because accumulating data for
 a very large sequence can result in consuming too much memory.</p>
 </td>

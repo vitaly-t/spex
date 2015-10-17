@@ -14,7 +14,7 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
   </thead>
   <tbody>
 <tr>
-    <td>values</td><td><code>Array</code></td><td><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> for asynchronous resolution.</p>
+    <td>values</td><td><code>Array</code></td><td><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> to be resolved asynchronously.</p>
 <p>Passing in anything other than an array will throw <code>Batch requires an array of values.</code></p>
 </td>
     </tr><tr>
@@ -31,7 +31,7 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
 And if the returned promise resolves, it signals a successful handling, while any resolved
 data is ignored.</p>
 <p>If the function returns a rejected promise or throws an error, the entire method rejects,
-and the value in the rejected array is reported as object <code>{success, result, origin}</code>:</p>
+and the corresponding value in the rejected array is reported as <code>{success, result, origin}</code>:</p>
 <ul>
 <li><code>success</code> = <code>false</code></li>
 <li><code>result</code> = the rejection reason or the error thrown by the notification callback</li>
@@ -41,4 +41,4 @@ and the value in the rejected array is reported as object <code>{success, result
     </tr>  </tbody>
 </table>
 
-**Returns**: <code>Promise</code> - Result for the entire batch, which resolves when every value in the input array has been resolved,and rejects when: - one or more values in the array rejected or threw an error while being resolved as a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> - one or more calls into the notification callback returned a rejected promise or threw an errorThe method resolves with an array of individual resolved results, the same as `promise.all`.In addition, the array is extended with read-only property `duration` - number of millisecondstaken to resolve all the data.When failed, the method rejects with an array of objects `{success, result, [origin]}`: - `success` = `true/false`, indicates whether the corresponding value in the input array was resolved. - `result` = resolved data, if `success=true`, or else the rejection reason. - `origin` - set only when failed as a result of an unsuccessful call into the notification callback (see documentation for parameter `cb`)In addition, the rejection array is extended with function `getErrors`, which returns the list of justerrors, with support for nested batch results. Calling `getErrors()[0]`, for example, will get the sameresult as the rejection reason that `promise.all` would provide.In all cases the output array is always the same size as the input one, providing index mappingbetween the input values and the results.  
+**Returns**: <code>Promise</code> - Result for the entire batch, which resolves when every value in the input array has been resolved,and rejects when: - one or more values in the array rejected or threw an error while being resolved as a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> - one or more calls into the notification callback returned a rejected promise or threw an errorThe method resolves with an array of individual resolved results, the same as `promise.all`.In addition, the array is extended with read-only property `duration` - number of millisecondstaken to resolve all the data.When failed, the method rejects with an array of objects `[{success, result, [origin]}]`: - `success` = `true/false`, indicates whether the corresponding value in the input array was resolved. - `result` = resolved data, if `success=true`, or else the rejection reason. - `origin` - set only when failed as a result of an unsuccessful call into the notification callback (see documentation for parameter `cb`)In addition, the rejection array is extended with function `getErrors`, which returns the list of justerrors, with support for nested batch results. Calling `getErrors()[0]`, for example, will get the sameresult as the rejection reason that `promise.all` would provide.In all cases, the output array is always the same size as the input one, providing index mappingbetween the input values and the results.  
