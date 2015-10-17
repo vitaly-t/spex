@@ -14,7 +14,7 @@ Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wi
   </thead>
   <tbody>
 <tr>
-    <td>values</td><td><code>Array</code></td><td><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> to be resolved asynchronously.</p>
+    <td>values</td><td><code>Array</code></td><td><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> to be resolved asynchronously, in no particular order.</p>
 <p>Passing in anything other than an array will throw <code>Batch requires an array of values.</code></p>
 </td>
     </tr><tr>
