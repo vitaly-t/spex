@@ -47,6 +47,7 @@ var files = [
 var links = {
     "mixed value": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
+    "Readable": "https://nodejs.org/api/stream.html#stream_class_stream_readable",
     "batch": "batch.md",
     "page": "page.md",
     "sequence": "sequence.md",
