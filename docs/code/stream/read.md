@@ -3,7 +3,7 @@
 **Summary**: Reads the entire stream  
 
 ---
-Reads the entire stream, using **paused mode**, with support for both synchronousand asynchronous data processing.NOTE: Once the method has finished, the onus is on the caller to release the streamaccording to its protocol.
+Reads the entire stream, using **paused mode**, with support for both synchronousand asynchronous data processing.**NOTE:** Once the method has finished, the onus is on the caller to release the streamaccording to its protocol.
 
 ### Parameters
 <table>

@@ -41,11 +41,14 @@ var spex = require('spex')(Promise);
   - [batch] 
   - [page]
   - [sequence]
+  - stream
+    - [read]
   
 [Module]:https://github.com/vitaly-t/spex/blob/master/docs/code/module.md
 [batch]:https://github.com/vitaly-t/spex/blob/master/docs/code/batch.md
 [page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
 [sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
+[read]:https://github.com/vitaly-t/spex/blob/master/docs/code/stream/read.md
 [Promises/A+]:https://promisesaplus.com/
 [Promise]:https://github.com/then/promise
 [Bluebird]:https://github.com/petkaantonov/bluebird
