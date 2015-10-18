@@ -144,7 +144,7 @@ describe("Stream/Read - positive", function () {
         expect(obj.reads > 0).toBe(true);
         expect(obj.calls > 0).toBe(true);
         expect(obj.reads >= obj.calls).toBe(true);
-        expect(obj.size > 0).toBe(true);
+        expect(obj.length > 0).toBe(true);
         expect(obj.duration >= 0).toBe(true);
     }
 

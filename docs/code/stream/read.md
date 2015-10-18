@@ -31,7 +31,7 @@ Reads the entire stream, using **paused mode**, with support for both synchronou
 And if a promise is returned, the method will not read any more data from the
 stream until the promise has been resolved.</p>
 <p>If the function throws an error or returns a rejected promise, the method rejects
-with the same error/rejection reason.</p>
+with the same error / rejection reason.</p>
 </td>
     </tr><tr>
     <td>[closable]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>Instructs the method to resolve on event <code>close</code> supported by the stream,
@@ -44,4 +44,4 @@ By default, the method reads all the data currently available in the buffer.</p>
     </tr>  </tbody>
 </table>
 
-**Returns**: <code>Promise</code> - When successful, resolves with object `{calls, reads, size, duration}`: - `calls` = number of calls made into the `receiver` - `reads` = number of successful reads from the stream - `size` = total number of bytes read from the stream - `duration` = number of milliseconds consumed by the methodWhen fails, the method rejects with the error/reject specified,which can happen as a result of: - event `error` emitted by the stream - receiver throws an error or returns a rejected promise  
+**Returns**: <code>Promise</code> - When successful, resolves with object `{calls, reads, size, duration}`: - `calls` = number of calls made into the `receiver` - `reads` = number of successful reads from the stream - `length` = total length for all the data reads from the stream - `duration` = number of milliseconds consumed by the methodWhen fails, the method rejects with the error/reject specified,which can happen as a result of: - event `error` emitted by the stream - receiver throws an error or returns a rejected promise  
