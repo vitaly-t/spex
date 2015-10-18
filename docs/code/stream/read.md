@@ -14,10 +14,12 @@ Reads the entire stream, using **paused mode**, with support for both synchronou
   </thead>
   <tbody>
 <tr>
-    <td>stream</td><td><code>Object</code></td><td></td><td><p>Readable stream</p>
+    <td>stream</td><td><code>Object</code></td><td></td><td><p><a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream object.</p>
+<p>Passing in anything else will throw <code>Readable stream is required.</code></p>
 </td>
     </tr><tr>
     <td>receiver</td><td><code>function</code></td><td></td><td><p>Callback to process the data.</p>
+<p>Passing in anything else will throw <code>Invalid stream receiver.</code></p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = index of the call made to the function</li>
