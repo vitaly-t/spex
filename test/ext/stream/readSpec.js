@@ -35,6 +35,62 @@ describe("Stream/Read - negative", function () {
 
     });
 
+    describe("error event", function () {
+        var error;
+        beforeEach(function (done) {
+            function receiver() {
+                stm.emit('error', new Error('Ops!'));
+            }
+
+            spex.stream.read(stm, receiver)
+                .catch(function (err) {
+                    error = err;
+                    done();
+                });
+        });
+        it("must reject with the right error", function () {
+            expect(error instanceof Error).toBe(true);
+            expect(error.message).toBe("Ops!");
+        });
+    });
+
+    describe("receiver rejecting", function () {
+        var error;
+        beforeEach(function (done) {
+            function receiver() {
+                return promise.reject("stop");
+            }
+
+            spex.stream.read(stm, receiver)
+                .catch(function (err) {
+                    error = err;
+                    done();
+                });
+        });
+        it("must reject with the right error", function () {
+            expect(error).toBe("stop");
+        });
+    });
+
+    describe("receiver throwing an error", function () {
+        var error;
+        beforeEach(function (done) {
+            function receiver() {
+                throw new Error("stop");
+            }
+
+            spex.stream.read(stm, receiver)
+                .catch(function (err) {
+                    error = err;
+                    done();
+                });
+        });
+        it("must reject with the right error", function () {
+            expect(error instanceof Error).toBe(true);
+            expect(error.message).toBe("stop");
+        });
+    });
+
 });
 
 describe("Stream/Read - positive", function () {
