@@ -36,6 +36,10 @@ var files = [
     {
         src: "lib/ext/sequence.js",
         dest: codePath + "sequence.md"
+    },
+    {
+        src: "lib/ext/stream/read.js",
+        dest: codePath + "stream/read.md"
     }
 ];
 
