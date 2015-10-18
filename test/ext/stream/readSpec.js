@@ -95,10 +95,19 @@ describe("Stream/Read - negative", function () {
 
 describe("Stream/Read - positive", function () {
 
+    var stm;
+
+    beforeEach(function () {
+        stm = fs.createReadStream(__filename);
+    });
+
+    afterEach(function () {
+        stm.destroy();
+    });
+
     describe("End-stream, returning promises", function () {
-        var stm, result;
+        var result;
         beforeEach(function (done) {
-            stm = fs.createReadStream(__filename);
             spex.stream.read(stm, receiver)
                 .then(function (data) {
                     result = data;
@@ -108,19 +117,14 @@ describe("Stream/Read - positive", function () {
                 return promise.resolve();
             }
         });
-        afterEach(function () {
-            stm.destroy();
-        });
-
         it("must resolve with full statistics", function () {
             testStat(result);
         });
     });
 
     describe("Close-stream with empty receiver", function () {
-        var stm, result;
+        var result;
         beforeEach(function (done) {
-            stm = fs.createReadStream(__filename);
             spex.stream.read(stm, receiver, true)
                 .then(function (data) {
                     result = data;
@@ -130,10 +134,6 @@ describe("Stream/Read - positive", function () {
                 return promise.resolve();
             }
         });
-        afterEach(function () {
-            stm.destroy();
-        });
-
         it("must resolve with full statistics", function () {
             testStat(result);
         });
@@ -147,5 +147,30 @@ describe("Stream/Read - positive", function () {
         expect(obj.size > 0).toBe(true);
         expect(obj.duration >= 0).toBe(true);
     }
+
+    describe("Reduced readSize", function () {
+        var result, r;
+        beforeEach(function (done) {
+            spex.stream.read(stm, receiver, false, 100)
+                .then(function (data) {
+                    result = data;
+                    done();
+                });
+            function receiver(index, data, delay) {
+                r = {
+                    index: index,
+                    data: data,
+                    delay: delay
+                };
+            }
+        });
+
+        it("must provide a delay", function () {
+            expect(r && r instanceof Object).toBe(true);
+            expect(r.index > 0).toBe(true);
+            expect(r.data).toBeTruthy();
+            expect(r.delay >= 0).toBe(true);
+        });
+    });
 
 });
