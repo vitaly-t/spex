@@ -29,8 +29,9 @@ Reads the entire stream, using **paused mode**, with support for both synchronou
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise object, if data processing is asynchronous.
 And if a promise is returned, the method will not read any more data from the
-stream until the promise has been resolved. Returning a rejected promise will
-stop processing and the method will reject with the reason specified.</p>
+stream until the promise has been resolved.</p>
+<p>If the function throws an error or returns a rejected promise, the method rejects
+with the same error/rejection reason.</p>
 </td>
     </tr><tr>
     <td>[closable]</td><td><code>Boolean</code></td><td><code>false</code></td><td><p>Instructs the method to resolve on event <code>close</code> supported by the stream,

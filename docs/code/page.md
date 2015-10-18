@@ -32,7 +32,7 @@ object <code>{index, error, source}</code>:</p>
 </ul>
 <p>And if the function returns or resolves with anything other than an array or <code>undefined</code>,
 the method rejects with the same object, but with <code>error</code> set to <code>Unexpected data returned
-from the source.</code>.</p>
+from the source.</code></p>
 <p>Passing in anything other than a function will throw <code>Invalid page source.</code></p>
 </td>
     </tr><tr>
