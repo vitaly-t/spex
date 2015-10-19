@@ -28,8 +28,8 @@ Reads the entire stream, using **paused mode**, with support for both synchronou
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>It can optionally return a promise object, if data processing is asynchronous.
-And if a promise is returned, the method will not read any more data from the
-stream until the promise has been resolved.</p>
+And if a promise is returned, the method will not read data from the stream again,
+until the promise has been resolved.</p>
 <p>If the function throws an error or returns a rejected promise, the method rejects
 with the same error / rejection reason.</p>
 </td>
