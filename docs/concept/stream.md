@@ -1,9 +1,7 @@
 `stream` is a namespace within the library's root, with methods that implement stream operations,
 and [read] is the only method currently supported.
 
-#### Examples
-
-**Synchronous stream processing**
+**Synchronous Stream Processing**
 
 ```javascript
 var stream = require('spex')(Promise).stream;
@@ -12,7 +10,6 @@ var fs = require('fs');
 var rs = fs.createReadStream('values.txt');
 
 function receiver(index, data, delay) {
-    // print all the parameters received:
     console.log("RECEIVED:", index, data, delay);
 }
 
@@ -24,7 +21,7 @@ stream.read(rs, receiver)
     });
 ```
 
-**Asynchronous stream processing**
+**Asynchronous Stream Processing**
 
 ```javascript
 var stream = require('spex')(Promise).stream;
