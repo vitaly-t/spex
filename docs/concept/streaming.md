@@ -38,7 +38,7 @@ function dest(index, data, delay) {
     console.log('LOG:', index, data, delay);
 }
 
-spex.sequence(source, dest, {track: true})
+spex.sequence(source, {dest: dest, track: true})
     .then(function (data) {
         console.log('DATA:', data); // print result;
     });
