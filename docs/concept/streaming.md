@@ -38,7 +38,7 @@ function dest(index, data, delay) {
     console.log('LOG:', index, data, delay);
 }
 
-spex.sequence(source, dest, 0, true)
+spex.sequence(source, dest, {track: true})
     .then(function (data) {
         console.log('DATA:', data); // print result;
     });
@@ -63,8 +63,8 @@ spex.sequence(source, dest)
 then the output will change to:
 ```
 LOG: 0 zero undefined
-LOG: 1 one 9
-LOG: 2 two 0
+LOG: 1 one 8
+LOG: 2 two 1
 LOG: 3 three 0
 DATA: { total: 4, duration: 10 }
 ```

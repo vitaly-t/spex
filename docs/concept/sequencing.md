@@ -57,7 +57,7 @@ function source(index, data) {
     return nextPrime(data);
 }
 
-spex.sequence(source, null, 10, true)
+spex.sequence(source, {limit: 10, track: true})
     .then(function (data) {
         console.log('Result:', data);
     });
