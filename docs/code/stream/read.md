@@ -3,7 +3,7 @@
 **Summary**: Consumes and processes data from a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream.  
 
 ---
-Reads the entire stream, using **paused mode**, with support for both synchronousand asynchronous data processing.Once the method has finished, the onus is on the caller to release the streamaccording to its protocol.**Alternative Syntax:**`read(stream, receiver, {closable, readSize})`
+**Alternative Syntax:**`read(stream, receiver, {closable, readSize})`Reads the entire stream, using **paused mode**, with support for both synchronousand asynchronous data processing.Once the method has finished, the onus is on the caller to release the streamaccording to its protocol.
 
 ### Parameters
 <table>

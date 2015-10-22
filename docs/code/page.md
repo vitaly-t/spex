@@ -3,7 +3,7 @@
 **Summary**: Resolves a dynamic sequence of pages/arrays with <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 
 ---
-Acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) from the source function, one by one,and resolves each page as a <a href="batch.md">batch</a>, till no more pages left or an error/reject occurs.**Alternative Syntax:**`page(source, {dest, limit})`<img src="../images/page.png" width="561px" height="193px" alt="page">
+**Alternative Syntax:**`page(source, {dest, limit})`Acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) from the source function, one by one,and resolves each page as a <a href="batch.md">batch</a>, till no more pages left or an error/reject occurs.<img src="../images/page.png" width="561px" height="193px" alt="page">
 
 ### Parameters
 <table>
