@@ -3,7 +3,7 @@
 **Summary**: Consumes and processes data from a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream.  
 
 ---
-**Alternative Syntax:**`read(stream, receiver, {closable, readSize})` &#8658; `Promise`Reads the entire stream, using **paused mode**, with support for both synchronousand asynchronous data processing.**NOTE:** Once the method has finished, the onus is on the caller to release the streamaccording to its protocol.
+**Alternative Syntax:**`read(stream, receiver, {closable, readSize})` &#8658; `Promise`Reads the entire stream, using **paused mode**, with support for both synchronousand asynchronous data processing.**NOTE:** Once the method has finished, the onus is on the caller to release the streamaccording to its protocol.<img src="../images/read.png" width="641px" height="193px" alt="read">
 
 ### Parameters
 <table>
@@ -45,4 +45,4 @@ to get all the data currently available in the buffer.</p>
     </tr>  </tbody>
 </table>
 
-**Returns**: <code>Promise</code> - When successful, resolves with object `{calls, reads, length, duration}`: - `calls` = number of calls made into the `receiver` - `reads` = number of successful reads from the stream - `length` = total length for all the data reads from the stream - `duration` = number of milliseconds consumed by the methodWhen fails, the method rejects with the error/reject specified,which can happen as a result of: - event `error` emitted by the stream - receiver throws an error or returns a rejected promise  
+**Returns**: <code>Promise</code> - When finished successfully, resolves with object `{calls, reads, length, duration}`: - `calls` = number of calls made into the `receiver` - `reads` = number of successful reads from the stream - `length` = total length for all the data reads from the stream - `duration` = number of milliseconds consumed by the methodWhen it fails, the method rejects with the error/reject specified,which can happen as a result of: - event `error` emitted by the stream - receiver throws an error or returns a rejected promise  
