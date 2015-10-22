@@ -38,8 +38,9 @@ with the same error / rejection reason.</p>
 as opposed to event <code>end</code> that&#39;s used by default.</p>
 </td>
     </tr><tr>
-    <td>[readSize]</td><td><code>Number</code></td><td></td><td><p>Sets the read size from the stream buffer when the next data is available.
-By default, the method reads all the data currently available in the buffer.</p>
+    <td>[readSize]</td><td><code>Number</code></td><td></td><td><p>Sets the read size from the stream&#39;s buffer when the next data is available.
+By default, the method uses as few reads as possible to get all the data
+currently available in the stream&#39;s buffer.</p>
 </td>
     </tr>  </tbody>
 </table>
