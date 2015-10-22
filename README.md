@@ -22,6 +22,11 @@ $ npm install spex
 $ npm test
 ```
 
+Testing with coverage:
+```
+$ npm run coverage
+```
+
 ### Usage
 
 * For any [Promises/A+] library: [Promise], [Bluebird], [When], [Q], [RSVP], etc.
