@@ -125,7 +125,7 @@ describe("Stream/Read - positive", function () {
     describe("Close-stream with empty receiver", function () {
         var result;
         beforeEach(function (done) {
-            spex.stream.read(stm, receiver, true)
+            spex.stream.read(stm, receiver, {closable: true})
                 .then(function (data) {
                     result = data;
                     done();
@@ -151,7 +151,7 @@ describe("Stream/Read - positive", function () {
     describe("Reduced readSize", function () {
         var result, r;
         beforeEach(function (done) {
-            spex.stream.read(stm, receiver, false, 100)
+            spex.stream.read(stm, receiver, {readSize: 100})
                 .then(function (data) {
                     result = data;
                     done();

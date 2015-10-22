@@ -256,7 +256,7 @@ describe("Page - positive", function () {
         }
 
         beforeEach(function (done) {
-            spex.page(source, null, limit)
+            spex.page(source, {limit: limit})
                 .then(function (data) {
                     result = data;
                     done();

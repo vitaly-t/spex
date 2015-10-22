@@ -62,7 +62,6 @@ describe("Batch - negative", function () {
                         r = reason;
                         done();
                     })
-
             });
             it("must reject correctly", function () {
                 expect(r).toEqual([{
@@ -89,7 +88,7 @@ describe("Batch - negative", function () {
                 }
             }
 
-            spex.batch([1, 2], cb)
+            spex.batch([1, 2], {cb: cb})
                 .catch(function (reason) {
                     r = reason;
                     done();

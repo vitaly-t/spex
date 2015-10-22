@@ -142,7 +142,7 @@ describe("Sequence - positive", function () {
         }
 
         beforeEach(function (done) {
-            spex.sequence(source, null, limit)
+            spex.sequence(source, {limit: limit})
                 .then(function (data) {
                     result = data;
                 })
