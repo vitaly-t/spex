@@ -168,7 +168,7 @@ describe("Page - negative", function () {
         }
 
         beforeEach(function (done) {
-            spex.page(source)
+            spex.page(source, {})
                 .catch(function (reason) {
                     error = reason;
                     done();

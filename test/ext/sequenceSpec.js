@@ -118,9 +118,7 @@ describe("Sequence - negative", function () {
                     r = reason;
                     done();
                 })
-
         });
-
         it("must reject correctly", function () {
             expect(r).toEqual({
                 index: 0,
@@ -150,13 +148,11 @@ describe("Sequence - positive", function () {
                     done();
                 });
         });
-
         it("must match the limit", function () {
             expect(result && result instanceof Object).toBeTruthy();
             expect(result.total).toBe(limit);
             expect('duration' in result).toBe(true);
         });
-
     });
 
     describe("tracking", function () {
@@ -176,7 +172,7 @@ describe("Sequence - positive", function () {
         }
 
         beforeEach(function (done) {
-            spex.sequence(source, dest, 0, true)
+            spex.sequence(source, {dest: dest, track: true})
                 .then(function (data) {
                     result = data;
                 })
@@ -184,14 +180,12 @@ describe("Sequence - positive", function () {
                     done();
                 });
         });
-
         it("must track and return the sequence", function () {
             expect(result instanceof Array).toBe(true);
             expect('duration' in result).toBe(true);
             expect(result).toEqual([0, 1, 2]);
             expect(result).toEqual(tracked);
         });
-
     });
 
 });
