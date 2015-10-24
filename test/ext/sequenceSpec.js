@@ -149,7 +149,7 @@ describe("Sequence - positive", function () {
                 });
         });
         it("must match the limit", function () {
-            expect(result && result instanceof Object).toBeTruthy();
+            expect(result && typeof result === 'object').toBe(true);
             expect(result.total).toBe(limit);
             expect('duration' in result).toBe(true);
         });

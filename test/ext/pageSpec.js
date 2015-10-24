@@ -238,7 +238,7 @@ describe("Page - positive", function () {
         });
 
         it("must return all the data", function () {
-            expect(result && result instanceof Object).toBeTruthy();
+            expect(result && typeof result === 'object').toBe(true);
             expect(result.pages).toBe(3);
             expect(result.total).toBe(7);
             expect(typeof result.duration).toBe('number');
@@ -264,7 +264,7 @@ describe("Page - positive", function () {
         });
 
         it("must resolve correctly", function () {
-            expect(result && result instanceof Object).toBeTruthy();
+            expect(result && typeof result === 'object').toBe(true);
             expect(result.pages).toBe(limit);
             expect(result.total).toBe(limit * 3);
             expect('duration' in result).toBe(true);

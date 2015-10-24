@@ -49,11 +49,11 @@ describe("Main - positive", function () {
             inst = lib.main(promise);
         });
         it("must be complete", function () {
-            expect(inst && inst instanceof Object).toBeTruthy();
+            expect(inst && typeof inst === 'object').toBe(true);
             expect(inst.batch instanceof Function).toBe(true);
             expect(inst.page instanceof Function).toBe(true);
             expect(inst.sequence instanceof Function).toBe(true);
-            expect(inst.stream && inst.stream instanceof Object).toBeTruthy();
+            expect(inst.stream && typeof inst.stream === 'object').toBe(true);
             expect(inst.stream.read instanceof Function).toBe(true);
             expect(inst.$p instanceof Function).toBe(true);
         });

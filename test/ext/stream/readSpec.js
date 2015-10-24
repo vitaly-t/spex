@@ -140,7 +140,7 @@ describe("Stream/Read - positive", function () {
     });
 
     function testStat(obj) {
-        expect(obj && obj instanceof Object).toBeTruthy();
+        expect(obj && typeof obj === 'object').toBe(true);
         expect(obj.reads > 0).toBe(true);
         expect(obj.calls > 0).toBe(true);
         expect(obj.reads >= obj.calls).toBe(true);
@@ -166,7 +166,7 @@ describe("Stream/Read - positive", function () {
         });
 
         it("must provide a delay", function () {
-            expect(r && r instanceof Object).toBe(true);
+            expect(r && typeof r === 'object').toBe(true);
             expect(r.index > 0).toBe(true);
             expect(r.data).toBeTruthy();
             expect(r.delay >= 0).toBe(true);
