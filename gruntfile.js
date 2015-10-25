@@ -57,7 +57,8 @@ var links = {
     "When": "https://github.com/cujojs/when",
     "Q": "https://github.com/kriskowal/q",
     "RSVP": "https://github.com/tildeio/rsvp.js",
-    "Lie": "https://github.com/calvinmetcalf/lie"
+    "Lie": "https://github.com/calvinmetcalf/lie",
+    "Promises/A+": "https://promisesaplus.com"
 };
 
 var fs = require("fs");
