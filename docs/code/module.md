@@ -32,6 +32,7 @@ others use the module&#39;s function for it. Both types are supported the same.<
 
 <a name="module_spex..PromiseAdapter"></a>
 ### spex~PromiseAdapter
+**Summary**: Adapter for the primary promise operations.  
 
 ---
 ### Parameters
@@ -43,16 +44,19 @@ others use the module&#39;s function for it. Both types are supported the same.<
 <table>
   <thead>
     <tr>
-      <th>Param</th>
+      <th>Param</th><th>Type</th><th>Description</th>
     </tr>
   </thead>
   <tbody>
 <tr>
-    <td>create</td>
+    <td>create</td><td><code>function</code></td><td><p>A function that takes a callback parameter and returns a new promise object.</p>
+</td>
     </tr><tr>
-    <td>resolve</td>
+    <td>resolve</td><td><code>function</code></td><td><p>A function that takes an optional data and resolves a promise with it.</p>
+</td>
     </tr><tr>
-    <td>reject</td>
+    <td>reject</td><td><code>function</code></td><td><p>A function that takes an optional error and rejects a promise with it.</p>
+</td>
     </tr>  </tbody>
 </table>
 
