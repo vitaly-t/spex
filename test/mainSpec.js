@@ -39,6 +39,20 @@ describe("Main - negative", function () {
         });
 
     });
+
+    describe("passing invalid adapter", function () {
+        it("must throw an error", function () {
+            expect(function () {
+                new lib.main.PromiseAdapter();
+            }).toThrow('Adapter requires a function to create a promise.');
+            expect(function () {
+                new lib.main.PromiseAdapter(dummy);
+            }).toThrow('Adapter requires a function to resolve a promise.');
+            expect(function () {
+                new lib.main.PromiseAdapter(dummy, dummy);
+            }).toThrow('Adapter requires a function to reject a promise.');
+        });
+    });
 });
 
 describe("Main - positive", function () {
@@ -49,6 +63,7 @@ describe("Main - positive", function () {
             inst = lib.main(promise);
         });
         it("must be complete", function () {
+            expect(lib.main.PromiseAdapter instanceof Function).toBe(true);
             expect(inst && typeof inst === 'object').toBe(true);
             expect(inst.batch instanceof Function).toBe(true);
             expect(inst.page instanceof Function).toBe(true);
@@ -58,4 +73,21 @@ describe("Main - positive", function () {
             expect(inst.$p instanceof Function).toBe(true);
         });
     });
+
+    describe("initializing with adapter", function () {
+        var adapter, inst, p;
+        beforeEach(function () {
+            adapter = new lib.main.PromiseAdapter(function () {
+                return 123;
+            }, dummy, dummy);
+            inst = lib.main(adapter);
+            p = inst.$p(dummy);
+        });
+        it("must not throw any error", function () {
+            expect(adapter).toBeTruthy();
+            expect(inst).toBeTruthy();
+            expect(p).toBe(123);
+        });
+    });
+
 });
