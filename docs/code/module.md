@@ -5,7 +5,6 @@
 ---
 Attaches to an external promise library and provides additional methods built solelyon the basic promise operations: - construct a new promise with a callback function - resolve a promise with some result data - reject a promise with a reason### usageFor any third-party promise library:```jsvar promise = require('bluebird');var spex = require('spex')(promise);```For ES6 promises:```jsvar spex = require('spex')(Promise);```
 
-### Parameters
 <table>
   <thead>
     <tr>
@@ -35,12 +34,10 @@ others use the module&#39;s function for it. Both types are supported the same.<
 **Summary**: Adapter for the primary promise operations.  
 
 ---
-### Parameters
 <a name="new_module_spex..PromiseAdapter_new"></a>
 #### new PromiseAdapter(create, resolve, reject)
 
 ---
-### Parameters
 <table>
   <thead>
     <tr>
