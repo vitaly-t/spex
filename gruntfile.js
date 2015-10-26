@@ -58,6 +58,7 @@ var links = {
     "page": "page.md",
     "sequence": "sequence.md",
     "PromiseAdapter": "adapter.md",
+    "client-side": "https://github.com/vitaly-t/spex/blob/master/docs/client.md",
     "Promise": "https://github.com/then/promise",
     "Bluebird": "https://github.com/petkaantonov/bluebird",
     "When": "https://github.com/cujojs/when",

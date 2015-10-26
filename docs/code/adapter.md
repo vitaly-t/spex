@@ -3,7 +3,7 @@
 **Summary**: Adapter for the primary promise operations.  
 
 ---
-Provides compatibility with promise libraries that are not <a href="https://promisesaplus.com">Promises/A+</a> compliant,via functions that implement the primary operations with promises: - construct a new promise with a callback function - resolve a promise with some result data - reject a promise with a reason#### ExampleBelow is an example of setting up a client-side adapter for AngularJS $q.Please note that AngularJS 1.4.1 or later no longer requires a promise adapter.```jsvar spexLib = require('spex');var adapter = new spexLib.PromiseAdapter(   function (cb) {       return $q(cb); // creating a new promise;   }, function (data) {       return $q.when(data); // resolving a promise;   }, function (reason) {       return $q.reject(reason); // rejecting a promise;   });var spex = spexLib(adapter);```
+Provides compatibility with promise libraries that are not <a href="https://promisesaplus.com">Promises/A+</a> compliant,via functions that implement the primary operations with promises: - construct a new promise with a callback function - resolve a promise with some result data - reject a promise with a reason#### ExampleBelow is an example of setting up a $[client-side] adapter for AngularJS $q.Please note that AngularJS 1.4.1 or later no longer requires a promise adapter.```jsvar spexLib = require('spex'); // or include client-side spex.jsvar adapter = new spexLib.PromiseAdapter(   function (cb) {       return $q(cb); // creating a new promise;   }, function (data) {       return $q.when(data); // resolving a promise;   }, function (reason) {       return $q.reject(reason); // rejecting a promise;   });var spex = spexLib(adapter);```
 
 ### Parameters
 <table>
@@ -29,4 +29,4 @@ The callback parameter is expected to be <code>function(resolve, reject)</code>.
     </tr>  </tbody>
 </table>
 
-**See**: <a href="module.md">module</a>  
+**See**: <a href="module.md">module</a>, $[client-side]  
