@@ -1,6 +1,6 @@
 ## client-side usage
 
-Starting with version 3.0.0, this library became compatible with [Browserify],
+Starting with version 3.0.0, this library is compatible with [Browserify],
 so it can be easily used in a web application.
 
 You can either browserify the library yourself, or use predefined commands
@@ -14,9 +14,8 @@ $ npm install
 ```
 $ npm run browserify
 ```
-This generates file `spex.js` within the module's root folder. The library's instance is exposed
-via global variable `spexLib`, which can be used to initialize the library with your promise library
-of choice, as shown in the example below:
+This generates file `spex.js` within the module's root folder. The library exposes global variable `spexLib`,
+to be used for the library initialization, as shown in the example below:
  
 ```html
 <script src="spex.js"></script>
