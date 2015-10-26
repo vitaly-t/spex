@@ -3,11 +3,6 @@
 **Summary**: Adapter for the primary promise operations.  
 
 ---
-### Parameters
-<a name="new_PromiseAdapter_new"></a>
-### new PromiseAdapter(create, resolve, reject)
-
----
 Provides compatibility with promise libraries that are not <a href="https://promisesaplus.com">Promises/A+</a> compliant,via functions that implement the primary operations with promises: - construct a new promise with a callback function - resolve a promise with some result data - reject a promise with a reasonBelow is an example of setting up an adapter for AngularJS $q:```jsvar spexLib = require('spex');var adapter = new spexLib.PromiseAdapter(   function (cb) {       return $q(cb); // creating a new promise;   }, function (data) {       return $q.when(data); // resolving a promise;   }, function (reason) {       return $q.reject(reason); // rejecting a promise;   });var spex = spexLib(adapter);```
 
 ### Parameters
