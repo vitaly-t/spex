@@ -29,3 +29,4 @@ The callback parameter is expected to be <code>function(resolve, reject)</code>.
     </tr>  </tbody>
 </table>
 
+**See**: <a href="module.md">module</a>  

@@ -53,6 +53,7 @@ var links = {
     "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "Readable": "https://nodejs.org/api/stream.html#stream_class_stream_readable",
     "stream": "https://github.com/vitaly-t/spex/blob/master/docs/concept/stream.md",
+    "module": "module.md",
     "batch": "batch.md",
     "page": "page.md",
     "sequence": "sequence.md",
