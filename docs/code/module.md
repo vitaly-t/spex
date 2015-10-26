@@ -40,7 +40,7 @@ can be passed in, which provides compatibility with all non-standard promise lib
 #### new PromiseAdapter(create, resolve, reject)
 
 ---
-Provides compatibility with promise libraries that are not <a href="https://promisesaplus.com">Promises/A+</a> compliant,via functions that implement the primary operations with promises: - construct a new promise with a callback function - resolve a promise with some result data - reject a promise with a reason
+Provides compatibility with promise libraries that are not <a href="https://promisesaplus.com">Promises/A+</a> compliant,via functions that implement the primary operations with promises: - construct a new promise with a callback function - resolve a promise with some result data - reject a promise with a reasonExample of a promise adapter for AngularJS $q:```jsvar adapter = new PromiseAdapter(function (cb) {       return $q(cb); // creating a new promise;   }, function (data) {       return $q.when(data); // resolving a promise;   }, function (reason) {       return $q.reject(reason); // rejecting a promise;   });```
 
 <table>
   <thead>
