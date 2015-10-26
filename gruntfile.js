@@ -26,6 +26,10 @@ var files = [
         dest: codePath + "module.md"
     },
     {
+        src: "lib/adapter.js",
+        dest: codePath + "adapter.md"
+    },
+    {
         src: "lib/ext/batch.js",
         dest: codePath + "batch.md"
     },
