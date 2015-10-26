@@ -56,6 +56,7 @@ var links = {
     "batch": "batch.md",
     "page": "page.md",
     "sequence": "sequence.md",
+    "PromiseAdapter": "adapter.md",
     "Promise": "https://github.com/then/promise",
     "Bluebird": "https://github.com/petkaantonov/bluebird",
     "When": "https://github.com/cujojs/when",
@@ -74,8 +75,10 @@ function fixLinks() {
     var done = this.async(), count = 0;
     files.forEach(function (f) {
         fs.readFile(f.dest, "utf-8", function (_, data) {
-            data = data.replace(/\$\[[\/\+a-z0-9\s]+\]/gi, function (name) {
+            data = data.replace(/\$\[[a-z\s\/\+]+\]/gi, function (name) {
+                console.log("NAME:", name);
                 var sln = name.replace(/\$\[|\]/g, ''); // stripped link name;
+                console.log("SLN:", sln);
                 if (sln in links) {
                     return "<a href=\"" + links[sln] + "\">" + sln + "</a>"
                 }
