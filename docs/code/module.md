@@ -26,4 +26,4 @@ compatibility with any promise library outside of the standard.</p>
 </table>
 
 **Returns**: <code>Object</code> - Namespace with all supported methods.  
-**See**: <a href="batch.md">batch</a>, <a href="page.md">page</a>, <a href="sequence.md">sequence</a>, <a href="https://github.com/vitaly-t/spex/blob/master/docs/concept/stream.md">stream</a>  
+**See**: <a href="adapter.md">PromiseAdapter</a>, <a href="batch.md">batch</a>, <a href="page.md">page</a>, <a href="sequence.md">sequence</a>, <a href="https://github.com/vitaly-t/spex/blob/master/docs/concept/stream.md">stream</a>  
