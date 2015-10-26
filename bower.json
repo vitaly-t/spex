@@ -6,6 +6,8 @@
   ],
   "ignore": [
     "spec",
+    "docs",
+    "benchmarks",
     "node_modules",
     "bower_components",
     ".travis.yml"
@@ -33,8 +35,8 @@
     "coveralls": "2.x",
     "grunt": "0.4.x",
     "grunt-jsdoc-to-markdown": "1.x",
-    "istanbul": "0.3",
+    "istanbul": "0.4",
     "jasmine-node": "1.x",
-    "jsdoc": "3.x"
+    "browserify": "11.x"
   }
 }
