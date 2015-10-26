@@ -10,12 +10,14 @@ from within the module's root folder:
 ```
 $ npm install
 ```
-* create the client-side version of the library: 
+* clreate client-side version of the library: 
 ```
 $ npm run browserify
 ```
-This generates file `spex.js` within the module's root folder. The library exposes global variable `spexLib`,
-to be used for the library initialization, as shown in the example below:
+This generates file `spex.js` within the module's root folder, to copied into your web project.
+
+The library exposes global variable `spexLib`, to be used for the library initialization, as shown
+in the example below:
  
 ```html
 <script src="spex.js"></script>
