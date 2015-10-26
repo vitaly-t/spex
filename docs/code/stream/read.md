@@ -5,6 +5,7 @@
 ---
 **Alternative Syntax:**`read(stream, receiver, {closable, readSize})` &#8658; `Promise`Reads the entire stream, using **paused mode**, with support for both synchronousand asynchronous data processing.**NOTE:** Once the method has finished, the onus is on the caller to release the streamaccording to its protocol.<img src="../../images/read.png" width="641px" height="193px" alt="read">
 
+### Parameters
 <table>
   <thead>
     <tr>

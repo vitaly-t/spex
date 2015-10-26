@@ -5,6 +5,7 @@
 ---
 **Alternative Syntax:**`page(source, {dest, limit})` &#8658; `Promise`Acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) from the source function, one by one,and resolves each page as a <a href="batch.md">batch</a>, till no more pages left or an error/reject occurs.<img src="../images/page.png" width="561px" height="193px" alt="page">
 
+### Parameters
 <table>
   <thead>
     <tr>

@@ -5,6 +5,7 @@
 ---
 **Alternative Syntax:**`sequence(source, {dest, limit, track})` &#8658; `Promise`Acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,till either no more values left in the sequence or an error/reject occurs.It supports both [linked and detached sequencing](../concept/sequencing.md).<img src="../images/sequence.png" width="561px" height="193px" alt="sequence">
 
+### Parameters
 <table>
   <thead>
     <tr>
