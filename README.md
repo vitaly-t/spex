@@ -38,6 +38,8 @@ var spex = require('spex')(promise);
 var spex = require('spex')(Promise);
 ```
 
+See also: [client-side usage](docs/client.md).
+
 ### API
 
 * [Module]
