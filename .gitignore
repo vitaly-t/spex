@@ -3,3 +3,4 @@ node_modules/
 benchmarks/node_modules/
 out/
 coverage/
+/spex.js
