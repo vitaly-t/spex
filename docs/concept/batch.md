@@ -56,10 +56,12 @@ var values = [
 spex.batch(values)
     .then(function (data) {
         console.log("DATA:", data);
-    }, function (reason) {
-        console.log("REASON:", reason);
+    })
+    .catch(function (error) {
+        console.log("ERROR:", error);
     });
 ```
+
 This outputs:
 ```
 DATA: [ 123, 'Hello', 'World', '!' ]
@@ -74,7 +76,7 @@ function getWord() {
 ```
 Now the output is:
 ```
-REASON: [ { success: true, result: 123 },
+ERROR: [ { success: true, result: 123 },
   { success: true, result: 'Hello' },
   { success: false, result: 'World' },
   { success: true, result: '!' } ]
@@ -83,11 +85,11 @@ i.e. the entire array is settled, reporting index-bound results.
 
 And if instead of reporting the entire reason we call `getErrors()`:
 ```javascript
-console.log("REASON:", reason.getErrors());
+console.log("ERROR:", reason.getErrors());
 ```
 then the output will be:
 ```
-REASON: [ 'World' ]
+ERROR: [ 'World' ]
 ```
 This is just to simplify quick access to the list of errors that occurred.
 

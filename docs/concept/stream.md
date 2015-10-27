@@ -16,8 +16,9 @@ function receiver(index, data, delay) {
 stream.read(rs, receiver)
     .then(function (data) {
         console.log("DATA:", data);
-    }, function (reason) {
-        console.log("REASON:", reason);
+    })
+    .catch(function (error) {
+        console.log("ERROR:", error);
     });
 ```
 
@@ -39,8 +40,9 @@ function receiver(index, data, delay) {
 stream.read(rs, receiver)
     .then(function (data) {
         console.log("DATA:", data);
-    }, function (reason) {
-        console.log("REASON:", reason);
+    })
+    .catch(function (error) {
+        console.log("ERROR:", error);
     });
 ```
 
