@@ -1,4 +1,4 @@
-## Streaming and Paging
+# Streaming and Paging
 
 In the most generic terms, data streaming is copying data from a source/provider and into a destination/recipient. 
 
@@ -9,7 +9,7 @@ And this is one of the things that methods [page] and [sequence] can do - resolv
 The two methods can handle both limited and infinite streams, and they can stream data either one-by-one (method [sequence])
 or in bundles (method [page]).
 
-#### Examples
+### Examples
 
 Below is a simple track-enabled sequence that creates and returns promises one by one.
 It also includes a destination function for logging purposes.

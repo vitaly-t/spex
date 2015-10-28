@@ -1,4 +1,4 @@
-## Batch Processing
+# Batch Processing
  
 Consider executing a batch/array of promises within a temporary context:
   
@@ -24,7 +24,7 @@ And this is where method [batch] helps:
 * It rejects when any value in the array rejects, providing complete details
 * It has additional diagnostics and results reporting features
 
-#### Examples
+### Examples
 
 Let's start with a positive example, and throw in a few combinations of [mixed values].
  

@@ -1,6 +1,6 @@
-## Linked and Detached Sequencing
+# Linked and Detached Sequencing
 
-#### Terminology
+### Terminology
 
 Elements in a *detached sequence* are created without any dependency between them.
 
@@ -11,7 +11,7 @@ In a *linked sequence* elements are created with one or both of the dependencies
 
 Method [sequence] supports each of the three sequence variations.
 
-#### Example
+### Example
 
 Let's create an academic example of a linked sequence that calculates primes from a previous result.
 
@@ -69,7 +69,7 @@ It will produce the identical output as before:
 Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]
 ```
 
-#### Benchmarks
+### Benchmarks
 
 In the example above our `source` function returns a number directly, but it can be any [mixed value].
 

@@ -1,6 +1,6 @@
-## Data Throttling & Load Balancing
+# Data Throttling & Load Balancing
 
-#### Terminology
+### Terminology
 
 *Data throttling* is processing data in limited chunks, as an intentional bottleneck added for predictable rate of processing.
 It adds quantifiable throughput to control either resource consumption or a traffic quota.  
@@ -8,7 +8,7 @@ It adds quantifiable throughput to control either resource consumption or a traf
 *Load balancing* is about enforcing a time quota on operations that need to take turns with other tasks in the system.
 As such, its implementation is usually limited to a single system, while *data throttling* can be employed by multiple systems independently.
 
-#### Solution
+### Solution
 
 With the help of method [page], promises can be resolved in chunks, thus throttling the data processing, while method [sequence] can do the same
 on the one-by-one basis. 
@@ -16,9 +16,9 @@ on the one-by-one basis.
 Both methods support return of promises from `source` or `destination` handlers, which allows injecting any necessary
 delays needed to implement *load balancing*.
 
-#### Examples
+### Examples
 
-**Balanced Page Source**
+##### Balanced Page Source
 
 The example below uses method [page] to initiate a sequence of 5 pages, and then logs the resolved data into the console.
 The `source` function serves each page with a half-second delay.
@@ -58,7 +58,7 @@ LOG: [ 'page-4', 1446050707839 ]
 FINISHED: { pages: 5, total: 10, duration: 2520 }
 ```
 
-**Balanced Sequence Receiver**
+##### Balanced Sequence Receiver
 
 In the following example we have a [sequence] that returns data while the index is less than 5, and the
 destination function that enforces 1 second delay on processing each data resolved from the source.
