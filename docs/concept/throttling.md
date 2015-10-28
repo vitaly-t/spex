@@ -60,7 +60,7 @@ FINISHED: { pages: 5, total: 10, duration: 2520 }
 
 **Balanced Sequence Receiver**
 
-In the following example we have a sequence that returns data while the index is less than 5, and the
+In the following example we have a [sequence] that returns data while the index is less than 5, and the
 destination function that enforces 1 second delay on processing each data resolved from the source.
  
 ```javascript 
