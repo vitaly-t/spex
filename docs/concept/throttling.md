@@ -38,7 +38,7 @@ function source(index, data, delay) {
 }
 
 function logger(index, data, delay) {
-    console.log("RESOLVED:", data);
+    console.log("LOG:", data);
 }
 
 spex.page(source, {dest: logger, limit: 5})
@@ -50,12 +50,12 @@ spex.page(source, {dest: logger, limit: 5})
 Output:
 
 ```
-RESOLVED: [ 'page-0', 1446050510512 ]
-RESOLVED: [ 'page-1', 1446050511012 ]
-RESOLVED: [ 'page-2', 1446050511512 ]
-RESOLVED: [ 'page-3', 1446050512012 ]
-RESOLVED: [ 'page-4', 1446050512512 ]
-FINISHED: { pages: 5, total: 10, duration: 2503 }
+LOG: [ 'page-0', 1446050705823 ]
+LOG: [ 'page-1', 1446050706327 ]
+LOG: [ 'page-2', 1446050706834 ]
+LOG: [ 'page-3', 1446050707334 ]
+LOG: [ 'page-4', 1446050707839 ]
+FINISHED: { pages: 5, total: 10, duration: 2520 }
 ```
 
 **Balanced Sequence Receiver**
