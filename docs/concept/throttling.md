@@ -16,15 +16,52 @@ on the one-by-one basis.
 Both methods support return of promises from `source` or `destination` handlers, which allows injecting any necessary
 delays needed to implement *load balancing*.
 
-[page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
-[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
-
 #### Examples
 
-**Balanced Receiver**
+**Balanced Page Source**
 
-In the example below we have a sequence that returns data while the index is less than 5, and the destination
-function that enforces 1 second delay on processing each data resolved from the source.
+The example below uses method [page] to initiate a sequence of 5 pages, and then logs the resolved data into the console.
+The `source` function serves each page with a half-second delay.
+
+```javascript
+var spex = require('spex')(Promise);
+
+function source(index, data, delay) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve([
+                "page-" + index, // simple value;
+                Promise.resolve(Date.now()) // promise value;
+            ])
+        }, 500); // wait 1/2 second before serving the next page;
+    });
+}
+
+function logger(index, data, delay) {
+    console.log("RESOLVED:", data);
+}
+
+spex.page(source, {dest: logger, limit: 5})
+    .then(function (data) {
+        console.log("FINISHED:", data);
+    });
+```
+
+Output:
+
+```
+RESOLVED: [ 'page-0', 1446050510512 ]
+RESOLVED: [ 'page-1', 1446050511012 ]
+RESOLVED: [ 'page-2', 1446050511512 ]
+RESOLVED: [ 'page-3', 1446050512012 ]
+RESOLVED: [ 'page-4', 1446050512512 ]
+FINISHED: { pages: 5, total: 10, duration: 2503 }
+```
+
+**Balanced Sequence Receiver**
+
+In the following example we have a sequence that returns data while the index is less than 5, and the
+destination function that enforces 1 second delay on processing each data resolved from the source.
  
 ```javascript 
 var spex = require('spex')(Promise);
@@ -67,3 +104,6 @@ DEST: 4 4 1001
 SOURCE: 5 4 1000
 DATA: { total: 5, duration: 5013 }
 ```
+
+[page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
+[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
