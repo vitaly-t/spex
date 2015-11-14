@@ -48,7 +48,7 @@ for each page, process it and respond as required.</p>
 <p>It can optionally return a promise object, if notifications are handled asynchronously.
 And if a promise is returned, the method will not request another page from the <code>source</code>
 function until the promise has been resolved.</p>
-<p>If the function throws an error or returns a promise that rejects, the sequence terminates,
+<p>If the function throws an error or returns a rejected promise, the sequence terminates,
 and the method rejects with object <code>{index, error, dest}</code>:</p>
 <ul>
 <li><code>index</code> = index of the page passed into the function</li>
