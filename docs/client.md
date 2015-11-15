@@ -6,7 +6,7 @@ so it can be easily used in a web application.
 You can either browserify the library yourself, or use predefined commands
 from within the module's root folder:
 
-* install all the library's dependencies:
+* install the library's DEV dependencies:
 ```
 $ npm install
 ```
@@ -21,7 +21,7 @@ The library exposes global variable `spexLib`, to be initialized as shown in the
 ```html
 <script src="spex.js"></script>
 <script>
-    var spex = spexLib(Promise);
+    var spex = spexLib(Promise); // Initializing with ES6 Promise;
 </script>
 ```
 
