@@ -15,11 +15,6 @@ describe("Batch - negative", function () {
                 spex.batch();
             }).toThrow("Batch requires an array of values.");
         });
-        it("must detect invalid callback", function () {
-            expect(function () {
-                spex.batch([], 123);
-            }).toThrow("Invalid callback function specified.");
-        });
     });
 
     describe("callback error", function () {

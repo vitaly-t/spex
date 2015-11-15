@@ -15,11 +15,6 @@ describe("Sequence - negative", function () {
                 spex.sequence();
             }).toThrow("Invalid sequence source.");
         });
-        it("must detect invalid destination", function () {
-            expect(function () {
-                spex.sequence(dummy, 123);
-            }).toThrow("Invalid sequence destination.");
-        });
     });
 
     describe("source error", function () {
@@ -35,7 +30,6 @@ describe("Sequence - negative", function () {
                     r = reason;
                     done();
                 })
-
         });
 
         it("must reject correctly", function () {

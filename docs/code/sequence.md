@@ -52,7 +52,6 @@ and the method rejects with object <code>{index, error, dest}</code>:</p>
 <li><code>error</code> = the error thrown or the rejection reason</li>
 <li><code>dest</code> = resolved data that was passed into the function</li>
 </ul>
-<p>Passing in a non-empty value other than a function will throw <code>Invalid sequence destination.</code></p>
 </td>
     </tr><tr>
     <td>[limit]</td><td><code>Number</code></td><td><code>0</code></td><td><p>Limits the maximum size of the sequence. If the value is greater than 0, the method will

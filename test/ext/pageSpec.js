@@ -15,11 +15,6 @@ describe("Page - negative", function () {
                 spex.page();
             }).toThrow("Invalid page source.");
         });
-        it("must detect invalid destination", function () {
-            expect(function () {
-                spex.page(dummy, 123);
-            }).toThrow("Invalid page destination.");
-        });
     });
 
     describe("source error", function () {
@@ -35,7 +30,6 @@ describe("Page - negative", function () {
                     r = reason;
                     done();
                 })
-
         });
 
         it("must reject correctly", function () {
