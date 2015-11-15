@@ -37,6 +37,7 @@ and the corresponding value in the rejected array is reported as <code>{success,
 <li><code>result</code> = the rejection reason or the error thrown by the notification callback</li>
 <li><code>origin</code> = the original data passed into the callback, as object <code>{success, result}</code></li>
 </ul>
+<p>Passing in a non-empty value other than a function will throw <code>Invalid callback function.</code></p>
 </td>
     </tr>  </tbody>
 </table>
