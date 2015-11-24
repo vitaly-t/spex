@@ -78,9 +78,7 @@ function fixLinks() {
     files.forEach(function (f) {
         fs.readFile(f.dest, "utf-8", function (_, data) {
             data = data.replace(/\$\[[a-z\s\/\+-]+\]/gi, function (name) {
-                console.log("NAME:", name);
                 var sln = name.replace(/\$\[|\]/g, ''); // stripped link name;
-                console.log("SLN:", sln);
                 if (sln in links) {
                     return "<a href=\"" + links[sln] + "\">" + sln + "</a>"
                 }
