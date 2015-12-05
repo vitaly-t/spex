@@ -171,4 +171,24 @@ describe("Batch - positive", function () {
             expect(typeof result.duration).toBe('number');
         });
     });
+
+    describe("this context", function () {
+        var ctx, context = {};
+
+        function test() {
+            ctx = this;
+        }
+
+        beforeEach(function (done) {
+            spex.batch.call(context, [test])
+                .then(function () {
+                    done();
+                });
+        });
+        it("must be passed in correctly", function () {
+            expect(ctx).toBe(context);
+        });
+
+    });
+
 });

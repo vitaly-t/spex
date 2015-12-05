@@ -182,4 +182,23 @@ describe("Sequence - positive", function () {
         });
     });
 
+    describe("this context", function () {
+        var ctx, context = {};
+
+        function source() {
+            ctx = this;
+        }
+
+        beforeEach(function (done) {
+            spex.sequence.call(context, source)
+                .then(function () {
+                    done();
+                });
+        });
+        it("must be passed in correctly", function () {
+            expect(ctx).toBe(context);
+        });
+
+    });
+
 });
