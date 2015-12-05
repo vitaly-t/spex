@@ -18,7 +18,7 @@
 <p>Passing in anything other than an array will throw <code>Batch requires an array of values.</code></p>
 </td>
     </tr><tr>
-    <td>[cb]</td><td><code>function</code></td><td><p>Optional callback to receive the result for each settled value.</p>
+    <td>[cb]</td><td><code>function</code> | <code>Generator</code></td><td><p>Optional callback (or generator) to receive the result for each settled value.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = index of the value in the source array</li>
