@@ -18,7 +18,7 @@
 <p>Passing in anything else will throw <code>Readable stream is required.</code></p>
 </td>
     </tr><tr>
-    <td>receiver</td><td><code>function</code></td><td></td><td><p>Data processing callback.</p>
+    <td>receiver</td><td><code>function</code> | <code>generator</code></td><td></td><td><p>Data processing callback (or generator).</p>
 <p>Passing in anything else will throw <code>Invalid stream receiver.</code></p>
 <p>Parameters:</p>
 <ul>
