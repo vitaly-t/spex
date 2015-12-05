@@ -48,5 +48,5 @@ describe("Generators", function () {
         expect(ctx.negative).toBe(context);
         expect(ctx.error).toBe(context);
     });
-
 });
+

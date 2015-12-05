@@ -7,3 +7,6 @@ try {
 }
 
 require('./es6/generators');
+require('./es6/batch');
+require('./es6/sequence');
+require('./es6/page');
