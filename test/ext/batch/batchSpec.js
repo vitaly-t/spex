@@ -1,11 +1,8 @@
 'use strict';
 
-var lib = require('../header');
+var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
-
-var dummy = function () {
-};
 
 describe("Batch - negative", function () {
 

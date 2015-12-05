@@ -6,7 +6,9 @@ try {
     return; // ES6 not supported, exit.
 }
 
-require('./es6/generators');
-require('./es6/batch');
-require('./es6/sequence');
-require('./es6/page');
+require('./generators');
+require('./ext/batch/es6');
+require('./ext/page/es6');
+require('./ext/sequence/es6');
+require('./ext/stream/es6');
+

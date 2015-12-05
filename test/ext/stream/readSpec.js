@@ -5,9 +5,6 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
-var dummy = function () {
-};
-
 describe("Stream/Read - negative", function () {
 
     var stm;
