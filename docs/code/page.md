@@ -14,7 +14,7 @@
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with the next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>).
+    <td>source</td><td><code>function</code> | <code>generator</code></td><td></td><td><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with the next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>).
 Returning or resolving with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
 <p>Parameters:</p>
@@ -36,7 +36,7 @@ from the source.</code></p>
 <p>Passing in anything other than a function will throw <code>Invalid page source.</code></p>
 </td>
     </tr><tr>
-    <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive a resolved <a href="batch.md">batch</a> of data
+    <td>[dest]</td><td><code>function</code> | <code>generator</code></td><td></td><td><p>Optional destination function (or generator), to receive a resolved <a href="batch.md">batch</a> of data
 for each page, process it and respond as required.</p>
 <p>Parameters:</p>
 <ul>

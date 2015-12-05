@@ -14,7 +14,7 @@
   </thead>
   <tbody>
 <tr>
-    <td>source</td><td><code>function</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning or resolving
+    <td>source</td><td><code>function</code> | <code>generator</code></td><td></td><td><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning or resolving
 with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>Parameters:</p>
 <ul>
@@ -33,7 +33,7 @@ and the method rejects with object <code>{index, error, source}</code>:</p>
 <p>Passing in anything other than a function will throw <code>Invalid sequence source.</code></p>
 </td>
     </tr><tr>
-    <td>[dest]</td><td><code>function</code></td><td></td><td><p>Optional destination function (notification callback), to receive resolved data for each index,
+    <td>[dest]</td><td><code>function</code> | <code>generator</code></td><td></td><td><p>Optional destination function (or generator), to receive resolved data for each index,
 process it and respond as required.</p>
 <p>Parameters:</p>
 <ul>
