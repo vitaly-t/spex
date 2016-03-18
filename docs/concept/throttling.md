@@ -11,9 +11,9 @@ As such, its implementation is usually limited to a single system, while *data t
 ### Solution
 
 With the help of method [page], promises can be resolved in chunks, thus throttling the data processing, while method [sequence] can do the same
-on the one-by-one basis. 
+on a one-by-one basis. 
  
-Both methods support return of promises from `source` or `destination` handlers, which allows injecting any necessary
+Both methods support return of promises from `source` or `destination` callbacks, which allows injecting any necessary
 delays needed to implement *load balancing*.
 
 ### Examples
@@ -61,7 +61,7 @@ FINISHED: { pages: 5, total: 10, duration: 2520 }
 ##### Balanced Sequence Receiver
 
 In the following example we have a [sequence] that returns data while the index is less than 5, and the
-destination function that enforces 1 second delay on processing each data resolved from the source.
+destination function that enforces a 1 second delay on processing each data resolved from the source.
  
 ```javascript 
 var spex = require('spex')(Promise);

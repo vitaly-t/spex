@@ -4,7 +4,7 @@
 
 Elements in a *detached sequence* are created without any dependency between them.
 
-In a *linked sequence* elements are created with one or both of the dependencies:
+In a *linked sequence* elements are created with one or both of the dependency types:
   
 * element's index in the sequence
 * previous element in the sequence
@@ -13,7 +13,7 @@ Method [sequence] supports each of the three sequence variations.
 
 ### Example
 
-Let's create an academic example of a linked sequence that calculates primes from a previous result.
+Let's implement a linked sequence that calculates primes from the previous result.
 
 ```javascript
 function nextPrime(value) {
