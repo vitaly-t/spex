@@ -1,4 +1,5 @@
 <a name="page"></a>
+
 ## page(source, [dest], [limit]) ⇒ <code>Promise</code>
 **Summary**: Resolves a dynamic sequence of pages/arrays with <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 

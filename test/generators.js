@@ -5,6 +5,7 @@ var promise = lib.promise;
 var spex = lib.main(promise);
 
 describe("Generators", function () {
+    
     var result, ctx = {}, context = {};
 
     function * positive() {
@@ -29,6 +30,7 @@ describe("Generators", function () {
                 done();
             });
     });
+    
     it("must resolve successfully", function () {
         expect(result).toEqual([
             {

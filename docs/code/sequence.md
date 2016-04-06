@@ -1,4 +1,5 @@
 <a name="sequence"></a>
+
 ## sequence(source, [dest], [limit], [track]) ⇒ <code>Promise</code>
 **Summary**: Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 

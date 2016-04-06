@@ -1,5 +1,6 @@
 'use strict';
 
+var util = require('util');
 var lib = require('./header');
 var promise = lib.promise;
 var spex = lib.main(promise);
@@ -79,7 +80,7 @@ describe("Main - positive", function () {
         var adapter, inst, p;
         beforeEach(function () {
             adapter = new PromiseAdapter(function () {
-                return 123;
+                return 100;
             }, dummy, dummy);
             inst = lib.main(adapter);
             p = inst.$p(dummy);
@@ -87,7 +88,7 @@ describe("Main - positive", function () {
         it("must not throw any error", function () {
             expect(adapter).toBeTruthy();
             expect(inst).toBeTruthy();
-            expect(p).toBe(123);
+            expect(p).toBe(100);
         });
     });
 
@@ -104,6 +105,54 @@ describe("Main - positive", function () {
             var obj = {};
             var adapter = PromiseAdapter.call(obj, dummy, dummy, dummy);
             expect(adapter instanceof PromiseAdapter).toBe(true);
+        });
+    });
+
+    describe("multi-init", function () {
+
+        var PromiseOne = [
+            function (cb) {
+                return new promise.Promise(cb);
+            },
+            function (data) {
+                return promise.resolve('data-one');
+            },
+            function (reason) {
+                return promise.reject(reason);
+            }
+        ];
+
+        var PromiseTwo = [
+            function (cb) {
+                return new promise.Promise(cb);
+            },
+            function (data) {
+                return promise.resolve('data-two');
+            },
+            function (reason) {
+                return promise.reject(reason);
+            }
+        ];
+        
+        var one = PromiseAdapter.apply(null, PromiseOne);
+        var two = PromiseAdapter.apply(null, PromiseTwo);
+        var result;
+        
+        beforeEach(function (done) {
+            var oneLib = lib.main(one);
+            var twoLib = lib.main(two);
+            
+            spex.batch([
+                    twoLib.batch([]), oneLib.batch([])
+                ])
+                .then(function (data) {
+                    result = data;
+                    done();
+                });
+        });
+
+        it("must be supported", function () {
+            expect(result).toEqual(['data-two', 'data-one']);
         });
     });
 

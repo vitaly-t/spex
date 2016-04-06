@@ -1,4 +1,5 @@
 <a name="batch"></a>
+
 ## batch(values, [cb]) ⇒ <code>Promise</code>
 **Summary**: Settles a predefined array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.  
 

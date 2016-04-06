@@ -1,4 +1,5 @@
 <a name="module_spex"></a>
+
 ## spex ⇒ <code>Object</code>
 **Summary**: Specialized Promise Extensions  
 

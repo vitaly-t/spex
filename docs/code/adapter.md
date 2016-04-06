@@ -1,4 +1,5 @@
 <a name="PromiseAdapter"></a>
+
 ## PromiseAdapter
 **Summary**: Adapter for the primary promise operations.  
 

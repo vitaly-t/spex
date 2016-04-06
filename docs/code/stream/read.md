@@ -1,4 +1,5 @@
 <a name="read"></a>
+
 ## read(stream, receiver, [closable], [readSize]) ⇒ <code>Promise</code>
 **Summary**: Consumes and processes data from a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream.  
 

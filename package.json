@@ -1,6 +1,6 @@
 {
   "name": "spex",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Specialized Promise Extensions",
   "main": "lib/index.js",
   "scripts": {
@@ -46,6 +46,6 @@
     "grunt-jsdoc-to-markdown": "1.x",
     "istanbul": "0.4",
     "jasmine-node": "1.x",
-    "browserify": "12.x"
+    "browserify": "13.x"
   }
 }
