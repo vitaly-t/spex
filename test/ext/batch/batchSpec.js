@@ -107,7 +107,7 @@ describe("Batch - negative", function () {
         var error, msg = "no values";
 
         function value() {
-            throw msg;
+            throw new Error(msg);
         }
 
         beforeEach(function (done) {
@@ -121,9 +121,63 @@ describe("Batch - negative", function () {
             expect(error).toEqual([
                 {
                     success: false,
-                    result: msg
+                    result: new Error(msg)
                 }
             ]);
+            expect(error.first).toEqual(new Error(msg));
+            expect(error.message).toBe(msg);
+        });
+    });
+
+    describe("input: null reject", function () {
+        var error;
+
+        function value() {
+            throw null;
+        }
+
+        beforeEach(function (done) {
+            spex.batch([value])
+                .catch(function (reason) {
+                    error = reason;
+                    done();
+                })
+        });
+        it("must reject correctly", function () {
+            expect(error).toEqual([
+                {
+                    success: false,
+                    result: null
+                }
+            ]);
+            expect(error.first).toBe(null);
+            expect(error.message).toBe(null);
+        });
+    });
+
+    describe("input: simple reject", function () {
+        var error;
+
+        function value() {
+            throw 123;
+        }
+
+        beforeEach(function (done) {
+            spex.batch([value])
+                .catch(function (reason) {
+                    error = reason;
+                    done();
+                })
+        });
+        it("must reject correctly", function () {
+            expect(error).toEqual([
+                {
+                    success: false,
+                    result: 123
+                }
+            ]);
+            expect(error.first).toBe(123);
+            expect(error.message).toBe(123);
         });
     });
 
@@ -146,8 +200,10 @@ describe("Batch - negative", function () {
                 });
         });
         it("must be reported correctly", function () {
-            expect(error).toEqual([{success: false, result: [{success: false, result: 'internal failure'}]}]);
+            expect(error).toEqual([{success: false, result: [{success: false, result: msg}]}]);
             expect(error.getErrors()).toEqual([[msg]]);
+            expect(error.first).toBe(msg);
+            expect(error.message).toBe(msg);
         });
     });
 });

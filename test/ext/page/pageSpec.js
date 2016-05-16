@@ -153,7 +153,7 @@ describe("Page - negative", function () {
 
         function source(idx) {
             if (idx > 1) {
-                return [1, promise.reject(2), 3];
+                return [1, promise.reject('second'), 3];
             }
             return [];
         }
@@ -176,7 +176,7 @@ describe("Page - negative", function () {
                     },
                     {
                         success: false,
-                        result: 2
+                        result: 'second'
                     },
                     {
                         success: true,
@@ -184,7 +184,7 @@ describe("Page - negative", function () {
                     }
                 ]
             });
-            expect(error.getError()).toBe(2);
+            expect(error.getError()).toBe('second');
         });
     });
 
