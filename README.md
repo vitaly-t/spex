@@ -16,17 +16,6 @@
 $ npm install spex
 ```
 
-### Testing
-
-```
-$ npm test
-```
-
-Testing with coverage:
-```
-$ npm run coverage
-```
-
 ### Usage
 
 * For any [Promises/A+] library: [Promise], [Bluebird], [When], [Q], [RSVP], etc.
@@ -50,6 +39,34 @@ See also: [client-side usage](docs/client.md).
   - [sequence]
   - [stream](docs/concept/stream.md)
     - [read]
+
+
+### Testing
+
+* Clone the repository (or download, if you prefer):
+
+```
+$ git clone https://github.com/vitaly-t/spex
+```
+
+* Install the library's DEV dependencies:
+
+```
+$ npm install
+```
+
+* To run all tests:
+
+```
+$ npm test
+```
+
+* To run all tests with coverage:
+
+```
+$ npm run coverage
+```
+
   
 [Module]:https://github.com/vitaly-t/spex/blob/master/docs/code/module.md
 [batch]:https://github.com/vitaly-t/spex/blob/master/docs/code/batch.md

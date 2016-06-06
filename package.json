@@ -1,6 +1,6 @@
 {
   "name": "spex",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Specialized Promise Extensions",
   "main": "lib/index.js",
   "scripts": {
@@ -10,8 +10,7 @@
     "browserify": "browserify lib/index.js -s spexLib -o spex.js"
   },
   "files": [
-    "lib",
-    "test"
+    "lib"
   ],
   "homepage": "https://github.com/vitaly-t/spex",
   "repository": {
