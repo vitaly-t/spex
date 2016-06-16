@@ -7,10 +7,17 @@ var spex = lib.main(promise);
 describe("Batch - negative", function () {
 
     describe("with invalid parameters", function () {
-        it("must detect invalid array of values", function () {
-            expect(function () {
-                spex.batch();
-            }).toThrow("Batch requires an array of values.");
+        var error;
+        beforeEach(function (done) {
+            spex.batch()
+                .catch(function (e) {
+                    error = e;
+                    done();
+                });
+        });
+        it("must reject an invalid array of values", function () {
+            expect(error instanceof TypeError).toBe(true);
+            expect(error.message).toBe("Batch requires an array of values.");
         });
     });
 

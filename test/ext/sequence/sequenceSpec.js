@@ -4,118 +4,124 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
+var SequenceError = require('../../../lib/errors/sequence');
+
 describe("Sequence - negative", function () {
 
     describe("with invalid parameters", function () {
-        it("must detect invalid source", function () {
-            expect(function () {
-                spex.sequence();
-            }).toThrow("Invalid sequence source.");
+        var error;
+        beforeEach(function (done) {
+            spex.sequence()
+                .catch(function (e) {
+                    error = e;
+                    done();
+                });
+        });
+        it("must reject an invalid source function", function () {
+            expect(error instanceof TypeError).toBe(true);
+            expect(error.message).toBe("Invalid sequence source.");
         });
     });
 
     describe("source error", function () {
 
-        var r, msg = "source error";
+        var error, msg = "source error";
         beforeEach(function (done) {
             function source() {
-                throw msg;
+                throw new Error(msg);
             }
 
             spex.sequence(source)
-                .catch(function (reason) {
-                    r = reason;
+                .catch(function (e) {
+                    error = e;
                     done();
                 })
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                source: undefined
-            });
+            expect(error instanceof SequenceError).toBe(true);
+            expect(error.index).toBe(0);
+            expect(error.message).toBe(msg);
+            expect('source' in error).toBe(true);
+            expect(error.source).toBeUndefined();
         })
     });
 
     describe("source reject", function () {
 
-        var r, msg = "source reject";
+        var error, msg = "source reject";
         beforeEach(function (done) {
             function source() {
-                return promise.reject(msg);
+                return promise.reject(new Error(msg));
             }
 
             spex.sequence(source)
-                .catch(function (reason) {
-                    r = reason;
+                .catch(function (e) {
+                    error = e;
                     done();
                 })
 
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                source: undefined
-            });
+            expect(error instanceof SequenceError).toBe(true);
+            expect(error.index).toBe(0);
+            expect(error.message).toBe(msg);
+            expect('source' in error).toBe(true);
+            expect(error.source).toBeUndefined();
         })
     });
 
     describe("destination error", function () {
 
-        var r, msg = "destination error";
+        var error, msg = "destination error";
         beforeEach(function (done) {
             function source() {
                 return 123;
             }
 
             function dest() {
-                throw msg;
+                throw new Error(msg);
             }
 
             spex.sequence(source, dest)
-                .catch(function (reason) {
-                    r = reason;
+                .catch(function (e) {
+                    error = e;
                     done();
                 })
-
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                dest: 123
-            });
+            expect(error instanceof SequenceError).toBe(true);
+            expect(error.message).toBe(msg);
+            expect(error.index).toBe(0);
+            expect(error.dest).toBe(123);
         })
     });
 
     describe("destination reject", function () {
 
-        var r, msg = "destination reject";
+        var error, msg = "destination reject";
         beforeEach(function (done) {
             function source() {
                 return 123;
             }
 
             function dest() {
-                return promise.reject(msg);
+                return promise.reject(new Error(msg));
             }
 
             spex.sequence(source, dest)
-                .catch(function (reason) {
-                    r = reason;
+                .catch(function (e) {
+                    error = e;
                     done();
                 })
         });
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                dest: 123
-            });
+            expect(error instanceof SequenceError).toBe(true);
+            expect(error.index).toBe(0);
+            expect(error.message).toBe(msg);
+            expect(error.dest).toBe(123);
         })
     });
 

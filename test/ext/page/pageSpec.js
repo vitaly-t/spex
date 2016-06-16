@@ -7,10 +7,17 @@ var spex = lib.main(promise);
 describe("Page - negative", function () {
 
     describe("with invalid parameters", function () {
-        it("must detect invalid source", function () {
-            expect(function () {
-                spex.page();
-            }).toThrow("Invalid page source.");
+        var error;
+        beforeEach(function (done) {
+            spex.page()
+                .catch(function (e) {
+                    error = e;
+                    done();
+                });
+        });
+        it("must reject an invalid source function", function () {
+            expect(error instanceof TypeError).toBe(true);
+            expect(error.message).toBe("Invalid page source.");
         });
     });
 
