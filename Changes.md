@@ -7,5 +7,8 @@ This is to track all the changes made, so not to forget to update the documentat
 
 2. Methods batch, page and sequence now do not reject with a custom object/value, only with a custom error!
 
+3. Custom types changes also the format of the error:
 
+* method `page` replaced `getError()` with property `error`;
 
+etc...

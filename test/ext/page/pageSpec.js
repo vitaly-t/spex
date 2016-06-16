@@ -4,6 +4,8 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
+var PageError = require('../../../lib/errors/page');
+
 describe("Page - negative", function () {
 
     describe("with invalid parameters", function () {
@@ -23,10 +25,11 @@ describe("Page - negative", function () {
 
     describe("source error", function () {
 
-        var r, msg = "source error";
+        var r, err = new Error("source error");
+
         beforeEach(function (done) {
             function source() {
-                throw msg;
+                throw err;
             }
 
             spex.page(source)
@@ -37,21 +40,22 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                source: undefined
-            });
-            expect(r.getError()).toBe(msg);
+            expect(r instanceof PageError).toBe(true);
+            expect(r.index).toBe(0);
+            expect(r.error).toBe(err);
+            expect('source' in r).toBe(true);
+            expect(r.source).toBeUndefined();
+            expect('dest' in r).toBe(false);
         })
     });
 
     describe("source reject", function () {
 
-        var r, msg = "source reject";
+        var r, err = new Error("source reject");
+
         beforeEach(function (done) {
             function source() {
-                return promise.reject(msg);
+                return promise.reject(err);
             }
 
             spex.page(source)
@@ -63,24 +67,24 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                source: undefined
-            });
+            expect(r instanceof PageError);
+            expect(r.index).toBe(0);
+            expect(r.error).toBe(err);
+            expect('source' in r).toBe(true);
+            expect(r.source).toBeUndefined();
         })
     });
 
     describe("destination error", function () {
 
-        var r, msg = "destination error";
+        var r, err = new Error("destination error");
         beforeEach(function (done) {
             function source() {
                 return [1, 2, 3];
             }
 
             function dest() {
-                throw msg;
+                throw err;
             }
 
             spex.page(source, dest)
@@ -91,24 +95,23 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                dest: [1, 2, 3]
-            });
+            expect(r instanceof PageError).toBe(true);
+            expect(r.index).toBe(0);
+            expect(r.error).toBe(err);
+            expect(r.dest).toEqual([1, 2, 3]);
         })
     });
 
     describe("destination reject", function () {
 
-        var r, msg = "destination reject";
+        var r, err = new Error("destination reject");
         beforeEach(function (done) {
             function source() {
                 return [1, 2, 3];
             }
 
             function dest() {
-                return promise.reject(msg);
+                return promise.reject(err);
             }
 
             spex.page(source, dest)
@@ -116,20 +119,18 @@ describe("Page - negative", function () {
                     r = reason;
                     done();
                 })
-
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                dest: [1, 2, 3]
-            });
+            expect(r instanceof PageError).toBe(true);
+            expect(r.index).toBe(0);
+            expect(r.error).toBe(err);
+            expect(r.dest).toEqual([1, 2, 3]);
         })
     });
 
     describe("page return wrong value", function () {
-        var error, msg = "Unexpected data returned from the source.";
+        var r, msg = "Unexpected data returned from the source.";
 
         function source(idx) {
             if (!idx) {
@@ -141,26 +142,26 @@ describe("Page - negative", function () {
         beforeEach(function (done) {
             spex.page(source)
                 .catch(function (reason) {
-                    error = reason;
+                    r = reason;
                     done();
                 });
         });
 
         it("must reject correctly", function () {
-            expect(error).toEqual({
-                index: 1,
-                source: [1, 2, 3],
-                error: msg
-            });
+            expect(r instanceof PageError).toBe(true);
+            expect(r.index).toBe(1);
+            expect(r.error instanceof Error).toBe(true);
+            expect(r.message).toBe(msg);
+            expect(r.source).toEqual([1, 2, 3]);
         });
     });
 
     describe("page data fail", function () {
-        var error;
+        var error, err = new Error('second');
 
         function source(idx) {
             if (idx > 1) {
-                return [1, promise.reject('second'), 3];
+                return [1, promise.reject(err), 3];
             }
             return [];
         }
@@ -174,24 +175,22 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
-            expect(error).toEqual({
-                index: 2,
-                data: [
-                    {
-                        success: true,
-                        result: 1
-                    },
-                    {
-                        success: false,
-                        result: 'second'
-                    },
-                    {
-                        success: true,
-                        result: 3
-                    }
-                ]
-            });
-            expect(error.getError()).toBe('second');
+            expect(error.index).toBe(2);
+            expect(error.data).toEqual([
+                {
+                    success: true,
+                    result: 1
+                },
+                {
+                    success: false,
+                    result: err
+                },
+                {
+                    success: true,
+                    result: 3
+                }
+            ]);
+            expect(error.message).toBe('second');
         });
     });
 
