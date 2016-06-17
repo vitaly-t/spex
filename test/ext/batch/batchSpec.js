@@ -24,11 +24,11 @@ describe("Batch - negative", function () {
     describe("callback error", function () {
 
         describe("passing success", function () {
-            var r, msg = "callback error";
+            var r, err = new Error("callback error");
             beforeEach(function (done) {
 
                 function cb() {
-                    throw msg;
+                    throw err;
                 }
 
                 spex.batch([1], cb)
@@ -39,36 +39,36 @@ describe("Batch - negative", function () {
 
             });
             it("must reject correctly", function () {
-                expect(r).toEqual([{
+                expect(r.data).toEqual([{
                     success: false,
-                    result: msg,
+                    result: err,
                     origin: {success: true, result: 1}
                 }]);
-                expect(r.getErrors()).toEqual([msg]);
+                expect(r.getErrors()).toEqual([err]);
             })
         });
 
         describe("passing error", function () {
-            var r, msg = "callback error";
+            var r, err = new Error("callback error"), rejectError = new Error('ops!');
             beforeEach(function (done) {
 
                 function cb() {
-                    throw msg;
+                    throw err;
                 }
 
-                spex.batch([promise.reject('ops!')], cb)
+                spex.batch([promise.reject(rejectError)], cb)
                     .catch(function (reason) {
                         r = reason;
                         done();
                     })
             });
             it("must reject correctly", function () {
-                expect(r).toEqual([{
+                expect(r.data).toEqual([{
                     success: false,
-                    result: msg,
-                    origin: {success: false, result: 'ops!'}
+                    result: err,
+                    origin: {success: false, result: rejectError}
                 }]);
-                expect(r.getErrors()).toEqual([msg]);
+                expect(r.getErrors()).toEqual([err]);
             })
         });
 
@@ -76,14 +76,14 @@ describe("Batch - negative", function () {
 
     describe("callback reject", function () {
 
-        var r, msg = "callback reject";
+        var r, err = new Error("callback reject");
         beforeEach(function (done) {
 
             function cb(index) {
                 if (index) {
                     return promise.resolve();
                 } else {
-                    return promise.reject(msg);
+                    return promise.reject(err);
                 }
             }
 
@@ -96,95 +96,95 @@ describe("Batch - negative", function () {
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual([
+            expect(r.data).toEqual([
                 {
                     success: false,
-                    result: msg,
+                    result: err,
                     origin: {success: true, result: 1}
                 },
                 {
                     success: true,
                     result: 2
                 }]);
-            expect(r.getErrors()).toEqual([msg]);
+            expect(r.getErrors()).toEqual([err]);
         })
     });
 
     describe("input reject", function () {
-        var error, msg = "no values";
+        var r, err = new Error("no values");
 
         function value() {
-            throw new Error(msg);
+            throw new Error(err);
         }
 
         beforeEach(function (done) {
             spex.batch([value])
                 .catch(function (reason) {
-                    error = reason;
+                    r = reason;
                     done();
                 })
         });
         it("must reject correctly", function () {
-            expect(error).toEqual([
+            expect(r.data).toEqual([
                 {
                     success: false,
-                    result: new Error(msg)
+                    result: err
                 }
             ]);
-            expect(error.first).toEqual(new Error(msg));
-            expect(error.message).toBe(msg);
+            expect(r.first).toEqual(err);
         });
     });
 
     describe("input: null reject", function () {
-        var error;
+        var r, err = new Error(null);
 
         function value() {
-            throw null;
+            throw err;
         }
 
         beforeEach(function (done) {
             spex.batch([value])
                 .catch(function (reason) {
-                    error = reason;
+                    r = reason;
                     done();
                 })
         });
         it("must reject correctly", function () {
-            expect(error).toEqual([
+            expect(r.data).toEqual([
                 {
                     success: false,
-                    result: null
+                    result: err
                 }
             ]);
-            expect(error.first).toBe(null);
-            expect(error.message).toBe(null);
+            expect(r.first).toBe(err);
+            expect(r.message).toBe('null');
         });
     });
 
     describe("input: simple reject", function () {
-        var error;
+        var r, err = new Error(123);
 
         function value() {
-            throw 123;
+            throw err;
         }
 
         beforeEach(function (done) {
             spex.batch([value])
                 .catch(function (reason) {
-                    error = reason;
+                    r = reason;
                     done();
                 })
         });
+
         it("must reject correctly", function () {
-            expect(error).toEqual([
+            expect(r.data).toEqual([
                 {
                     success: false,
-                    result: 123
+                    result: err
                 }
             ]);
-            expect(error.first).toBe(123);
-            expect(error.message).toBe(123);
+            expect(r.first).toBe(err);
+            expect(r.message).toBe('123');
         });
     });
 
@@ -207,9 +207,9 @@ describe("Batch - negative", function () {
                 });
         });
         it("must be reported correctly", function () {
-            expect(error).toEqual([{success: false, result: [{success: false, result: msg}]}]);
-            expect(error.getErrors()).toEqual([[msg]]);
-            expect(error.first).toBe(msg);
+            expect(error.first.data).toEqual([{success: false, result: msg}]);
+            expect(error.first.getErrors()).toEqual([msg]);
+            expect(error.first.message).toBe(msg);
             expect(error.message).toBe(msg);
         });
     });

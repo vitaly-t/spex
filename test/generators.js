@@ -32,7 +32,7 @@ describe("Generators", function () {
     });
     
     it("must resolve successfully", function () {
-        expect(result).toEqual([
+        expect(result.data).toEqual([
             {
                 success: true,
                 result: 'yes'

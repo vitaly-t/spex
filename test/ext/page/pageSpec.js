@@ -176,7 +176,7 @@ describe("Page - negative", function () {
 
         it("must reject correctly", function () {
             expect(error.index).toBe(2);
-            expect(error.data).toEqual([
+            expect(error.data.data).toEqual([
                 {
                     success: true,
                     result: 1
