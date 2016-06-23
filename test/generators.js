@@ -5,7 +5,7 @@ var promise = lib.promise;
 var spex = lib.main(promise);
 
 describe("Generators", function () {
-    
+
     var result, ctx = {}, context = {};
 
     function * positive() {
@@ -15,12 +15,12 @@ describe("Generators", function () {
 
     function * negative() {
         ctx.negative = this;
-        return yield promise.reject('no');
+        return yield promise.reject(new Error('no'));
     }
 
     function * error() {
         ctx.error = this;
-        throw 'ops!';
+        throw new Error('ops!');
     }
 
     beforeEach(function (done) {
@@ -39,11 +39,11 @@ describe("Generators", function () {
             },
             {
                 success: false,
-                result: 'no'
+                result: new Error('no')
             },
             {
                 success: false,
-                result: 'ops!'
+                result: new Error('ops!')
             }
         ]);
         expect(ctx.positive).toBe(context);

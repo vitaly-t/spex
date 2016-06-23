@@ -70,20 +70,20 @@ describe("Stream/Read - negative", function () {
     });
 
     describe("receiver rejecting", function () {
-        var error;
+        var error, err = new Error("stop");
         beforeEach(function (done) {
             function receiver() {
-                return promise.reject("stop");
+                return promise.reject(err);
             }
 
             spex.stream.read(stm, receiver)
-                .catch(function (err) {
-                    error = err;
+                .catch(function (e) {
+                    error = e;
                     done();
                 });
         });
         it("must reject with the right error", function () {
-            expect(error).toBe("stop");
+            expect(error).toBe(err);
         });
     });
 
