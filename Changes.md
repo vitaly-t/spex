@@ -11,4 +11,10 @@ This is to track all the changes made, so not to forget to update the documentat
 
 * method `page` replaced `getError()` with property `error`;
 
-etc...
+---
+
+**UPDATE:**
+
+After pg-promise 4.8.0 was released, I need to review all the code here, to see whether I need to use InternalError anywhere,
+to cater for the situations when invoking a callback results in the client do any of the following: `throw 0`, `throw undefined`,
+`throw ''`. I need to make sure that those cases are handled properly by every method.
