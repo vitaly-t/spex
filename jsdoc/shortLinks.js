@@ -1,3 +1,5 @@
+'use strict';
+
 var fixLinks = require('./fixLinks');
 
 exports.handlers = {
