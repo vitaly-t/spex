@@ -19,4 +19,9 @@ After pg-promise 4.8.0 was released, I need to review all the code here, to see 
 to cater for the situations when invoking a callback results in the client do any of the following: `throw 0`, `throw undefined`,
 `throw ''`. I need to make sure that those cases are handled properly by every method.
 
-TODO: Almost certainly, I should remove the logic of ending the sequence when `undefined` is resolved with.
+TODO: Should I remove the logic of ending the sequence when `undefined` is resolved with?
+NO!!! If I stop on `undefined`, why not on a function that returns `undefined` - I MUST!
+but then it should be for promises the same!
+
+INSTEAD, I should change `db.none` to resolve with `null`. DONE!!!
+
