@@ -11,6 +11,8 @@ This is to track all the changes made, so not to forget to update the documentat
 
 * method `page` replaced `getError()` with property `error`;
 
+4. Methods `batch` and `page` contain data as `data`, not directly.
+
 ---
 
 **UPDATE:**
@@ -24,4 +26,6 @@ NO!!! If I stop on `undefined`, why not on a function that returns `undefined` -
 but then it should be for promises the same!
 
 INSTEAD, I should change `db.none` to resolve with `null`. DONE!!!
+
+1. add reason to page!
 

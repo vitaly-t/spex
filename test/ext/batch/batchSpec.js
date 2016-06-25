@@ -17,7 +17,7 @@ describe("Batch - negative", function () {
         });
         it("must reject an invalid array of values", function () {
             expect(error instanceof TypeError).toBe(true);
-            expect(error.message).toBe("Batch requires an array of values.");
+            expect(error.message).toBe("Method 'batch' requires an array of values.");
         });
     });
 

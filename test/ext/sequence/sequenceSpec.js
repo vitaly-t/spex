@@ -19,7 +19,7 @@ describe("Sequence - negative", function () {
         });
         it("must reject an invalid source function", function () {
             expect(error instanceof TypeError).toBe(true);
-            expect(error.message).toBe("Invalid sequence source.");
+            expect(error.message).toBe("Parameter 'source' must be a function.");
         });
     });
 
