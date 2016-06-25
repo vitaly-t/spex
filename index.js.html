@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>spex API</title>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <div class="home-link">
+        <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
+    </div>
+</nav>
+
+<div id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+var $npm = {
+    utils: require('./utils'),
+    batch: require('./ext/batch'),
+    page: require('./ext/page'),
+    sequence: require('./ext/sequence'),
+    stream: require('./ext/stream'),
+    errors: require('./errors')
+};
+
+/**
+ * @module spex
+ * @summary Specialized Promise Extensions
+ * @author Vitaly Tomilov
+ *
+ * @description
+ * Attaches to an external promise library and provides additional methods built solely
+ * on the basic promise operations:
+ *  - construct a new promise with a callback function
+ *  - resolve a promise with some result data
+ *  - reject a promise with a reason
+ *
+ * ### usage
+ * For any third-party promise library:
+ * ```js
+ * var promise = require('bluebird');
+ * var spex = require('spex')(promise);
+ * ```
+ * For ES6 promises:
+ * ```js
+ * var spex = require('spex')(Promise);
+ * ```
+ *
+ * @param {Object|Function} promiseLib
+ * Instance of a promise library to be used by this module.
+ *
+ * Some implementations use `Promise` constructor to create a new promise, while
+ * others use the module's function for it. Both types are supported the same.
+ *
+ * Alternatively, an object of type $[PromiseAdapter] can be passed in, which provides
+ * compatibility with any promise library outside of the standard.
+ *
+ * Passing in a promise library that cannot be recognized will throw
+ * `Invalid promise library specified.`
+ *
+ * @returns {Object}
+ * Namespace with all supported methods.
+ *
+ * @see $[PromiseAdapter], $[batch], $[page], $[sequence], $[stream]
+ */
+function main(promiseLib) {
+    
+    var spex = {}, // library instance;
+        promise = parsePromiseLib(promiseLib); // promise library parsing;
+    
+    var config = {
+        spex: spex,
+        promise: promise,
+        utils: $npm.utils(promise)
+    };
+
+    spex.errors = $npm.errors;
+    spex.batch = $npm.batch(config);
+    spex.page = $npm.page(config);
+    spex.sequence = $npm.sequence(config);
+    spex.stream = $npm.stream(config);
+    
+    config.utils.extend(spex, '$p', promise);
+    
+    Object.freeze(spex);
+
+    return spex;
+}
+
+//////////////////////////////////////////
+// Parses and validates a promise library;
+function parsePromiseLib(lib) {
+    if (lib) {
+        var promise;
+        if (lib instanceof main.PromiseAdapter) {
+            promise = function (func) {
+                return lib.create(func);
+            };
+            promise.resolve = lib.resolve;
+            promise.reject = lib.reject;
+            return promise;
+        }
+        var t = typeof lib;
+        if (t === 'function' || t === 'object') {
+            var root = lib.Promise instanceof Function ? lib.Promise : lib;
+            promise = function (func) {
+                return new root(func);
+            };
+            promise.resolve = root.resolve;
+            promise.reject = root.reject;
+            if (promise.resolve instanceof Function &amp;&amp; promise.reject instanceof Function) {
+                return promise;
+            }
+        }
+    }
+    throw new TypeError("Invalid promise library specified.");
+}
+
+main.PromiseAdapter = require('./adapter');
+Object.freeze(main);
+
+module.exports = main;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
