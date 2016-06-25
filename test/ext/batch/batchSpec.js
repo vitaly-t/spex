@@ -70,7 +70,7 @@ describe("Batch - negative", function () {
                     origin: {success: false, result: rejectError}
                 }]);
                 expect(r.getErrors()).toEqual([err]);
-                expect(r.inspect()).toContain("origin: { success: false, result: [Error: ops!] }");
+                expect(r.inspect()).toContain("origin: { success: false");
             })
         });
 
