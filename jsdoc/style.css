@@ -35,9 +35,10 @@ code span {
 }
 
 nav {
-    background-color: #884745;
+    background-color: #783735;
     padding: 10px 20px 20px 20px;
-    width: auto;
+    /*width: auto;*/
+    width: 200px;
     top: 0;
     bottom: 0;
     position: fixed;
@@ -56,13 +57,14 @@ nav div.home-link a:visited {
 }
 
 nav ul li a,
+nav ul li a:active,
 nav ul li a:visited {
     color: white;
-    font-size: 16px;
+    font-size: 17px;
 }
 
 nav h3 {
-    color: #EDBB99;
+    color: #FDCBA9;
     font-size: 18px;
 }
 
@@ -82,6 +84,3 @@ nav h2 {
     font-size: 16px;
     font-weight: bold;
 }
-
-/* Code Styles */
-
