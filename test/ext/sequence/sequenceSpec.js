@@ -25,26 +25,54 @@ describe("Sequence - negative", function () {
 
     describe("source error", function () {
 
-        var error, msg = "source error";
-        beforeEach(function (done) {
-            function source() {
-                throw new Error(msg);
-            }
+        describe("as Error", function () {
+            var r, err = new Error("source error");
+            beforeEach(function (done) {
+                function source() {
+                    throw err;
+                }
 
-            spex.sequence(source)
-                .catch(function (e) {
-                    error = e;
-                    done();
-                })
+                spex.sequence(source)
+                    .catch(function (e) {
+                        r = e;
+                        done();
+                    })
+            });
+
+            it("must reject correctly", function () {
+                expect(r instanceof SequenceError).toBe(true);
+                expect(r.index).toBe(0);
+                expect(r.error).toBe(err);
+                expect('source' in r).toBe(true);
+                expect(r.source).toBeUndefined();
+                expect(r.inspect()).toContain("reason: Source 'source' threw an error at index 0.");
+            })
         });
 
-        it("must reject correctly", function () {
-            expect(error instanceof SequenceError).toBe(true);
-            expect(error.index).toBe(0);
-            expect(error.message).toBe(msg);
-            expect('source' in error).toBe(true);
-            expect(error.source).toBeUndefined();
-        })
+        describe("as value", function () {
+            var r, msg = "source error";
+            beforeEach(function (done) {
+
+                spex.sequence(function () {
+                    throw msg;
+                })
+                    .catch(function (e) {
+                        r = e;
+                        done();
+                    })
+            });
+
+            it("must reject correctly", function () {
+                expect(r instanceof SequenceError).toBe(true);
+                expect(r.index).toBe(0);
+                expect(r.message).toBe(msg);
+                expect(r.error).toBe(msg);
+                expect('source' in r).toBe(true);
+                expect(r.source).toBeUndefined();
+                expect(r.inspect()).toContain("reason: Source <anonymous> threw an error at index 0.");
+            })
+        });
+
     });
 
     describe("source reject", function () {
@@ -69,6 +97,7 @@ describe("Sequence - negative", function () {
             expect(error.message).toBe(msg);
             expect('source' in error).toBe(true);
             expect(error.source).toBeUndefined();
+            expect(error.inspect()).toContain("reason: Source 'source' returned a rejection at index 0.");
         })
     });
 
@@ -96,12 +125,13 @@ describe("Sequence - negative", function () {
             expect(error.message).toBe(msg);
             expect(error.index).toBe(0);
             expect(error.dest).toBe(123);
+            expect(error.inspect()).toContain("reason: Destination 'dest' threw an error at index 0.");
         })
     });
 
     describe("destination reject", function () {
 
-        var error, msg = "destination reject";
+        var r, msg = "destination reject";
         beforeEach(function (done) {
             function source() {
                 return 123;
@@ -113,15 +143,17 @@ describe("Sequence - negative", function () {
 
             spex.sequence(source, dest)
                 .catch(function (e) {
-                    error = e;
+                    r = e;
                     done();
                 })
         });
         it("must reject correctly", function () {
-            expect(error instanceof SequenceError).toBe(true);
-            expect(error.index).toBe(0);
-            expect(error.message).toBe(msg);
-            expect(error.dest).toBe(123);
+            expect(r instanceof SequenceError).toBe(true);
+            expect(r.index).toBe(0);
+            expect(r.message).toBe(msg);
+            expect(r.dest).toBe(123);
+            expect(r.inspect()).toContain("reason: Destination 'dest' returned a rejection at index 0.");
+            expect(r.inspect() !== r.toString(1)).toBe(true);
         })
     });
 

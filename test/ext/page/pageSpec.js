@@ -25,28 +25,57 @@ describe("Page - negative", function () {
 
     describe("source error", function () {
 
-        var r, err = new Error("source error");
+        describe("with Error", function () {
+            var r, err = new Error("source error");
 
-        beforeEach(function (done) {
-            function source() {
-                throw err;
-            }
+            beforeEach(function (done) {
+                function source() {
+                    throw err;
+                }
 
-            spex.page(source)
-                .catch(function (reason) {
-                    r = reason;
-                    done();
-                })
+                spex.page(source)
+                    .catch(function (reason) {
+                        r = reason;
+                        done();
+                    })
+            });
+
+            it("must reject correctly", function () {
+                expect(r instanceof PageError).toBe(true);
+                expect(r.index).toBe(0);
+                expect(r.error).toBe(err);
+                expect('source' in r).toBe(true);
+                expect(r.source).toBeUndefined();
+                expect('dest' in r).toBe(false);
+                expect(r.inspect()).toContain("reason: Source 'source' threw an error at index 0.");
+            })
         });
 
-        it("must reject correctly", function () {
-            expect(r instanceof PageError).toBe(true);
-            expect(r.index).toBe(0);
-            expect(r.error).toBe(err);
-            expect('source' in r).toBe(true);
-            expect(r.source).toBeUndefined();
-            expect('dest' in r).toBe(false);
-        })
+        describe("with value", function () {
+            var r, err = "source error";
+
+            beforeEach(function (done) {
+
+                spex.page(function () {
+                    throw err;
+                })
+                    .catch(function (reason) {
+                        r = reason;
+                        done();
+                    })
+            });
+
+            it("must reject correctly", function () {
+                expect(r instanceof PageError).toBe(true);
+                expect(r.index).toBe(0);
+                expect(r.error).toBe(err);
+                expect('source' in r).toBe(true);
+                expect(r.source).toBeUndefined();
+                expect('dest' in r).toBe(false);
+                expect(r.inspect()).toContain("reason: Source <anonymous> threw an error at index 0.");
+            })
+        });
+
     });
 
     describe("source reject", function () {
@@ -72,6 +101,7 @@ describe("Page - negative", function () {
             expect(r.error).toBe(err);
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
+            expect(r.inspect()).toContain("reason: Source 'source' returned a rejection at index 0.");
         })
     });
 
@@ -99,6 +129,7 @@ describe("Page - negative", function () {
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
+            expect(r.inspect()).toContain("reason: Destination 'dest' threw an error at index 0.");
         })
     });
 
@@ -126,10 +157,12 @@ describe("Page - negative", function () {
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
+            expect(r.inspect()).toContain("reason: Destination 'dest' returned a rejection at index 0.");
+            expect(r.inspect() !== r.toString(1)).toBe(true);
         })
     });
 
-    describe("page return wrong value", function () {
+    describe("page returns wrong value", function () {
         var r, msg = "Unexpected data returned from the source.";
 
         function source(idx) {
@@ -153,6 +186,7 @@ describe("Page - negative", function () {
             expect(r.error instanceof Error).toBe(true);
             expect(r.message).toBe(msg);
             expect(r.source).toEqual([1, 2, 3]);
+            expect(r.inspect()).toContain("reason: Source 'source' returned a non-array value at index 1.");
         });
     });
 
@@ -191,6 +225,7 @@ describe("Page - negative", function () {
                 }
             ]);
             expect(error.message).toBe('second');
+            expect(error.inspect()).toContain("reason: Page with index 2 rejected.");
         });
     });
 
