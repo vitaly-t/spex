@@ -101,6 +101,33 @@ describe("Sequence - negative", function () {
         })
     });
 
+    describe("source reject with a batch", function () {
+
+        var r;
+        beforeEach(function (done) {
+
+            function source() {
+                return spex.batch([promise.reject(123)]);
+            }
+
+            spex.sequence(source)
+                .catch(function (e) {
+                    r = e;
+                    done();
+                })
+
+        });
+
+        it("must reject correctly", function () {
+            expect(r instanceof SequenceError).toBe(true);
+            expect(r.index).toBe(0);
+            expect(r.message).toBe(123);
+            expect('source' in r).toBe(true);
+            expect(r.source).toBeUndefined();
+            expect(r.inspect()).toContain("error: BatchError {");
+        })
+    });
+
     describe("destination error", function () {
 
         var error, msg = "destination error";
