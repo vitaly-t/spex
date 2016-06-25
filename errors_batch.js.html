@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">SPEX</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -47,19 +47,37 @@ var $npm = {
  * @property {string} message
  * Standard {@link external:Error Error} property - the error message.
  *
+ * It represents the message of the first error encountered in the batch, and is a safe
+ * version of using `first.message`.
+ *
  * @property {object} stack
  * Standard {@link external:Error Error} property - the stack trace.
  *
- * @property {} data
+ * @property {array} data
+ * Array of objects `{success, result, [origin]}`:
+ * - `success` = true/false, indicates whether the corresponding value in the input array was resolved.
+ * - `result` = resolved data, if `success`=`true`, or else the rejection reason.
+ * - `origin` - set only when failed as a result of an unsuccessful call into the notification callback
+ *    (see documentation for parameter cb)
  *
  * @property {} stat
+ * Resolution statistics
  *
  * @property {number} stat.total
- * @property {number} stat.succeeded
- * @property {number} stat.failed
- * @property {number} stat.duration
+ * Total number of values in the batch.
  *
- * @property {error} first
+ * @property {number} stat.succeeded
+ * Number of resolved values.
+ *
+ * @property {number} stat.failed
+ * Number of rejected values.
+ *
+ * @property {number} stat.duration
+ * Time in milliseconds it took to settle all values.
+ *
+ * @property {} first
+ * The very first error within the batch, with support for nested batch results, it is the same error as
+ * `promise.all` would provide.
  *
  */
 function BatchError(result, errors, duration) {
@@ -69,18 +87,41 @@ function BatchError(result, errors, duration) {
 
     this.data = result;
 
+    /**
+     * @method errors.BatchError.getErrors
+     * @description
+     * Returns the complete list of errors only, with support for nested batch results.
+     *
+     * @returns {array}
+     */
     this.getErrors = function () {
         var err = new Array(errors.length);
         for (var i = 0; i &lt; errors.length; i++) {
             err[i] = result[errors[i]].result;
-            if (err[i].errors instanceof BatchError) {
+            if (err[i] instanceof BatchError) {
                 err[i] = err[i].getErrors();
             }
         }
+        $npm.utils.extend(err, '$isErrorList', true);
         return err;
     };
 
-    var e = this.getErrors();
+    var e = this.getErrors(),
+        first = e[0];
+
+    while (first &amp;&amp; first.$isErrorList) {
+        first = first[0];
+    }
+
+    // we do not show it within the inspect, because when the error
+    // happens for a nested result, the output becomes a mess.
+    this.first = first;
+
+    if (first instanceof Error) {
+        this.message = first.message;
+    } else {
+        this.message = first;
+    }
 
     this.stat = {
         total: result.length,
@@ -89,15 +130,6 @@ function BatchError(result, errors, duration) {
         duration: duration
     };
 
-    // we do not show it within the inspect, because when the error
-    // happens for a nested result, the output becomes a mess.
-    this.first = e[0];
-
-    if (this.first instanceof Error) {
-        this.message = this.first.message;
-    } else {
-        this.message = this.first;
-    }
 }
 
 BatchError.prototype = Object.create(Error.prototype, {
@@ -133,17 +165,11 @@ BatchError.prototype.toString = function (level) {
             ', failed: ' + this.stat.failed + ', duration: ' + this.stat.duration + ' }',
             gap1 + 'data: ['
         ];
-    
+
     this.data.forEach(function (d, index, data) {
         lines.push(gap2 + index + ': {');
         lines.push(gap3 + 'success: ' + d.success);
-
-        if (d.result instanceof BatchError) {
-            lines.push(gap3 + 'result: ' + d.result.toString(level + 3));
-        } else {
-            lines.push(gap3 + 'result: ' + $npm.u.inspect(d.result));
-        }
-
+        lines.push(gap3 + 'result: ' + $npm.utils.formatError(d.result, level + 3));
         if (d.origin) {
             lines.push(gap3 + 'origin: ' + $npm.u.inspect(d.origin));
         }

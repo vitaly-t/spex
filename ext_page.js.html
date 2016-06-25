@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">SPEX</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -33,15 +33,14 @@ var PageError = require('../errors/page');
 
 /**
  * @method page
- * @summary Resolves a dynamic sequence of pages/arrays with $[mixed values].
  * @description
  * **Alternative Syntax:**
  * `page(source, {dest, limit})` &amp;#8658; `Promise`
  *
- * Acquires pages (arrays of $[mixed values]) from the source function, one by one,
+ * Resolves a dynamic sequence of pages/arrays with $[mixed values].
+ * 
+ * The method acquires pages (arrays of $[mixed values]) from the source function, one by one,
  * and resolves each page as a $[batch], till no more pages left or an error/reject occurs.
- *
- * &lt;img src="../images/page.png" width="561px" height="193px" alt="page">
  *
  * @param {Function|generator} source
  * Expected to return a $[mixed value] that resolves with the next page of data (array of $[mixed values]).

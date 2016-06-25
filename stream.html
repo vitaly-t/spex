@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">SPEX</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -168,14 +168,13 @@
 
 
 <div class="description">
-    <p>Consumes and processes data from a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream.</p>
-<p><strong>Alternative Syntax:</strong>
+    <p><strong>Alternative Syntax:</strong>
 <code>read(stream, receiver, {closable, readSize})</code> &#8658; <code>Promise</code></p>
-<p>Reads the entire stream, using <strong>paused mode</strong>, with support for both synchronous
+<p>Consumes and processes data from a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream.</p>
+<p>It reads the entire stream, using <strong>paused mode</strong>, with support for both synchronous
 and asynchronous data processing.</p>
 <p><strong>NOTE:</strong> Once the method has finished, the onus is on the caller to release the stream
 according to its protocol.</p>
-<p><img src="../../images/read.png" width="641px" height="193px" alt="read"></p>
 </div>
 
 
