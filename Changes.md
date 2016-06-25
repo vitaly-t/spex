@@ -27,5 +27,4 @@ but then it should be for promises the same!
 
 INSTEAD, I should change `db.none` to resolve with `null`. DONE!!!
 
-1. add reason to page!
 
