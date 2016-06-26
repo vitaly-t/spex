@@ -16,19 +16,37 @@ describe("Stream/Read - negative", function () {
         stm.destroy();
     });
 
-    describe("invalid parameter", function () {
+    describe("invalid parameters", function () {
 
-        it("stream - must throw an error", function () {
-            expect(function () {
-                spex.stream.read(null);
-            }).toThrow(new TypeError("Readable stream is required."));
+        describe(" - stream", function () {
+            var error;
+            beforeEach(function (done) {
+                spex.stream.read(null)
+                    .catch(function (e) {
+                        error = e;
+                        done();
+                    });
+            });
+            it("must reject", function () {
+                expect(error instanceof TypeError).toBe(true);
+                expect(error.message).toBe("Readable stream is required.");
+            });
         });
 
-        it("receiver - must throw an error", function () {
-            expect(function () {
-                spex.stream.read(stm);
-            }).toThrow(new TypeError("Invalid stream receiver."));
-        })
+        describe(" - receiver", function () {
+            var error;
+            beforeEach(function (done) {
+                spex.stream.read(stm)
+                    .catch(function (e) {
+                        error = e;
+                        done();
+                    });
+            });
+            it("must reject", function () {
+                expect(error instanceof TypeError).toBe(true);
+                expect(error.message).toBe("Invalid stream receiver.");
+            });
+        });
 
     });
 
@@ -52,20 +70,20 @@ describe("Stream/Read - negative", function () {
     });
 
     describe("receiver rejecting", function () {
-        var error;
+        var error, err = new Error("stop");
         beforeEach(function (done) {
             function receiver() {
-                return promise.reject("stop");
+                return promise.reject(err);
             }
 
             spex.stream.read(stm, receiver)
-                .catch(function (err) {
-                    error = err;
+                .catch(function (e) {
+                    error = e;
                     done();
                 });
         });
         it("must reject with the right error", function () {
-            expect(error).toBe("stop");
+            expect(error).toBe(err);
         });
     });
 

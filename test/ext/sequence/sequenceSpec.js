@@ -4,91 +4,155 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
+var SequenceError = require('../../../lib/errors/sequence');
+
 describe("Sequence - negative", function () {
 
     describe("with invalid parameters", function () {
-        it("must detect invalid source", function () {
-            expect(function () {
-                spex.sequence();
-            }).toThrow("Invalid sequence source.");
+        var error;
+        beforeEach(function (done) {
+            spex.sequence()
+                .catch(function (e) {
+                    error = e;
+                    done();
+                });
+        });
+        it("must reject an invalid source function", function () {
+            expect(error instanceof TypeError).toBe(true);
+            expect(error.message).toBe("Parameter 'source' must be a function.");
         });
     });
 
     describe("source error", function () {
 
-        var r, msg = "source error";
-        beforeEach(function (done) {
-            function source() {
-                throw msg;
-            }
+        describe("as Error", function () {
+            var r, err = new Error("source error");
+            beforeEach(function (done) {
+                function source() {
+                    throw err;
+                }
 
-            spex.sequence(source)
-                .catch(function (reason) {
-                    r = reason;
-                    done();
-                })
+                spex.sequence(source)
+                    .catch(function (e) {
+                        r = e;
+                        done();
+                    })
+            });
+
+            it("must reject correctly", function () {
+                expect(r instanceof SequenceError).toBe(true);
+                expect(r.index).toBe(0);
+                expect(r.error).toBe(err);
+                expect('source' in r).toBe(true);
+                expect(r.source).toBeUndefined();
+                expect(r.inspect()).toContain("reason: Source 'source' threw an error at index 0.");
+            })
         });
 
-        it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                source: undefined
+        describe("as value", function () {
+            var r, msg = "source error";
+            beforeEach(function (done) {
+
+                spex.sequence(function () {
+                    throw msg;
+                })
+                    .catch(function (e) {
+                        r = e;
+                        done();
+                    })
             });
-        })
+
+            it("must reject correctly", function () {
+                expect(r instanceof SequenceError).toBe(true);
+                expect(r.index).toBe(0);
+                expect(r.message).toBe(msg);
+                expect(r.error).toBe(msg);
+                expect('source' in r).toBe(true);
+                expect(r.source).toBeUndefined();
+                expect(r.inspect()).toContain("reason: Source <anonymous> threw an error at index 0.");
+            })
+        });
+
     });
 
     describe("source reject", function () {
 
-        var r, msg = "source reject";
+        var error, msg = "source reject";
         beforeEach(function (done) {
             function source() {
-                return promise.reject(msg);
+                return promise.reject(new Error(msg));
             }
 
             spex.sequence(source)
-                .catch(function (reason) {
-                    r = reason;
+                .catch(function (e) {
+                    error = e;
                     done();
                 })
 
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                source: undefined
-            });
+            expect(error instanceof SequenceError).toBe(true);
+            expect(error.index).toBe(0);
+            expect(error.message).toBe(msg);
+            expect('source' in error).toBe(true);
+            expect(error.source).toBeUndefined();
+            expect(error.inspect()).toContain("reason: Source 'source' returned a rejection at index 0.");
+        })
+    });
+
+    describe("source reject with a batch", function () {
+
+        var r;
+        beforeEach(function (done) {
+
+            function source() {
+                return spex.batch([promise.reject(123)]);
+            }
+
+            spex.sequence(source)
+                .catch(function (e) {
+                    r = e;
+                    done();
+                })
+
+        });
+
+        it("must reject correctly", function () {
+            expect(r instanceof SequenceError).toBe(true);
+            expect(r.index).toBe(0);
+            expect(r.message).toBe(123);
+            expect('source' in r).toBe(true);
+            expect(r.source).toBeUndefined();
+            expect(r.inspect()).toContain("error: BatchError {");
         })
     });
 
     describe("destination error", function () {
 
-        var r, msg = "destination error";
+        var error, msg = "destination error";
         beforeEach(function (done) {
             function source() {
                 return 123;
             }
 
             function dest() {
-                throw msg;
+                throw new Error(msg);
             }
 
             spex.sequence(source, dest)
-                .catch(function (reason) {
-                    r = reason;
+                .catch(function (e) {
+                    error = e;
                     done();
                 })
-
         });
 
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                dest: 123
-            });
+            expect(error instanceof SequenceError).toBe(true);
+            expect(error.message).toBe(msg);
+            expect(error.index).toBe(0);
+            expect(error.dest).toBe(123);
+            expect(error.inspect()).toContain("reason: Destination 'dest' threw an error at index 0.");
         })
     });
 
@@ -101,21 +165,22 @@ describe("Sequence - negative", function () {
             }
 
             function dest() {
-                return promise.reject(msg);
+                return promise.reject(new Error(msg));
             }
 
             spex.sequence(source, dest)
-                .catch(function (reason) {
-                    r = reason;
+                .catch(function (e) {
+                    r = e;
                     done();
                 })
         });
         it("must reject correctly", function () {
-            expect(r).toEqual({
-                index: 0,
-                error: msg,
-                dest: 123
-            });
+            expect(r instanceof SequenceError).toBe(true);
+            expect(r.index).toBe(0);
+            expect(r.message).toBe(msg);
+            expect(r.dest).toBe(123);
+            expect(r.inspect()).toContain("reason: Destination 'dest' returned a rejection at index 0.");
+            expect(r.inspect() !== r.toString(1)).toBe(true);
         })
     });
 

@@ -1,0 +1,8 @@
+{
+  "name": "spex",
+  "global": true,
+  "files": [
+    "typescript/spex.d.ts",
+    "typescript/ext-promise.d.ts"
+  ]
+}
