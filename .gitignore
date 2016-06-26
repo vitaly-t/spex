@@ -5,3 +5,5 @@ benchmarks/node_modules/
 out/
 coverage/
 /spex.js
+test/typescript/*.js
+test/typescript/*.map

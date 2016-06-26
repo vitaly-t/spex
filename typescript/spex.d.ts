@@ -100,27 +100,6 @@ declare module "spex" {
         read(stream:any, receiver:(index:number, data:Array<any>, delay:number)=>any, options?:{closable?:boolean, readSize?:number}):XPromise<IStreamRead>;
     }
 
-    interface IMain {
-
-        // API: http://vitaly-t.github.io/spex/global.html#batch
-        batch(values:Array<any>, cb?:(index:number, success:boolean, result:any, delay:number)=>any):XPromise<Array<any>>;
-        batch(values:Array<any>, options:{cb?:(index:number, success:boolean, result:any, delay:number)=>any}):XPromise<Array<any>>;
-
-        // API: http://vitaly-t.github.io/spex/global.html#page
-        page(source:(index:number, data:any, delay:number)=>any, dest?:(index:number, data:any, delay:number)=>any, limit?:number):XPromise<{pages:number, total:number, duration:number}>;
-        page(source:(index:number, data:any, delay:number)=>any, options:{dest?:(index:number, data:any, delay:number)=>any, limit?:number}):XPromise<{pages:number, total:number, duration:number}>;
-
-        // API: http://vitaly-t.github.io/spex/global.html#sequence
-        sequence(source:(index:number, data:any, delay:number)=>any, dest?:(index:number, data:any, delay:number)=>any, limit?:number, track?:boolean):XPromise<any>;
-        sequence(source:(index:number, data:any, delay:number)=>any, options:{dest?:(index:number, data:any, delay:number)=>any, limit?:number, track?:boolean}):XPromise<any>;
-
-        // API: http://vitaly-t.github.io/spex/stream.html
-        stream:IStream;
-
-        // API: http://vitaly-t.github.io/spex/errors.html
-        errors:IErrors;
-    }
-
     namespace spex {
 
         // PromiseAdapter class;
@@ -129,9 +108,30 @@ declare module "spex" {
             constructor(create:(cb:any)=>Object, resolve:(data:any)=>void, reject:(reason:any)=>void);
         }
 
+        interface ISpex {
+
+            // API: http://vitaly-t.github.io/spex/global.html#batch
+            batch(values:Array<any>, cb?:(index:number, success:boolean, result:any, delay:number)=>any):XPromise<Array<any>>;
+            batch(values:Array<any>, options:{cb?:(index:number, success:boolean, result:any, delay:number)=>any}):XPromise<Array<any>>;
+
+            // API: http://vitaly-t.github.io/spex/global.html#page
+            page(source:(index:number, data:any, delay:number)=>any, dest?:(index:number, data:any, delay:number)=>any, limit?:number):XPromise<{pages:number, total:number, duration:number}>;
+            page(source:(index:number, data:any, delay:number)=>any, options:{dest?:(index:number, data:any, delay:number)=>any, limit?:number}):XPromise<{pages:number, total:number, duration:number}>;
+
+            // API: http://vitaly-t.github.io/spex/global.html#sequence
+            sequence(source:(index:number, data:any, delay:number)=>any, dest?:(index:number, data:any, delay:number)=>any, limit?:number, track?:boolean):XPromise<any>;
+            sequence(source:(index:number, data:any, delay:number)=>any, options:{dest?:(index:number, data:any, delay:number)=>any, limit?:number, track?:boolean}):XPromise<any>;
+
+            // API: http://vitaly-t.github.io/spex/stream.html
+            stream:IStream;
+
+            // API: http://vitaly-t.github.io/spex/errors.html
+            errors:IErrors;
+        }
+
     }
 
-    function spex(promise:any):IMain;
+    function spex(promise:any):spex.ISpex;
 
     export = spex;
 }
