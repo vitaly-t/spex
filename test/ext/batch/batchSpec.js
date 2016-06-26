@@ -240,7 +240,7 @@ describe("Batch - negative", function () {
                 expect(error.first).toEqual(err);
                 expect(error.getErrors()).toEqual([[err]]);
                 expect(error.message).toBe(err);
-                expect(error.inspect()).toContain("stat: { total: 1, succeeded: 0, failed: 1, duration: 0 }");
+                expect(error.inspect()).toContain("stat: { total: 1, succeeded: 0, failed: 1, duration:");
             });
         });
 

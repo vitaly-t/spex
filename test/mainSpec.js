@@ -72,6 +72,10 @@ describe("Main - positive", function () {
             expect(inst.sequence instanceof Function).toBe(true);
             expect(inst.stream && typeof inst.stream === 'object').toBe(true);
             expect(inst.stream.read instanceof Function).toBe(true);
+            expect(inst.errors && typeof inst.errors === 'object').toBeTruthy();
+            expect(inst.errors.BatchError instanceof Function).toBe(true);
+            expect(inst.errors.PageError instanceof Function).toBe(true);
+            expect(inst.errors.SequenceError instanceof Function).toBe(true);
             expect(inst.$p instanceof Function).toBe(true);
         });
     });
@@ -133,18 +137,18 @@ describe("Main - positive", function () {
                 return promise.reject(reason);
             }
         ];
-        
+
         var one = PromiseAdapter.apply(null, PromiseOne);
         var two = PromiseAdapter.apply(null, PromiseTwo);
         var result;
-        
+
         beforeEach(function (done) {
             var oneLib = lib.main(one);
             var twoLib = lib.main(two);
-            
+
             spex.batch([
-                    twoLib.batch([]), oneLib.batch([])
-                ])
+                twoLib.batch([]), oneLib.batch([])
+            ])
                 .then(function (data) {
                     result = data;
                     done();
