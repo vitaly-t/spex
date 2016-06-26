@@ -108,7 +108,7 @@ declare module "spex" {
             constructor(create:(cb:any)=>Object, resolve:(data:any)=>void, reject:(reason:any)=>void);
         }
 
-        interface ISpex {
+        interface ISpexBase {
 
             // API: http://vitaly-t.github.io/spex/global.html#batch
             batch(values:Array<any>, cb?:(index:number, success:boolean, result:any, delay:number)=>any):XPromise<Array<any>>;
@@ -121,6 +121,9 @@ declare module "spex" {
             // API: http://vitaly-t.github.io/spex/global.html#sequence
             sequence(source:(index:number, data:any, delay:number)=>any, dest?:(index:number, data:any, delay:number)=>any, limit?:number, track?:boolean):XPromise<any>;
             sequence(source:(index:number, data:any, delay:number)=>any, options:{dest?:(index:number, data:any, delay:number)=>any, limit?:number, track?:boolean}):XPromise<any>;
+        }
+
+        interface ISpex extends ISpexBase {
 
             // API: http://vitaly-t.github.io/spex/stream.html
             stream:IStream;
