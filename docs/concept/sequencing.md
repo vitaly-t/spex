@@ -132,5 +132,5 @@ function source(index, data) {
 * Measured under NodeJS 4.1.1, 64-bit, with i7-4770 @ 3.85GHz
 
 [mixed value]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
-[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
+[sequence]:http://vitaly-t.github.io/spex/global.html#sequence
 [Bluebird]:https://github.com/petkaantonov/bluebird

@@ -69,5 +69,5 @@ LOG: 3 three 0
 DATA: { total: 4, duration: 10 }
 ```
 
-[page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
-[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
+[page]:http://vitaly-t.github.io/spex/global.html#page
+[sequence]:http://vitaly-t.github.io/spex/global.html#sequence

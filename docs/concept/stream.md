@@ -46,4 +46,4 @@ stream.read(rs, receiver)
     });
 ```
 
-[read]:https://github.com/vitaly-t/spex/blob/master/docs/code/stream/read.md
+[read]:http://vitaly-t.github.io/spex/stream.html#.read

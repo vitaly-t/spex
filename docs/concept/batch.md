@@ -93,5 +93,5 @@ ERROR: [ 'World' ]
 ```
 This is just to simplify quick access to the list of errors that occurred.
 
-[batch]:../code/batch.md
+[batch]:http://vitaly-t.github.io/spex/global.html#batch
 [mixed values]:https://github.com/vitaly-t/spex/wiki/Mixed-Values

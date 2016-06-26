@@ -105,5 +105,5 @@ SOURCE: 5 4 1000
 DATA: { total: 5, duration: 5013 }
 ```
 
-[page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
-[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
+[page]:http://vitaly-t.github.io/spex/global.html#page
+[sequence]:http://vitaly-t.github.io/spex/global.html#sequence
