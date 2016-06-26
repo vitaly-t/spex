@@ -11,7 +11,8 @@
     "browserify": "browserify lib/index.js -s spexLib -o spex.js"
   },
   "files": [
-    "lib"
+    "lib",
+    "typescript"
   ],
   "homepage": "https://github.com/vitaly-t/spex",
   "repository": {
