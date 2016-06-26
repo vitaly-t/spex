@@ -10,7 +10,7 @@ Since all TypeScript files are distributed with the library, you can reference i
 /// <reference path='../node_modules/spex/typescript/spex' />
 ```
 
-Or you can installing using [Typings]:
+Or you can install it using [Typings]:
 
 ```
 $ typings install --save --global github:vitaly-t/spex
@@ -30,15 +30,16 @@ Then you can use the generic reference:
 
 import * as spexLib from "spex";
 
-var spex = spexLib(Promise);
+var spex:spexLib.ISpex = spexLib(Promise);
+
+type BatchError = typeof spex.errors.BatchError;
 
 spex.batch([1, 2, 3])
     .then(data=> {
         var r = data[0].anything;
     })
     .catch(error=> {
-        var e = <typeof spex.errors.BatchError>error;
-        var duration = e.stat.duration;
+        // error type is either TypeError or BatchError
     });
 ```
 
