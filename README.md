@@ -81,11 +81,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OU
 DEALINGS IN THE SOFTWARE.
 
   
-[Module]:https://github.com/vitaly-t/spex/blob/master/docs/code/module.md
-[batch]:https://github.com/vitaly-t/spex/blob/master/docs/code/batch.md
-[page]:https://github.com/vitaly-t/spex/blob/master/docs/code/page.md
-[sequence]:https://github.com/vitaly-t/spex/blob/master/docs/code/sequence.md
-[read]:https://github.com/vitaly-t/spex/blob/master/docs/code/stream/read.md
+[Module]:http://vitaly-t.github.io/spex/index.html
+[batch]:http://vitaly-t.github.io/spex/global.html#batch
+[page]:http://vitaly-t.github.io/spex/global.html#page
+[sequence]:http://vitaly-t.github.io/spex/global.html#sequence
+[read]:http://vitaly-t.github.io/spex/stream.html#.read
 [Promises/A+]:https://promisesaplus.com/
 [Promise]:https://github.com/then/promise
 [Bluebird]:https://github.com/petkaantonov/bluebird
