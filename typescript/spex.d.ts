@@ -108,6 +108,7 @@ declare module "spex" {
             constructor(create:(cb:any)=>Object, resolve:(data:any)=>void, reject:(reason:any)=>void);
         }
 
+        // Subset of the base methods only, to be used by pg-promise
         interface ISpexBase {
 
             // API: http://vitaly-t.github.io/spex/global.html#batch
