@@ -4,6 +4,8 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
+var isError = lib.isError;
+
 var SequenceError = require('../../../lib/errors/sequence');
 
 describe("Sequence - negative", function () {
@@ -18,6 +20,7 @@ describe("Sequence - negative", function () {
                 });
         });
         it("must reject an invalid source function", function () {
+            expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
             expect(error.message).toBe("Parameter 'source' must be a function.");
         });
@@ -40,6 +43,7 @@ describe("Sequence - negative", function () {
             });
 
             it("must reject correctly", function () {
+                expect(isError(r)).toBe(true);
                 expect(r instanceof SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
@@ -49,7 +53,7 @@ describe("Sequence - negative", function () {
             })
         });
 
-        describe("as value", function () {
+        describe("with a string value", function () {
             var r, msg = "source error";
             beforeEach(function (done) {
 
@@ -63,6 +67,7 @@ describe("Sequence - negative", function () {
             });
 
             it("must reject correctly", function () {
+                expect(isError(r)).toBe(true);
                 expect(r instanceof SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.message).toBe(msg);
@@ -70,6 +75,26 @@ describe("Sequence - negative", function () {
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
                 expect(r.inspect()).toContain("reason: Source <anonymous> threw an error at index 0.");
+            })
+        });
+
+        describe("with a non-string value", function () {
+            var r;
+            beforeEach(function (done) {
+
+                spex.sequence(function () {
+                    throw 123;
+                })
+                    .catch(function (e) {
+                        r = e;
+                        done();
+                    })
+            });
+
+            it("must reject correctly", function () {
+                expect(isError(r, 'SequenceError')).toBe(true);
+                expect(r.error).toBe(123);
+                expect(r.message).toBe('123');
             })
         });
 
@@ -92,6 +117,7 @@ describe("Sequence - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(error)).toBe(true);
             expect(error instanceof SequenceError).toBe(true);
             expect(error.index).toBe(0);
             expect(error.message).toBe(msg);
@@ -119,9 +145,10 @@ describe("Sequence - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r instanceof SequenceError).toBe(true);
             expect(r.index).toBe(0);
-            expect(r.message).toBe(123);
+            expect(r.message).toBe('123');
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
             expect(r.inspect()).toContain("error: BatchError {");
@@ -148,6 +175,7 @@ describe("Sequence - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(error)).toBe(true);
             expect(error instanceof SequenceError).toBe(true);
             expect(error.message).toBe(msg);
             expect(error.index).toBe(0);
@@ -175,6 +203,7 @@ describe("Sequence - negative", function () {
                 })
         });
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r instanceof SequenceError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.message).toBe(msg);

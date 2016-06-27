@@ -4,6 +4,8 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
+var isError = lib.isError;
+
 describe("Batch - negative", function () {
 
     describe("with invalid parameters", function () {
@@ -16,6 +18,7 @@ describe("Batch - negative", function () {
                 });
         });
         it("must reject an invalid array of values", function () {
+            expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
             expect(error.message).toBe("Method 'batch' requires an array of values.");
         });
@@ -39,6 +42,7 @@ describe("Batch - negative", function () {
 
             });
             it("must reject correctly", function () {
+                expect(isError(r)).toBe(true);
                 expect(r.data).toEqual([{
                     success: false,
                     result: err,
@@ -64,6 +68,7 @@ describe("Batch - negative", function () {
                     })
             });
             it("must reject correctly", function () {
+                expect(isError(r)).toBe(true);
                 expect(r.data).toEqual([{
                     success: false,
                     result: err,
@@ -98,6 +103,7 @@ describe("Batch - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
                     success: false,
@@ -127,6 +133,7 @@ describe("Batch - negative", function () {
                 })
         });
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
                     success: false,
@@ -152,6 +159,7 @@ describe("Batch - negative", function () {
                 })
         });
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
                     success: false,
@@ -179,6 +187,7 @@ describe("Batch - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
                     success: false,
@@ -211,6 +220,7 @@ describe("Batch - negative", function () {
                     });
             });
             it("must be reported correctly", function () {
+                expect(isError(error)).toBe(true);
                 expect(error.first).toEqual(err);
                 expect(error.getErrors()).toEqual([[err]]);
                 expect(error.message).toBe(err.message);
@@ -237,6 +247,7 @@ describe("Batch - negative", function () {
             });
 
             it("must be reported correctly", function () {
+                expect(isError(error)).toBe(true);
                 expect(error.first).toEqual(err);
                 expect(error.getErrors()).toEqual([[err]]);
                 expect(error.message).toBe(err);
@@ -277,7 +288,7 @@ describe("Batch - positive", function () {
                     done();
                 });
         });
-        
+
         it("must be passed in correctly", function () {
             expect(ctx).toBe(context);
         });

@@ -4,6 +4,7 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
+var isError = lib.isError;
 var PageError = require('../../../lib/errors/page');
 
 describe("Page - negative", function () {
@@ -18,6 +19,7 @@ describe("Page - negative", function () {
                 });
         });
         it("must reject an invalid source function", function () {
+            expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
             expect(error.message).toBe("Parameter 'source' must be a function.");
         });
@@ -41,6 +43,7 @@ describe("Page - negative", function () {
             });
 
             it("must reject correctly", function () {
+                expect(isError(r)).toBe(true);
                 expect(r instanceof PageError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
@@ -51,7 +54,7 @@ describe("Page - negative", function () {
             })
         });
 
-        describe("with value", function () {
+        describe("with a string value", function () {
             var r, err = "source error";
 
             beforeEach(function (done) {
@@ -66,6 +69,7 @@ describe("Page - negative", function () {
             });
 
             it("must reject correctly", function () {
+                expect(isError(r)).toBe(true);
                 expect(r instanceof PageError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
@@ -73,6 +77,27 @@ describe("Page - negative", function () {
                 expect(r.source).toBeUndefined();
                 expect('dest' in r).toBe(false);
                 expect(r.inspect()).toContain("reason: Source <anonymous> threw an error at index 0.");
+            })
+        });
+
+        describe("with a non-string value", function () {
+            var r, err = 123;
+
+            beforeEach(function (done) {
+
+                spex.page(function () {
+                    throw err;
+                })
+                    .catch(function (reason) {
+                        r = reason;
+                        done();
+                    })
+            });
+
+            it("must reject correctly", function () {
+                expect(isError(r, 'PageError')).toBe(true);
+                expect(r.error).toBe(err);
+                expect(r.message).toBe('123');
             })
         });
 
@@ -96,6 +121,7 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r instanceof PageError);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
@@ -125,6 +151,7 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
@@ -153,6 +180,7 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
@@ -181,6 +209,7 @@ describe("Page - negative", function () {
         });
 
         it("must reject correctly", function () {
+            expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(1);
             expect(r.error instanceof Error).toBe(true);
@@ -224,6 +253,7 @@ describe("Page - negative", function () {
                     result: 3
                 }
             ]);
+            expect(isError(error)).toBe(true);
             expect(error.message).toBe('second');
             expect(error.inspect()).toContain("reason: Page with index 2 rejected.");
         });
