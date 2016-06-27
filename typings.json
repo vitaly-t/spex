@@ -1,5 +1,6 @@
 {
   "name": "spex",
+  "global": false,
   "files": [
     "typescript/spex.d.ts"
   ]
