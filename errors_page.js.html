@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">SPEX</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -58,10 +58,11 @@ var errorReasons = {
  * @property {string} message
  * Standard {@link external:Error Error} property - the error message.
  *
- * @property {object} stack
+ * @property {string} stack
  * Standard {@link external:Error Error} property - the stack trace.
  *
  * @property {} error
+ * The error that was thrown, or the rejection reason.
  *
  * @property {number} index
  *
@@ -79,9 +80,6 @@ var errorReasons = {
  */
 function PageError(e, code, cbName, duration) {
 
-    var temp = Error.apply(this, arguments);
-    temp.name = this.name = 'PageError';
-
     this.index = e.index;
     this.duration = duration;
     this.error = e.error;
@@ -90,6 +88,9 @@ function PageError(e, code, cbName, duration) {
         this.message = this.error.message;
     } else {
         this.message = this.error;
+        if (typeof this.message !== 'string') {
+            this.message = $npm.u.inspect(this.message);
+        }
     }
 
     if ('source' in e) {
@@ -106,15 +107,13 @@ function PageError(e, code, cbName, duration) {
     } else {
         this.reason = $npm.u.format(errorReasons[code], e.index);
     }
+
+    Error.captureStackTrace(this, PageError);
+    
 }
 
-PageError.prototype = Object.create(Error.prototype, {
-    constructor: {
-        value: PageError,
-        writable: true,
-        configurable: true
-    }
-});
+$npm.u.inherits(PageError, Error);
+PageError.prototype.name = 'PageError';
 
 /**
  * @method errors.PageError.toString

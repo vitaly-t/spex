@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">SPEX</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -50,7 +50,7 @@ var $npm = {
  * It represents the message of the first error encountered in the batch, and is a safe
  * version of using `first.message`.
  *
- * @property {object} stack
+ * @property {string} stack
  * Standard {@link external:Error Error} property - the stack trace.
  *
  * @property {array} data
@@ -81,9 +81,6 @@ var $npm = {
  *
  */
 function BatchError(result, errors, duration) {
-
-    var temp = Error.apply(this, arguments);
-    temp.name = this.name = 'BatchError';
 
     this.data = result;
 
@@ -120,6 +117,9 @@ function BatchError(result, errors, duration) {
     if (first instanceof Error) {
         this.message = first.message;
     } else {
+        if (typeof first !== 'string') {
+            first = $npm.u.inspect(first);
+        }
         this.message = first;
     }
 
@@ -130,15 +130,12 @@ function BatchError(result, errors, duration) {
         duration: duration
     };
 
+    Error.captureStackTrace(this, BatchError);
+
 }
 
-BatchError.prototype = Object.create(Error.prototype, {
-    constructor: {
-        value: BatchError,
-        writable: true,
-        configurable: true
-    }
-});
+$npm.u.inherits(BatchError, Error);
+BatchError.prototype.name = 'BatchError';
 
 /**
  * @method errors.BatchError.toString
