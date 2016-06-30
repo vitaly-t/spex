@@ -49,7 +49,6 @@ describe("Batch - negative", function () {
                     origin: {success: true, result: 1}
                 }]);
                 expect(r.getErrors()).toEqual([err]);
-                expect(r.inspect()).toContain("origin: { success: true, result: 1 }");
             })
         });
 
@@ -75,7 +74,6 @@ describe("Batch - negative", function () {
                     origin: {success: false, result: rejectError}
                 }]);
                 expect(r.getErrors()).toEqual([err]);
-                expect(r.inspect()).toContain("origin: { success: false");
             })
         });
 
