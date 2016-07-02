@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li><li><a href="promise.external_all.html">all</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -38,20 +38,20 @@ var $npm = {
 /**
  * @namespace errors
  * @description
- * Error types namespace.
+ * Namespace for all custom error types supported by the library.
  *
  * @property {function} BatchError
- * {@link errors.BatchError BatchError} class constructor.
+ * {@link errors.BatchError BatchError} interface.
  *
  * Represents all errors that can be reported by method {@link batch}.
  *
  * @property {function} PageError
- * {@link errors.PageError PageError} class constructor.
+ * {@link errors.PageError PageError} interface.
  *
  * Represents all errors that can be reported by method {@link page}.
  *
  * @property {function} SequenceError
- * {@link errors.SequenceError SequenceError} class constructor.
+ * {@link errors.SequenceError SequenceError} interface.
  *
  * Represents all errors that can be reported by method {@link sequence}.
  *
@@ -63,11 +63,6 @@ module.exports = {
 };
 
 Object.freeze(module.exports);
-
-/**
- * @external Error
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
- */
 </code></pre>
         </article>
     </section>

@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li><li><a href="promise.external_all.html">all</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -102,7 +102,7 @@
 
     
 
-    <h4 class="name" id="batch"><span class="type-signature"></span>batch<span class="signature">(values, cb<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="batch"><span class="type-signature"></span>batch<span class="signature">(values, cb<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
 
     
 
@@ -112,8 +112,9 @@
     <p><strong>Alternative Syntax:</strong>
 <code>batch(values, {cb})</code> &#8658; <code>Promise</code></p>
 <p>Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array.</p>
-<p>The method resolves with an array of results, the same as the standard <code>promise.all</code>,
-while providing comprehensive error details in case of a reject.</p>
+<p>The method resolves with an array of results, the same as the standard <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">promise.all</a>,
+while providing comprehensive error details in case of a reject, in the form of
+type <a href="errors.BatchError.html">BatchError</a>.</p>
 </div>
 
 
@@ -175,8 +176,9 @@ while providing comprehensive error details in case of a reject.</p>
 
             
 
-            <td class="description last"><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>, to be resolved asynchronously, in no particular order.</p>
-<p>Passing in anything other than an array will throw <code>Batch requires an array of values.</code></p></td>
+            <td class="description last"><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> (it can be empty), to be resolved asynchronously, in no particular order.</p>
+<p>Passing in anything other than an array will throw <a href="external-TypeError.html">TypeError</a> =
+<code>Method 'batch' requires an array of values.</code></p></td>
         </tr>
 
     
@@ -220,16 +222,17 @@ while providing comprehensive error details in case of a reject.</p>
 <li><code>result</code> = resolved data, if <code>success</code>=<code>true</code>, or else the rejection reason</li>
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
-<p>The function is called with the same <code>this</code> context as the calling method.</p>
+<p>The function inherits <code>this</code> context from the calling method.</p>
 <p>It can optionally return a promise to indicate that notifications are handled asynchronously.
 And if the returned promise resolves, it signals a successful handling, while any resolved
 data is ignored.</p>
-<p>If the function returns a rejected promise or throws an error, the entire method rejects,
-and the corresponding value in the rejected array is reported as <code>{success, result, origin}</code>:</p>
+<p>If the function returns a rejected promise or throws an error, the entire method rejects
+with <a href="errors.BatchError.html">BatchError</a> where the corresponding value in property <code>data</code>
+is set to <code>{success, result, origin}</code>:</p>
 <ul>
 <li><code>success</code> = <code>false</code></li>
 <li><code>result</code> = the rejection reason or the error thrown by the notification callback</li>
-<li><code>origin</code> = the original data passed into the callback, as object <code>{success, result}</code></li>
+<li><code>origin</code> = the original data passed into the callback as object <code>{success, result}</code></li>
 </ul></td>
         </tr>
 
@@ -298,31 +301,14 @@ and the corresponding value in the rejected array is reported as <code>{success,
 
         
 <div class="param-desc">
-    <p>Result for the entire batch, which resolves only when every value in the input array has been
-resolved, and rejects when:</p>
+    <p>The method resolves with an array of individual resolved results, the same as the standard <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">promise.all</a>.
+In addition, the array is extended with a hidden read-only property <code>duration</code> - number of milliseconds
+spent resolving all the data.</p>
+<p>The method rejects with <a href="errors.BatchError.html">BatchError</a> when any of the following occurs:</p>
 <ul>
 <li>one or more values rejected or threw an error while being resolved as a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a></li>
-<li>notification callback returned a rejected promise or threw an error</li>
+<li>notification callback <code>cb</code> returned a rejected promise or threw an error</li>
 </ul>
-<p>The method resolves with an array of individual resolved results, the same as <code>promise.all</code>.
-In addition, the array is extended with read-only property <code>duration</code> - number of milliseconds
-spent resolving all the data.</p>
-<p>When failed, the method rejects with an array of objects <code>{success, result, [origin]}</code>:</p>
-<ul>
-<li><code>success</code> = <code>true/false</code>, indicates whether the corresponding value in the input array was resolved.</li>
-<li><code>result</code> = resolved data, if <code>success=true</code>, or else the rejection reason.</li>
-<li><code>origin</code> - set only when failed as a result of an unsuccessful call into the notification callback
-(see documentation for parameter <code>cb</code>)</li>
-</ul>
-<p>The rejection array comes extended with the following:</p>
-<ul>
-<li>function <code>getErrors()</code> - returns the complete list of errors only, with support for nested <code>batch</code> results</li>
-<li>property <code>first</code> - returns the very first error within the array, with support for nested <code>batch</code> results,
-which is the same error as <code>promise.all</code> would provide.</li>
-<li>property <code>message</code> is a safe version of <code>first.message</code></li>
-</ul>
-<p>In all cases, the output array is always the same size as the input one, this way providing index mapping
-between the input values and the results.</p>
 </div>
 
 
@@ -333,7 +319,7 @@ between the input values and the results.</p>
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="external-Promise.html">external:Promise</a></span>
 
 
     </dd>
@@ -359,7 +345,7 @@ between the input values and the results.</p>
 <code>page(source, {dest, limit})</code> &#8658; <code>Promise</code></p>
 <p>Resolves a dynamic sequence of pages/arrays with <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.</p>
 <p>The method acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) from the source function, one by one,
-and resolves each page as a <a href="batch.md">batch</a>, till no more pages left or an error/reject occurs.</p>
+and resolves each page as a <a href="global.html#batch">batch</a>, till no more pages left or an error/reject occurs.</p>
 </div>
 
 
@@ -436,7 +422,7 @@ Returning or resolving with <code>undefined</code> ends the sequence, and the me
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = index of the page being requested</li>
-<li><code>data</code> = previously returned page, resolved as a <a href="batch.md">batch</a> (<code>undefined</code> when <code>index=0</code>)</li>
+<li><code>data</code> = previously returned page, resolved as a <a href="global.html#batch">batch</a> (<code>undefined</code> when <code>index=0</code>)</li>
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>If the function throws an error or returns a rejected promise, the method rejects with
@@ -489,12 +475,12 @@ from the source.</code></p>
                 </td>
             
 
-            <td class="description last"><p>Optional destination function (or generator), to receive a resolved <a href="batch.md">batch</a> of data
+            <td class="description last"><p>Optional destination function (or generator), to receive a resolved <a href="global.html#batch">batch</a> of data
 for each page, process it and respond as required.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = page index in the sequence</li>
-<li><code>data</code> = page data resolved as a <a href="batch.md">batch</a></li>
+<li><code>data</code> = page data resolved as a <a href="global.html#batch">batch</a></li>
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>The function is called with the same <code>this</code> context as the calling method.</p>
@@ -506,7 +492,7 @@ and the method rejects with object <code>{index, error, dest}</code>:</p>
 <ul>
 <li><code>index</code> = index of the page passed into the function</li>
 <li><code>error</code> = the error thrown or the rejection reason</li>
-<li><code>dest</code> = resolved <a href="batch.md">batch</a> that was passed into the function</li>
+<li><code>dest</code> = resolved <a href="global.html#batch">batch</a> that was passed into the function</li>
 </ul></td>
         </tr>
 
@@ -629,13 +615,13 @@ till one of the following occurs:</p>
 </ul>
 <p>When the method fails, there are two types of rejects that may occur:</p>
 <ul>
-<li><em>Normal Reject</em>: when one of the pages failed to resolve as a <a href="batch.md">batch</a></li>
+<li><em>Normal Reject</em>: when one of the pages failed to resolve as a <a href="global.html#batch">batch</a></li>
 <li><em>Internal Reject</em>: caused by either the <code>source</code> or the <code>dest</code> functions</li>
 </ul>
 <p><em>Normal Rejects</em> are reported with object <code>{index, data}</code>:</p>
 <ul>
-<li><code>index</code> = index of the page rejected by method <a href="batch.md">batch</a></li>
-<li><code>data</code> = the rejection data from method <a href="batch.md">batch</a></li>
+<li><code>index</code> = index of the page rejected by method <a href="global.html#batch">batch</a></li>
+<li><code>data</code> = the rejection data from method <a href="global.html#batch">batch</a></li>
 </ul>
 <p><em>Internal Rejects</em> are reported with object <code>{index, error, [source], [dest]}</code>:</p>
 <ul>
@@ -645,7 +631,7 @@ till one of the following occurs:</p>
 <li><code>dest</code> - set when caused by the <code>dest</code> function (see <code>dest</code> parameter)</li>
 </ul>
 <p>Object for both reject types has method <code>getError()</code> to simplify access to the error.
-For <em>Normal Rejects</em> it will return <code>data.first</code> (see method <a href="batch.md">batch</a>),
+For <em>Normal Rejects</em> it will return <code>data.first</code> (see method <a href="global.html#batch">batch</a>),
 and <code>error</code> value for the <em>Internal Rejects</em>.</p>
 </div>
 

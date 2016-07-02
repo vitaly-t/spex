@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li><li><a href="promise.external_all.html">all</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -39,7 +39,7 @@ var $npm = {
  * @interface errors.BatchError
  * @augments external:Error
  * @description
- * This type represents any error rejected by method {@link batch}.
+ * This type represents errors rejected by method {@link batch}, and available as `errors.BatchError`.
  *
  * @property {string} name
  * Standard {@link external:Error Error} property - error type name = `BatchError`.
@@ -58,26 +58,28 @@ var $npm = {
  * - `success` = true/false, indicates whether the corresponding value in the input array was resolved.
  * - `result` = resolved data, if `success`=`true`, or else the rejection reason.
  * - `origin` - set only when failed as a result of an unsuccessful call into the notification callback
- *    (see documentation for parameter cb)
+ *    (parameter `cb` of method {@link batch})
+ *
+ * The array has the same size as the input one that was passed into method {@link batch}, providing direct mapping.
  *
  * @property {} stat
- * Resolution statistics
+ * Resolution Statistics.
  *
  * @property {number} stat.total
- * Total number of values in the batch.
+ * Total number of elements in the batch.
  *
  * @property {number} stat.succeeded
- * Number of resolved values.
+ * Number of resolved values in the batch.
  *
  * @property {number} stat.failed
- * Number of rejected values.
+ * Number of rejected values in the batch.
  *
  * @property {number} stat.duration
  * Time in milliseconds it took to settle all values.
  *
  * @property {} first
- * The very first error within the batch, with support for nested batch results, it is the same error as
- * `promise.all` would provide.
+ * The very first error within the batch, with support for nested batch results, it is also the same error
+ * as `promise.all` would provide.
  *
  */
 function BatchError(result, errors, duration) {
@@ -87,7 +89,9 @@ function BatchError(result, errors, duration) {
     /**
      * @method errors.BatchError.getErrors
      * @description
-     * Returns the complete list of errors only, with support for nested batch results.
+     * Returns the complete list of errors only.
+     *
+     * It supports nested batch results, presented as a sub-array.
      *
      * @returns {array}
      */
@@ -144,6 +148,11 @@ BatchError.prototype.name = 'BatchError';
  *
  * It is called automatically when writing the object into the console.
  *
+ * The output is an abbreviated version of the error, because the complete error
+ * is often too much for displaying or even logging, as a batch can be of any size.
+ * Therefore, only errors are rendered from the `data` property, alongside their indexes,
+ * and only up to the first 5, to avoid polluting the screen or the log file.
+ *
  * @param {number} [level=0]
  * Nested output level, to provide visual offset.
  *
@@ -154,27 +163,23 @@ BatchError.prototype.toString = function (level) {
     var gap0 = $npm.utils.messageGap(level),
         gap1 = $npm.utils.messageGap(level + 1),
         gap2 = $npm.utils.messageGap(level + 2),
-        gap3 = $npm.utils.messageGap(level + 3),
         lines = [
             'BatchError {',
-            gap1 + 'message: ' + JSON.stringify(this.message),
             gap1 + 'stat: { total: ' + this.stat.total + ', succeeded: ' + this.stat.succeeded +
             ', failed: ' + this.stat.failed + ', duration: ' + this.stat.duration + ' }',
-            gap1 + 'data: ['
+            gap1 + 'errors: ['
         ];
 
-    this.data.forEach(function (d, index, data) {
-        lines.push(gap2 + index + ': {');
-        lines.push(gap3 + 'success: ' + d.success);
-        lines.push(gap3 + 'result: ' + $npm.utils.formatError(d.result, level + 3));
-        if (d.origin) {
-            lines.push(gap3 + 'origin: ' + $npm.u.inspect(d.origin));
+    // In order to avoid polluting the error log or the console, 
+    // we limit the log output to the top 5 errors:
+    var counter = 0, maxErrors = 5;
+    this.data.forEach(function (d, index) {
+        if (!d.success &amp;&amp; counter &lt; maxErrors) {
+            lines.push(gap2 + index + ': ' + $npm.utils.formatError(d.result, level + 2));
+            counter++;
         }
-        var sep = (index &lt; data.length - 1) ? ',' : '';
-        lines.push(gap2 + '}' + sep);
     });
     lines.push(gap1 + ']');
-
     lines.push(gap0 + '}');
     return lines.join($npm.os.EOL);
 };

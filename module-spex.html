@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li><li><a href="promise.external_all.html">all</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -112,7 +112,7 @@ var spex = require('spex')(promise);</code></pre><p>For ES6 promises:</p>
             <td class="description last"><p>Instance of a promise library to be used by this module.</p>
 <p>Some implementations use <code>Promise</code> constructor to create a new promise, while
 others use the module's function for it. Both types are supported the same.</p>
-<p>Alternatively, an object of type <a href="adapter.md">PromiseAdapter</a> can be passed in, which provides
+<p>Alternatively, an object of type <a href="PromiseAdapter.html">PromiseAdapter</a> can be passed in, which provides
 compatibility with any promise library outside of the standard.</p>
 <p>Passing in a promise library that cannot be recognized will throw
 <code>Invalid promise library specified.</code></p></td>
@@ -173,7 +173,7 @@ compatibility with any promise library outside of the standard.</p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="adapter.md">PromiseAdapter</a>, <a href="batch.md">batch</a>, <a href="page.md">page</a>, <a href="sequence.md">sequence</a>, <a href="https://github.com/vitaly-t/spex/blob/master/docs/concept/stream.md">stream</a></li>
+            <li><a href="PromiseAdapter.html">PromiseAdapter</a>, <a href="global.html#batch">batch</a>, <a href="global.html#page">page</a>, <a href="global.html#sequence">sequence</a>, <a href="stream.html">stream</a></li>
         </ul>
     </dd>
     

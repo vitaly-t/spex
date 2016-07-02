@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li><li><a href="promise.external_all.html">all</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -40,7 +40,7 @@ var PageError = require('../errors/page');
  * Resolves a dynamic sequence of pages/arrays with $[mixed values].
  * 
  * The method acquires pages (arrays of $[mixed values]) from the source function, one by one,
- * and resolves each page as a $[batch], till no more pages left or an error/reject occurs.
+ * and resolves each page as a {@link batch}, till no more pages left or an error/reject occurs.
  *
  * @param {Function|generator} source
  * Expected to return a $[mixed value] that resolves with the next page of data (array of $[mixed values]).
@@ -50,7 +50,7 @@ var PageError = require('../errors/page');
  *
  * Parameters:
  *  - `index` = index of the page being requested
- *  - `data` = previously returned page, resolved as a $[batch] (`undefined` when `index=0`)
+ *  - `data` = previously returned page, resolved as a {@link batch} (`undefined` when `index=0`)
  *  - `delay` = number of milliseconds since the last call (`undefined` when `index=0`)
  *
  * If the function throws an error or returns a rejected promise, the method rejects with
@@ -66,12 +66,12 @@ var PageError = require('../errors/page');
  * Passing in anything other than a function will throw `Invalid page source.`
  *
  * @param {Function|generator} [dest]
- * Optional destination function (or generator), to receive a resolved $[batch] of data
+ * Optional destination function (or generator), to receive a resolved {@link batch} of data
  * for each page, process it and respond as required.
  *
  * Parameters:
  *  - `index` = page index in the sequence
- *  - `data` = page data resolved as a $[batch]
+ *  - `data` = page data resolved as a {@link batch}
  *  - `delay` = number of milliseconds since the last call (`undefined` when `index=0`)
  *
  * The function is called with the same `this` context as the calling method.
@@ -84,7 +84,7 @@ var PageError = require('../errors/page');
  * and the method rejects with object `{index, error, dest}`:
  * - `index` = index of the page passed into the function
  * - `error` = the error thrown or the rejection reason
- * - `dest` = resolved $[batch] that was passed into the function
+ * - `dest` = resolved {@link batch} that was passed into the function
  *
  * @param {Number} [limit=0]
  * Limits the maximum number of pages to be requested from the `source`. If the value is greater
@@ -102,12 +102,12 @@ var PageError = require('../errors/page');
  *  - `duration` = number of milliseconds consumed by the method
  *
  * When the method fails, there are two types of rejects that may occur:
- *  - *Normal Reject*: when one of the pages failed to resolve as a $[batch]
+ *  - *Normal Reject*: when one of the pages failed to resolve as a {@link batch}
  *  - *Internal Reject*: caused by either the `source` or the `dest` functions
  *
  * *Normal Rejects* are reported with object `{index, data}`:
- *  - `index` = index of the page rejected by method $[batch]
- *  - `data` = the rejection data from method $[batch]
+ *  - `index` = index of the page rejected by method {@link batch}
+ *  - `data` = the rejection data from method {@link batch}
  *
  * *Internal Rejects* are reported with object `{index, error, [source], [dest]}`:
  *  - `index` = index of the page for which the error/reject occurred
@@ -116,7 +116,7 @@ var PageError = require('../errors/page');
  *  - `dest` - set when caused by the `dest` function (see `dest` parameter)
  *
  * Object for both reject types has method `getError()` to simplify access to the error.
- * For *Normal Rejects* it will return `data.first` (see method $[batch]),
+ * For *Normal Rejects* it will return `data.first` (see method {@link batch}),
  * and `error` value for the *Internal Rejects*.
  */
 function page(source, dest, limit, config) {
@@ -216,9 +216,7 @@ function page(source, dest, limit, config) {
 
             function fail(reason, code, cbName) {
                 reason.index = idx;
-                var error = new PageError(reason, code, cbName, Date.now() - start);
-                reject(error);
-                Object.freeze(error);
+                reject(new PageError(reason, code, cbName, Date.now() - start));
             }
         }
 
