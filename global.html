@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -111,7 +111,7 @@
 <div class="description">
     <p><strong>Alternative Syntax:</strong>
 <code>batch(values, {cb})</code> &#8658; <code>Promise</code></p>
-<p>Settles (resolves or rejects) every <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> in the input array.</p>
+<p>Settles (resolves or rejects) every <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed value</a> in the input array.</p>
 <p>The method resolves with an array of results, the same as the standard <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">promise.all</a>,
 while providing comprehensive error details in case of a reject, in the form of
 type <a href="errors.BatchError.html">BatchError</a>.</p>
@@ -176,7 +176,7 @@ type <a href="errors.BatchError.html">BatchError</a>.</p>
 
             
 
-            <td class="description last"><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> (it can be empty), to be resolved asynchronously, in no particular order.</p>
+            <td class="description last"><p>Array of <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed values</a> (it can be empty), to be resolved asynchronously, in no particular order.</p>
 <p>Passing in anything other than an array will reject with <a href="external-TypeError.html">TypeError</a> =
 <code>Method 'batch' requires an array of values.</code></p></td>
         </tr>
@@ -306,7 +306,7 @@ In addition, the array is extended with a hidden read-only property <code>durati
 spent resolving all the data.</p>
 <p>The method rejects with <a href="errors.BatchError.html">BatchError</a> when any of the following occurs:</p>
 <ul>
-<li>one or more values rejected or threw an error while being resolved as a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a></li>
+<li>one or more values rejected or threw an error while being resolved as a <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed value</a></li>
 <li>notification callback <code>cb</code> returned a rejected promise or threw an error</li>
 </ul>
 </div>
@@ -343,8 +343,8 @@ spent resolving all the data.</p>
 <div class="description">
     <p><strong>Alternative Syntax:</strong>
 <code>page(source, {dest, limit})</code> &#8658; <code>Promise</code></p>
-<p>Resolves a dynamic sequence of pages/arrays with <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.</p>
-<p>The method acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) from the <code>source</code> function, one by one,
+<p>Resolves a dynamic sequence of pages/arrays with <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed values</a>.</p>
+<p>The method acquires pages (arrays of <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed values</a>) from the <code>source</code> function, one by one,
 and resolves each page as a <a href="global.html#batch">batch</a>, till no more pages left or an error/reject occurs.</p>
 </div>
 
@@ -416,7 +416,7 @@ and resolves each page as a <a href="global.html#batch">batch</a>, till no more 
                 </td>
             
 
-            <td class="description last"><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with the next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>).
+            <td class="description last"><p>Expected to return a <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed value</a> that resolves with the next page of data (array of <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed values</a>).
 Returning or resolving with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>The function inherits <code>this</code> context from the calling method.</p>
 <p>Parameters:</p>
@@ -638,8 +638,8 @@ till one of the following occurs:</p>
 <div class="description">
     <p><strong>Alternative Syntax:</strong>
 <code>sequence(source, {dest, limit, track})</code> &#8658; <code>Promise</code></p>
-<p>Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.</p>
-<p>The method acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the <code>source</code> function, one at a time, and resolves them,
+<p>Resolves a dynamic sequence of <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed values</a>.</p>
+<p>The method acquires <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed values</a> from the <code>source</code> function, one at a time, and resolves them,
 till either no more values left in the sequence or an error/reject occurs.</p>
 <p>It supports both <a href="https://github.com/vitaly-t/spex/blob/master/docs/concept/sequencing.md">linked and detached sequencing</a>.</p>
 </div>
@@ -712,7 +712,7 @@ till either no more values left in the sequence or an error/reject occurs.</p>
                 </td>
             
 
-            <td class="description last"><p>Expected to return the next <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> to be resolved. Returning or resolving
+            <td class="description last"><p>Expected to return the next <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed value</a> to be resolved. Returning or resolving
 with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>Parameters:</p>
 <ul>

@@ -25,26 +25,22 @@
 <header>
     
 
-    <h2>Client-Side Usage</h2>
+    <h2>Mixed Values</h2>
 </header>
 
 <article>
-    <p>Starting with version 0.3.0, this library is compatible with <a href="https://github.com/substack/node-browserify">Browserify</a>,
-so it can be easily used in a web application.</p>
-<p>You can either browserify the library yourself, or use predefined commands
-from within the module's root folder:</p>
+    <p>A mixed / pseudo value is one of the three types listed below, to be resolved into:</p>
 <ul>
-<li>install the library's DEV dependencies:</li>
+<li>an actual value, if successful</li>
+<li>an error, if the resolution fails</li>
 </ul>
-<pre class="prettyprint source"><code>$ npm install</code></pre><ul>
-<li>create client-side version of the library:</li>
-</ul>
-<pre class="prettyprint source"><code>$ npm run browserify</code></pre><p>This generates file <code>spex.js</code> within the module's root folder, to be copied into your web project.</p>
-<p>The library exposes global variable <code>spexLib</code>, to be initialized as shown in the following example:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;spex.js&quot;>&lt;/script>
-&lt;script>
-    var spex = spexLib(Promise); // Initializing with ES6 Promise;
-&lt;/script></code></pre>
+<h4>1. Actual Value</h4><p>Anything other than a function or a promise. The value is resolved with immediately.</p>
+<h4>2. Function</h4><p>Expected to return the actual value. If it returns again a function or a promise, the resolution attempt will continue.</p>
+<p>If the function throws an error, the value is rejected with that error.</p>
+<p>Functions on all levels receive the same <code>this</code> context and the list of parameters as provided by the original caller.</p>
+<p>If the function is an ES6 generator, it is converted into a promise and then processed accordingly.</p>
+<h4>3. Promise</h4><p>To resolve with the data that represents the actual value. If it resolves again with a promise or a function, the resolution attempt will continue.</p>
+<p>A rejected promise becomes a rejected value, with the same reason specified.</p>
 </article>
 
 </section>
