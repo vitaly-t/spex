@@ -2,6 +2,7 @@
 
 // Automatic links:
 var links = {
+    "linked and detached sequencing":"https://github.com/vitaly-t/spex/blob/master/docs/concept/sequencing.md",
     "promise.all": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all",
     "mixed value": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
     "mixed values": "https://github.com/vitaly-t/spex/wiki/Mixed-Values",
