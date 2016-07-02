@@ -13,5 +13,8 @@
   },
   "batch": {
     "title": "Batch Processing"
+  },
+  "mixed": {
+    "title": "Mixed Values"
   }
 }
