@@ -1,5 +1,3 @@
-# Data Throttling & Load Balancing
-
 ### Terminology
 
 *Data throttling* is processing data in limited chunks, as an intentional bottleneck added for predictable rate of processing /

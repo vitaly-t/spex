@@ -1,5 +1,3 @@
-# Streaming and Paging
-
 In generic terms, data streaming is copying data from a source/provider and into a destination/recipient. 
 
 In the world of promises this can be formulated as acquiring promises from a source, resolving them and passing

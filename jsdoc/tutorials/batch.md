@@ -1,5 +1,3 @@
-# Batch Processing
- 
 Consider executing a batch/array of promises within a temporary context:
   
 * queries inside a database transaction
@@ -63,34 +61,42 @@ spex.batch(values)
 ```
 
 This outputs:
+
 ```
 DATA: [ 123, 'Hello', 'World', '!' ]
 ```
 
 Now let's make it fail by changing `getWord` to this:
 
-```javascript
+```js
 function getWord() {
     return Promise.reject("World");
 }
 ```
+
 Now the output is:
+
 ```
 ERROR: [ { success: true, result: 123 },
   { success: true, result: 'Hello' },
   { success: false, result: 'World' },
   { success: true, result: '!' } ]
 ```
+
 i.e. the entire array is settled, reporting index-bound results. 
 
 And if instead of reporting the entire reason we call `getErrors()`:
-```javascript
+
+```js
 console.log("ERROR:", reason.getErrors());
 ```
+
 then the output will be:
+
 ```
 ERROR: [ 'World' ]
 ```
+
 This is just to simplify quick access to the list of errors that occurred.
 
 [batch]:http://vitaly-t.github.io/spex/global.html#batch

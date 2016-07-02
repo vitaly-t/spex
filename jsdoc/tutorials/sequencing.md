@@ -1,5 +1,3 @@
-# Linked and Detached Sequencing
-
 ### Terminology
 
 Elements in a *detached sequence* are created without any dependency between them.
@@ -15,7 +13,7 @@ Method [sequence] supports each of the three sequence variations.
 
 Let's implement a linked sequence that calculates primes from the previous result.
 
-```javascript
+```js
 function nextPrime(value) {
     if (value > 2) {
         var i, q;
@@ -35,7 +33,7 @@ function nextPrime(value) {
 
 Building a sequence of the first 10 primes directly:
 
-```javascript
+```js
 var value, result = [];
 for (var i = 0; i < 10; i++) {
     value = nextPrime(value);
@@ -46,7 +44,7 @@ console.log('Result:', result);
 
 we get the following output:
 
-```javascript
+```js
 Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]
 ```
 
@@ -65,7 +63,7 @@ spex.sequence(source, {limit: 10, track: true})
 
 It will produce the identical output as before:
 
-```javascript
+```js
 Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]
 ```
 
@@ -75,44 +73,11 @@ In the example above our `source` function returns a number directly, but it can
 
 Let's see how the [sequence] performs compared to the direct calculation as we increase the sequence size.
 
-<table>
-   <tr>
-    <th></th>
-    <th>10</th>
-    <th>100</th>
-    <th>1,000</th>
-    <th>10,000</th>
-    <th>100,000</th>
-    <th>1,000,000</th>
-   </tr>
-   <tr>
-    <td>direct</td>
-    <td>0.00</td>
-    <td>0.00</td>
-    <td>0.14</td>
-    <td>4.56</td>
-    <td>143</td>
-    <td>4,650</td>
-   </tr>
-   <tr>
-    <td>number</td>
-    <td>0.02 / 0.02</td>
-    <td>0.18 / 0.12</td>
-    <td>1.89 / 1.08</td>
-    <td>22.5 / 13.8</td>
-    <td>306 / 227</td>
-    <td>5,985 / 5,192</td>
-   </tr>
-   <tr>
-    <td>promise</td>
-    <td>0.02 / 0.01</td>
-    <td>0.17 / 0.11</td>
-    <td>1.85 / 1.08</td>
-    <td>21.5 / 13.7</td>
-    <td>306 / 228</td>
-    <td>5,990 / 5,172</td>
-   </tr>   
-</table>
+|          |10	      |100     |1,000     |10,000    |100,000	|1,000,000
+|:--------:|:--------:|:-------:|:-------:|:--------:|:--------:|:------:|
+|**direct**	   |0.00	|0.00	|0.14	|4.56	|143	|4,650
+|**number**	   |&nbsp;&nbsp;0.02/0.02 |&nbsp;&nbsp;0.18/0.12|&nbsp;&nbsp;1.89/1.08|&nbsp;&nbsp;22.5/13.8|&nbsp;&nbsp;306/227|&nbsp;&nbsp;5,985/5,192
+|**promise**   |&nbsp;&nbsp;0.02/0.01|&nbsp;&nbsp;0.17/0.11	|&nbsp;&nbsp;1.85/1.08|&nbsp;&nbsp;21.5/13.7|&nbsp;&nbsp;306/228|&nbsp;&nbsp;5,990/5,172
 
 * `direct` - direct sequence calculation;
 * `number` - using [sequence] with the `source` that returns numbers:
