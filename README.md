@@ -5,10 +5,10 @@
 [![Join the chat at https://gitter.im/vitaly-t/spex](https://badges.gitter.im/vitaly-t/spex.svg)](https://gitter.im/vitaly-t/spex?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [batch], [page], [sequence] - promise methods for the following patterns:
-* [Data Throttling & Load Balancing](docs/concept/throttling.md)
-* [Linked and Detached Sequencing](docs/concept/sequencing.md)
-* [Streaming and Paging](docs/concept/streaming.md)
-* [Batch Processing](docs/concept/batch.md)
+* [Data Throttling & Load Balancing](http://vitaly-t.github.io/spex/tutorial-throttling.html)
+* [Linked and Detached Sequencing](http://vitaly-t.github.io/spex/tutorial-sequencing.html)
+* [Streaming and Paging](http://vitaly-t.github.io/spex/tutorial-streaming.html)
+* [Batch Processing](http://vitaly-t.github.io/spex/tutorial-batch.html)
 
 ## Installing
 
@@ -28,7 +28,7 @@ var spex = require('spex')(promise);
 var spex = require('spex')(Promise);
 ```
 
-See also: [client-side usage](docs/client.md).
+See also: [client-side usage](http://vitaly-t.github.io/spex/tutorial-client.html).
 
 ## API
 
@@ -37,7 +37,7 @@ See also: [client-side usage](docs/client.md).
   - [batch] 
   - [page]
   - [sequence]
-  - [stream](docs/concept/stream.md)
+  - [stream](http://vitaly-t.github.io/spex/stream.html)
     - [read]
 
 ## Testing
