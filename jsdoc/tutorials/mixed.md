@@ -1,3 +1,5 @@
+---
+
 A mixed / pseudo value is one of the three types listed below, to be resolved into:
 * an actual value, if successful
 * an error, if the resolution fails

@@ -1,3 +1,5 @@
+---
+
 ### Terminology
 
 Elements in a *detached sequence* are created without any dependency between them.

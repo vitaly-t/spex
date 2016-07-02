@@ -1,8 +1,8 @@
-Starting with version 0.3.0, this library is compatible with [Browserify],
-so it can be easily used in a web application.
+---
 
-You can either browserify the library yourself, or use predefined commands
-from within the module's root folder:
+This library is compatible with [Browserify], and can be easily used in a web application.
+
+You can either browserify the library yourself, or use predefined commands from within the module's root folder:
 
 * install the library's DEV dependencies:
 

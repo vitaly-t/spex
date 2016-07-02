@@ -1,3 +1,5 @@
+---
+
 Consider executing a batch/array of promises within a temporary context:
   
 * queries inside a database transaction
