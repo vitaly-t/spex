@@ -20,86 +20,34 @@
 </nav>
 
 <div id="main">
-    
-
-
-
-    
     <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
 
-var $npm = {
-    read: require('./read')
-};
+<header>
+    
 
-/**
- * @namespace stream
- * @description
- * Namespace with methods that implement stream operations, and {@link stream.read read} is the only method currently supported.
- *
- * **Synchronous Stream Processing**
- *
- * ```javascript
- * var stream = require('spex')(Promise).stream;
- * var fs = require('fs');
- *
- * var rs = fs.createReadStream('values.txt');
- *
- * function receiver(index, data, delay) {
- *    console.log("RECEIVED:", index, data, delay);
- * }
- *
- * stream.read(rs, receiver)
- * .then(function (data) {
- *        console.log("DATA:", data);
- *    })
- * .catch(function (error) {
- *        console.log("ERROR:", error);
- *    });
- * ```
- *
- * **Asynchronous Stream Processing**
- *
- * ```javascript
- * var stream = require('spex')(Promise).stream;
- * var fs = require('fs');
- *
- * var rs = fs.createReadStream('values.txt');
- *
- * function receiver(index, data, delay) {
- *    return new Promise(function (resolve) {
- *        console.log("RECEIVED:", index, data, delay);
- *        resolve();
- *    });
- * }
- *
- * stream.read(rs, receiver)
- * .then(function (data) {
- *        console.log("DATA:", data);
- *    })
- * .catch(function (error) {
- *        console.log("ERROR:", error);
- *    });
- * ```
- *
- * @property {function} stream.read
- *
- */
-module.exports = function (config) {
-    var res = {
-        read: $npm.read(config)
-    };
-    Object.freeze(res);
-    return res;
-};
+    <h2>Client-Side Usage</h2>
+</header>
 
-</code></pre>
-        </article>
-    </section>
+<article>
+    <p>Starting with version 0.3.0, this library is compatible with <a href="https://github.com/substack/node-browserify">Browserify</a>,
+so it can be easily used in a web application.</p>
+<p>You can either browserify the library yourself, or use predefined commands
+from within the module's root folder:</p>
+<ul>
+<li>install the library's DEV dependencies:</li>
+</ul>
+<pre class="prettyprint source"><code>$ npm install</code></pre><ul>
+<li>create client-side version of the library:</li>
+</ul>
+<pre class="prettyprint source"><code>$ npm run browserify</code></pre><p>This generates file <code>spex.js</code> within the module's root folder, to be copied into your web project.</p>
+<p>The library exposes global variable <code>spexLib</code>, to be initialized as shown in the following example:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;spex.js&quot;>&lt;/script>
+&lt;script>
+    var spex = spexLib(Promise); // Initializing with ES6 Promise;
+&lt;/script></code></pre>
+</article>
 
-
-
+</section>
 
 </div>
 

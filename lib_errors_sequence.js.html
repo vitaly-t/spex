@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -36,23 +36,21 @@ var $npm = {
 };
 
 var errorReasons = {
-    0: "Page with index %d rejected.",
-    1: "Source %s returned a rejection at index %d.",
-    2: "Source %s threw an error at index %d.",
-    3: "Destination %s returned a rejection at index %d.",
-    4: "Destination %s threw an error at index %d.",
-    5: "Source %s returned a non-array value at index %d."
+    0: "Source %s returned a rejection at index %d.",
+    1: "Source %s threw an error at index %d.",
+    2: "Destination %s returned a rejection at index %d.",
+    3: "Destination %s threw an error at index %d."
 };
 
 /**
- * @interface errors.PageError
+ * @interface errors.SequenceError
  * @augments external:Error
  * @description
- * This type represents all errors rejected by method {@link page}, except for {@link external:TypeError TypeError}
+ * This type represents all errors rejected by method {@link sequence}, except for {@link external:TypeError TypeError}
  * when the method receives invalid input parameters.
  *
  * @property {string} name
- * Standard {@link external:Error Error} property - error type name = `PageError`.
+ * Standard {@link external:Error Error} property - error type name = `SequenceError`.
  *
  * @property {string} message
  * Standard {@link external:Error Error} property - the error message.
@@ -61,7 +59,7 @@ var errorReasons = {
  * Standard {@link external:Error Error} property - the stack trace.
  *
  * @property {} error
- * The error that was thrown, or the rejection reason.
+ * The error that was thrown or the rejection reason.
  *
  * @property {number} index
  * Index of the element in the sequence for which the error/rejection occurred.
@@ -82,24 +80,14 @@ var errorReasons = {
  *
  * It is only set when the error/rejection occurred inside the `dest` function.
  *
- * @see
- * {@link page},
- * {@link batch}
+ * @see {@link sequence}
  *
  */
-function PageError(e, code, cbName, duration) {
+function SequenceError(e, code, cbName, duration) {
 
     this.index = e.index;
     this.duration = duration;
     this.error = e.error;
-
-    if ('source' in e) {
-        this.source = e.source;
-    }
-
-    if ('dest' in e) {
-        this.dest = e.dest;
-    }
 
     if (this.error instanceof Error) {
         this.message = this.error.message;
@@ -110,22 +98,23 @@ function PageError(e, code, cbName, duration) {
         }
     }
 
-    if (code) {
-        cbName = cbName ? ("'" + cbName + "'") : '&lt;anonymous>';
-        this.reason = $npm.u.format(errorReasons[code], cbName, e.index);
+    if ('source' in e) {
+        this.source = e.source;
     } else {
-        this.reason = $npm.u.format(errorReasons[code], e.index);
+        this.dest = e.dest;
     }
 
-    Error.captureStackTrace(this, PageError);
+    cbName = cbName ? ("'" + cbName + "'") : '&lt;anonymous>';
+    this.reason = $npm.u.format(errorReasons[code], cbName, e.index);
 
+    Error.captureStackTrace(this, SequenceError);
 }
 
-$npm.u.inherits(PageError, Error);
-PageError.prototype.name = 'PageError';
+$npm.u.inherits(SequenceError, Error);
+SequenceError.prototype.name = 'SequenceError';
 
 /**
- * @method errors.PageError.toString
+ * @method errors.SequenceError.toString
  * @description
  * Creates a well-formatted multi-line string that represents the error.
  *
@@ -136,14 +125,14 @@ PageError.prototype.name = 'PageError';
  *
  * @returns {string}
  */
-PageError.prototype.toString = function (level) {
+SequenceError.prototype.toString = function (level) {
 
     level = level > 0 ? parseInt(level) : 0;
 
     var gap0 = $npm.utils.messageGap(level),
         gap1 = $npm.utils.messageGap(level + 1),
         lines = [
-            'PageError {',
+            'SequenceError {',
             gap1 + 'message: ' + JSON.stringify(this.message),
             gap1 + 'reason: ' + this.reason,
             gap1 + 'index: ' + this.index,
@@ -155,11 +144,11 @@ PageError.prototype.toString = function (level) {
     return lines.join($npm.os.EOL);
 };
 
-PageError.prototype.inspect = function () {
+SequenceError.prototype.inspect = function () {
     return this.toString();
 };
 
-module.exports = PageError;
+module.exports = SequenceError;
 </code></pre>
         </article>
     </section>

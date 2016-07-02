@@ -20,7 +20,7 @@ section {
 }
 
 div#main {
-    margin-left: 250px;
+    margin-left: 230px;
     float: none;
     max-width: 1500px;
 }
@@ -38,7 +38,7 @@ nav {
     background-color: #783735;
     padding: 10px 20px 20px 20px;
     /*width: auto;*/
-    width: 200px;
+    width: 230px;
     top: 0;
     bottom: 0;
     position: fixed;

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>spex API</title>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <div class="home-link">
+        <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
+    </div>
+</nav>
+
+<div id="main">
+    <section>
+
+<header>
+    
+
+    <h2>Linked and Detached Sequencing</h2>
+</header>
+
+<article>
+    <h3>Terminology</h3><p>Elements in a <em>detached sequence</em> are created without any dependency between them.</p>
+<p>In a <em>linked sequence</em> elements are created with one or both of the dependency types:</p>
+<ul>
+<li>element's index in the sequence</li>
+<li>previous element in the sequence</li>
+</ul>
+<p>Method <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> supports each of the three sequence variations.</p>
+<h3>Example</h3><p>Let's implement a linked sequence that calculates primes from the previous result.</p>
+<pre class="prettyprint source lang-js"><code>function nextPrime(value) {
+    if (value > 2) {
+        var i, q;
+        do {
+            i = 3;
+            value += 2;
+            q = Math.floor(Math.sqrt(value));
+            while (i &lt;= q && value % i) {
+                i += 2;
+            }
+        } while (i &lt;= q);
+        return value;
+    }
+    return value === 2 ? 3 : 2;
+}</code></pre><p>Building a sequence of the first 10 primes directly:</p>
+<pre class="prettyprint source lang-js"><code>var value, result = [];
+for (var i = 0; i &lt; 10; i++) {
+    value = nextPrime(value);
+    result.push(value);
+}
+console.log('Result:', result);</code></pre><p>we get the following output:</p>
+<pre class="prettyprint source lang-js"><code>Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]</code></pre><p>Now let's create the same sequence using spex:</p>
+<pre class="prettyprint source lang-javascript"><code>function source(index, data) {
+    return nextPrime(data);
+}
+
+spex.sequence(source, {limit: 10, track: true})
+    .then(function (data) {
+        console.log('Result:', data);
+    });</code></pre><p>It will produce the identical output as before:</p>
+<pre class="prettyprint source lang-js"><code>Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]</code></pre><h3>Benchmarks</h3><p>In the example above our <code>source</code> function returns a number directly, but it can be any <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a>.</p>
+<p>Let's see how the <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> performs compared to the direct calculation as we increase the sequence size.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">10</th>
+<th style="text-align:center">100</th>
+<th style="text-align:center">1,000</th>
+<th style="text-align:center">10,000</th>
+<th style="text-align:center">100,000</th>
+<th style="text-align:center">1,000,000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>direct</strong></td>
+<td style="text-align:center">0.00</td>
+<td style="text-align:center">0.00</td>
+<td style="text-align:center">0.14</td>
+<td style="text-align:center">4.56</td>
+<td style="text-align:center">143</td>
+<td style="text-align:center">4,650</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>number</strong></td>
+<td style="text-align:center">&nbsp;&nbsp;0.02/0.02</td>
+<td style="text-align:center">&nbsp;&nbsp;0.18/0.12</td>
+<td style="text-align:center">&nbsp;&nbsp;1.89/1.08</td>
+<td style="text-align:center">&nbsp;&nbsp;22.5/13.8</td>
+<td style="text-align:center">&nbsp;&nbsp;306/227</td>
+<td style="text-align:center">&nbsp;&nbsp;5,985/5,192</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>promise</strong></td>
+<td style="text-align:center">&nbsp;&nbsp;0.02/0.01</td>
+<td style="text-align:center">&nbsp;&nbsp;0.17/0.11</td>
+<td style="text-align:center">&nbsp;&nbsp;1.85/1.08</td>
+<td style="text-align:center">&nbsp;&nbsp;21.5/13.7</td>
+<td style="text-align:center">&nbsp;&nbsp;306/228</td>
+<td style="text-align:center">&nbsp;&nbsp;5,990/5,172</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>direct</code> - direct sequence calculation;</li>
+<li><code>number</code> - using <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> with the <code>source</code> that returns numbers:<pre class="prettyprint source lang-javascript"><code>function source(index, data) {
+  return nextPrime(data);
+}</code></pre></li>
+<li><code>promise</code> - using <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> with the <code>source</code> that returns promises:<pre class="prettyprint source lang-javascript"><code>function source(index, data) {
+  return Promise.resolve(nextPrime(data));
+}</code></pre></li>
+<li>All values are given in milliseconds;</li>
+<li>Two measurements for the <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a>: ES6 Promise / Bluebird</li>
+<li>Measured under NodeJS 4.1.1, 64-bit, with i7-4770 @ 3.85GHz</li>
+</ul>
+</article>
+
+</section>
+
+</div>
+
+<br class="clear">
+
+<footer>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
