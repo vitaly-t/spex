@@ -37,15 +37,15 @@ var SequenceError = require('../errors/sequence');
  * **Alternative Syntax:**
  * `sequence(source, {dest, limit, track})` &amp;#8658; `Promise`
  *
- * Resolves a dynamic sequence of $[mixed values].
+ * Resolves a dynamic sequence of [mixed values]{@tutorial mixed}.
  *
- * The method acquires $[mixed values] from the `source` function, one at a time, and resolves them,
+ * The method acquires [mixed values]{@tutorial mixed} from the `source` function, one at a time, and resolves them,
  * till either no more values left in the sequence or an error/reject occurs.
  *
  * It supports both $[linked and detached sequencing].
  *
  * @param {Function|generator} source
- * Expected to return the next $[mixed value] to be resolved. Returning or resolving
+ * Expected to return the next [mixed value]{@tutorial mixed} to be resolved. Returning or resolving
  * with `undefined` ends the sequence, and the method resolves.
  *
  * Parameters:

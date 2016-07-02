@@ -34,12 +34,12 @@
 <li>an actual value, if successful</li>
 <li>an error, if the resolution fails</li>
 </ul>
-<h4>1. Actual Value</h4><p>Anything other than a function or a promise. The value is resolved with immediately.</p>
-<h4>2. Function</h4><p>Expected to return the actual value. If it returns again a function or a promise, the resolution attempt will continue.</p>
+<h3>1. Actual Value</h3><p>Anything other than a function or a promise. The value is resolved with immediately.</p>
+<h3>2. Function</h3><p>Expected to return the actual value. If it returns again a function or a promise, the resolution attempt will continue.</p>
 <p>If the function throws an error, the value is rejected with that error.</p>
 <p>Functions on all levels receive the same <code>this</code> context and the list of parameters as provided by the original caller.</p>
 <p>If the function is an ES6 generator, it is converted into a promise and then processed accordingly.</p>
-<h4>3. Promise</h4><p>To resolve with the data that represents the actual value. If it resolves again with a promise or a function, the resolution attempt will continue.</p>
+<h3>3. Promise</h3><p>To resolve with the data that represents the actual value. If it resolves again with a promise or a function, the resolution attempt will continue.</p>
 <p>A rejected promise becomes a rejected value, with the same reason specified.</p>
 </article>
 
