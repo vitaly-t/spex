@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li><li><a href="promise.external_all.html">all</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -39,10 +39,10 @@ var SequenceError = require('../errors/sequence');
  *
  * Resolves a dynamic sequence of $[mixed values].
  *
- * The method acquires $[mixed values] from the source function, one at a time, and resolves them,
+ * The method acquires $[mixed values] from the `source` function, one at a time, and resolves them,
  * till either no more values left in the sequence or an error/reject occurs.
- * 
- * It supports both [linked and detached sequencing](../concept/sequencing.md).
+ *
+ * It supports both $[linked and detached sequencing].
  *
  * @param {Function|generator} source
  * Expected to return the next $[mixed value] to be resolved. Returning or resolving
@@ -53,15 +53,12 @@ var SequenceError = require('../errors/sequence');
  *  - `data` = resolved data from the previous call (`undefined` when `index=0`)
  *  - `delay` = number of milliseconds since the last call (`undefined` when `index=0`)
  *
- * The function is called with the same `this` context as the calling method.
+ * The function inherits `this` context from the calling method.
  *
  * If the function throws an error or returns a rejected promise, the sequence terminates,
- * and the method rejects with object `{index, error, source}`:
- *  - `index` = index of the request that failed
- *  - `error` = the error thrown or the rejection reason
- *  - `source` = resolved `data` that was passed into the function
+ * and the method rejects with {@link errors.SequenceError SequenceError}, which will have property `source` set.
  *
- * Passing in anything other than a function will throw `Invalid sequence source.`
+ * Passing in anything other than a function will throw `Parameter 'source' must be a function.`
  *
  * @param {Function|generator} [dest]
  * Optional destination function (or generator), to receive resolved data for each index,
@@ -72,17 +69,14 @@ var SequenceError = require('../errors/sequence');
  *  - `data` = the data resolved
  *  - `delay` = number of milliseconds since the last call (`undefined` when `index=0`)
  *
- * The function is called with the same `this` context as the calling method.
+ * The function inherits `this` context from the calling method.
  *
  * It can optionally return a promise object, if data processing is done asynchronously.
  * If a promise is returned, the method will not request another value from the `source` function,
- * until the promise has been resolved.
+ * until the promise has been resolved (the resolved value is ignored).
  *
  * If the function throws an error or returns a rejected promise, the sequence terminates,
- * and the method rejects with object `{index, error, dest}`:
- * - `index` = index of the data that was processed
- * - `error` = the error thrown or the rejection reason
- * - `dest` = resolved data that was passed into the function
+ * and the method rejects with {@link errors.SequenceError SequenceError}, which will have property `dest` set.
  *
  * @param {Number} [limit=0]
  * Limits the maximum size of the sequence. If the value is greater than 0, the method will
@@ -101,18 +95,18 @@ var SequenceError = require('../errors/sequence');
  * It must be used with caution, as to the size of the sequence, because accumulating data for
  * a very large sequence can result in consuming too much memory.
  *
- * @returns {Promise}
+ * @returns {external:Promise}
+ *
  * When successful, the resolved data depends on parameter `track`. When `track` is `false`
  * (default), the method resolves with object `{total, duration}`:
  *  - `total` = number of values resolved by the sequence
  *  - `duration` = number of milliseconds consumed by the method
  *
  * When `track` is `true`, the method resolves with an array of all the data that has been resolved,
- * the same way that the standard `promise.all` resolves. In addition, the array comes extended with
- * read-only property `duration` - number of milliseconds consumed by the method.
+ * the same way that the standard $[promise.all] resolves. In addition, the array comes extended with
+ * a hidden read-only property `duration` - number of milliseconds consumed by the method.
  *
- * When the method fails, the reject result depends on which function caused the failure - `source`
- * or `dest`. See the two parameters for the rejection details.
+ * When the method fails, it rejects with {@link errors.SequenceError SequenceError}.
  */
 function sequence(source, dest, limit, track, config) {
 

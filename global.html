@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li><li><a href="promise.external_all.html">all</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -334,7 +334,7 @@ spent resolving all the data.</p>
 
     
 
-    <h4 class="name" id="page"><span class="type-signature"></span>page<span class="signature">(source, dest<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="page"><span class="type-signature"></span>page<span class="signature">(source, dest<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
 
     
 
@@ -643,7 +643,7 @@ and <code>error</code> value for the <em>Internal Rejects</em>.</p>
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="external-Promise.html">external:Promise</a></span>
 
 
     </dd>
@@ -658,7 +658,7 @@ and <code>error</code> value for the <em>Internal Rejects</em>.</p>
 
     
 
-    <h4 class="name" id="sequence"><span class="type-signature"></span>sequence<span class="signature">(source, dest<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, track<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="sequence"><span class="type-signature"></span>sequence<span class="signature">(source, dest<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, track<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
 
     
 
@@ -668,9 +668,9 @@ and <code>error</code> value for the <em>Internal Rejects</em>.</p>
     <p><strong>Alternative Syntax:</strong>
 <code>sequence(source, {dest, limit, track})</code> &#8658; <code>Promise</code></p>
 <p>Resolves a dynamic sequence of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.</p>
-<p>The method acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the source function, one at a time, and resolves them,
+<p>The method acquires <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> from the <code>source</code> function, one at a time, and resolves them,
 till either no more values left in the sequence or an error/reject occurs.</p>
-<p>It supports both <a href="../concept/sequencing.md">linked and detached sequencing</a>.</p>
+<p>It supports both <a href="https://github.com/vitaly-t/spex/blob/master/docs/concept/sequencing.md">linked and detached sequencing</a>.</p>
 </div>
 
 
@@ -749,15 +749,10 @@ with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <li><code>data</code> = resolved data from the previous call (<code>undefined</code> when <code>index=0</code>)</li>
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
-<p>The function is called with the same <code>this</code> context as the calling method.</p>
+<p>The function inherits <code>this</code> context from the calling method.</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
-and the method rejects with object <code>{index, error, source}</code>:</p>
-<ul>
-<li><code>index</code> = index of the request that failed</li>
-<li><code>error</code> = the error thrown or the rejection reason</li>
-<li><code>source</code> = resolved <code>data</code> that was passed into the function</li>
-</ul>
-<p>Passing in anything other than a function will throw <code>Invalid sequence source.</code></p></td>
+and the method rejects with <a href="errors.SequenceError.html">SequenceError</a>, which will have property <code>source</code> set.</p>
+<p>Passing in anything other than a function will throw <code>Parameter 'source' must be a function.</code></p></td>
         </tr>
 
     
@@ -805,17 +800,12 @@ process it and respond as required.</p>
 <li><code>data</code> = the data resolved</li>
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
-<p>The function is called with the same <code>this</code> context as the calling method.</p>
+<p>The function inherits <code>this</code> context from the calling method.</p>
 <p>It can optionally return a promise object, if data processing is done asynchronously.
 If a promise is returned, the method will not request another value from the <code>source</code> function,
-until the promise has been resolved.</p>
+until the promise has been resolved (the resolved value is ignored).</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
-and the method rejects with object <code>{index, error, dest}</code>:</p>
-<ul>
-<li><code>index</code> = index of the data that was processed</li>
-<li><code>error</code> = the error thrown or the rejection reason</li>
-<li><code>dest</code> = resolved data that was passed into the function</li>
-</ul></td>
+and the method rejects with <a href="errors.SequenceError.html">SequenceError</a>, which will have property <code>dest</code> set.</p></td>
         </tr>
 
     
@@ -979,10 +969,9 @@ a very large sequence can result in consuming too much memory.</p></td>
 <li><code>duration</code> = number of milliseconds consumed by the method</li>
 </ul>
 <p>When <code>track</code> is <code>true</code>, the method resolves with an array of all the data that has been resolved,
-the same way that the standard <code>promise.all</code> resolves. In addition, the array comes extended with
-read-only property <code>duration</code> - number of milliseconds consumed by the method.</p>
-<p>When the method fails, the reject result depends on which function caused the failure - <code>source</code>
-or <code>dest</code>. See the two parameters for the rejection details.</p>
+the same way that the standard <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">promise.all</a> resolves. In addition, the array comes extended with
+a hidden read-only property <code>duration</code> - number of milliseconds consumed by the method.</p>
+<p>When the method fails, it rejects with <a href="errors.SequenceError.html">SequenceError</a>.</p>
 </div>
 
 
@@ -993,7 +982,7 @@ or <code>dest</code>. See the two parameters for the rejection details.</p>
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type"><a href="external-Promise.html">external:Promise</a></span>
 
 
     </dd>
