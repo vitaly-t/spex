@@ -2,7 +2,6 @@
 
 // Automatic links:
 var links = {
-    "linked and detached sequencing":"https://github.com/vitaly-t/spex/blob/master/docs/concept/sequencing.md",
     "promise.all": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all",
     "Readable": "https://nodejs.org/api/stream.html#stream_class_stream_readable",
     "stream": "https://github.com/vitaly-t/spex/blob/master/docs/concept/stream.md",
