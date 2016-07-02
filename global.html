@@ -177,7 +177,7 @@ type <a href="errors.BatchError.html">BatchError</a>.</p>
             
 
             <td class="description last"><p>Array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a> (it can be empty), to be resolved asynchronously, in no particular order.</p>
-<p>Passing in anything other than an array will throw <a href="external-TypeError.html">TypeError</a> =
+<p>Passing in anything other than an array will reject with <a href="external-TypeError.html">TypeError</a> =
 <code>Method 'batch' requires an array of values.</code></p></td>
         </tr>
 
@@ -344,7 +344,7 @@ spent resolving all the data.</p>
     <p><strong>Alternative Syntax:</strong>
 <code>page(source, {dest, limit})</code> &#8658; <code>Promise</code></p>
 <p>Resolves a dynamic sequence of pages/arrays with <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>.</p>
-<p>The method acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) from the source function, one by one,
+<p>The method acquires pages (arrays of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>) from the <code>source</code> function, one by one,
 and resolves each page as a <a href="global.html#batch">batch</a>, till no more pages left or an error/reject occurs.</p>
 </div>
 
@@ -418,7 +418,7 @@ and resolves each page as a <a href="global.html#batch">batch</a>, till no more 
 
             <td class="description last"><p>Expected to return a <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a> that resolves with the next page of data (array of <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed values</a>).
 Returning or resolving with <code>undefined</code> ends the sequence, and the method resolves.</p>
-<p>The function is called with the same <code>this</code> context as the calling method.</p>
+<p>The function inherits <code>this</code> context from the calling method.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>index</code> = index of the page being requested</li>
@@ -426,16 +426,11 @@ Returning or resolving with <code>undefined</code> ends the sequence, and the me
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
 <p>If the function throws an error or returns a rejected promise, the method rejects with
-object <code>{index, error, source}</code>:</p>
-<ul>
-<li><code>index</code> = index of the request that failed</li>
-<li><code>error</code> = the error thrown or the rejection reason</li>
-<li><code>source</code> = resolved <code>data</code> that was passed into the function</li>
-</ul>
+<a href="errors.PageError.html">PageError</a>, which will have property <code>source</code> set.</p>
 <p>And if the function returns or resolves with anything other than an array or <code>undefined</code>,
-the method rejects with the same object, but with <code>error</code> set to <code>Unexpected data returned
-from the source.</code></p>
-<p>Passing in anything other than a function will throw <code>Invalid page source.</code></p></td>
+the method rejects with the same <a href="errors.PageError.html">PageError</a>, but with <code>error</code> set to
+<code>Unexpected data returned from the source.</code></p>
+<p>Passing in anything other than a function will reject with <a href="external-TypeError.html">TypeError</a> = <code>Parameter 'source' must be a function.</code></p></td>
         </tr>
 
     
@@ -483,17 +478,12 @@ for each page, process it and respond as required.</p>
 <li><code>data</code> = page data resolved as a <a href="global.html#batch">batch</a></li>
 <li><code>delay</code> = number of milliseconds since the last call (<code>undefined</code> when <code>index=0</code>)</li>
 </ul>
-<p>The function is called with the same <code>this</code> context as the calling method.</p>
+<p>The function inherits <code>this</code> context from the calling method.</p>
 <p>It can optionally return a promise object, if notifications are handled asynchronously.
 And if a promise is returned, the method will not request another page from the <code>source</code>
 function until the promise has been resolved.</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
-and the method rejects with object <code>{index, error, dest}</code>:</p>
-<ul>
-<li><code>index</code> = index of the page passed into the function</li>
-<li><code>error</code> = the error thrown or the rejection reason</li>
-<li><code>dest</code> = resolved <a href="global.html#batch">batch</a> that was passed into the function</li>
-</ul></td>
+and the method rejects with <a href="errors.PageError.html">PageError</a>, which will have property <code>dest</code> set.</p></td>
         </tr>
 
     
@@ -613,26 +603,7 @@ till one of the following occurs:</p>
 <li><code>total</code> = the sum of all page sizes (total number of values resolved)</li>
 <li><code>duration</code> = number of milliseconds consumed by the method</li>
 </ul>
-<p>When the method fails, there are two types of rejects that may occur:</p>
-<ul>
-<li><em>Normal Reject</em>: when one of the pages failed to resolve as a <a href="global.html#batch">batch</a></li>
-<li><em>Internal Reject</em>: caused by either the <code>source</code> or the <code>dest</code> functions</li>
-</ul>
-<p><em>Normal Rejects</em> are reported with object <code>{index, data}</code>:</p>
-<ul>
-<li><code>index</code> = index of the page rejected by method <a href="global.html#batch">batch</a></li>
-<li><code>data</code> = the rejection data from method <a href="global.html#batch">batch</a></li>
-</ul>
-<p><em>Internal Rejects</em> are reported with object <code>{index, error, [source], [dest]}</code>:</p>
-<ul>
-<li><code>index</code> = index of the page for which the error/reject occurred</li>
-<li><code>error</code> = the error thrown or the rejection reason</li>
-<li><code>source</code> - set when caused by the <code>source</code> function (see <code>source</code> parameter)</li>
-<li><code>dest</code> - set when caused by the <code>dest</code> function (see <code>dest</code> parameter)</li>
-</ul>
-<p>Object for both reject types has method <code>getError()</code> to simplify access to the error.
-For <em>Normal Rejects</em> it will return <code>data.first</code> (see method <a href="global.html#batch">batch</a>),
-and <code>error</code> value for the <em>Internal Rejects</em>.</p>
+<p>When the method fails, it rejects with <a href="errors.PageError.html">PageError</a>.</p>
 </div>
 
 
@@ -752,7 +723,7 @@ with <code>undefined</code> ends the sequence, and the method resolves.</p>
 <p>The function inherits <code>this</code> context from the calling method.</p>
 <p>If the function throws an error or returns a rejected promise, the sequence terminates,
 and the method rejects with <a href="errors.SequenceError.html">SequenceError</a>, which will have property <code>source</code> set.</p>
-<p>Passing in anything other than a function will throw <code>Parameter 'source' must be a function.</code></p></td>
+<p>Passing in anything other than a function will reject with <a href="external-TypeError.html">TypeError</a> = <code>Parameter 'source' must be a function.</code></p></td>
         </tr>
 
     

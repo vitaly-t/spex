@@ -38,15 +38,15 @@ var PageError = require('../errors/page');
  * `page(source, {dest, limit})` &amp;#8658; `Promise`
  *
  * Resolves a dynamic sequence of pages/arrays with $[mixed values].
- * 
- * The method acquires pages (arrays of $[mixed values]) from the source function, one by one,
+ *
+ * The method acquires pages (arrays of $[mixed values]) from the `source` function, one by one,
  * and resolves each page as a {@link batch}, till no more pages left or an error/reject occurs.
  *
  * @param {Function|generator} source
  * Expected to return a $[mixed value] that resolves with the next page of data (array of $[mixed values]).
  * Returning or resolving with `undefined` ends the sequence, and the method resolves.
  *
- * The function is called with the same `this` context as the calling method.
+ * The function inherits `this` context from the calling method.
  *
  * Parameters:
  *  - `index` = index of the page being requested
@@ -54,16 +54,13 @@ var PageError = require('../errors/page');
  *  - `delay` = number of milliseconds since the last call (`undefined` when `index=0`)
  *
  * If the function throws an error or returns a rejected promise, the method rejects with
- * object `{index, error, source}`:
- *  - `index` = index of the request that failed
- *  - `error` = the error thrown or the rejection reason
- *  - `source` = resolved `data` that was passed into the function
+ * {@link errors.PageError PageError}, which will have property `source` set.
  *
  * And if the function returns or resolves with anything other than an array or `undefined`,
- * the method rejects with the same object, but with `error` set to `Unexpected data returned
- * from the source.`
+ * the method rejects with the same {@link errors.PageError PageError}, but with `error` set to
+ * `Unexpected data returned from the source.`
  *
- * Passing in anything other than a function will throw `Invalid page source.`
+ * Passing in anything other than a function will reject with {@link external:TypeError TypeError} = `Parameter 'source' must be a function.`
  *
  * @param {Function|generator} [dest]
  * Optional destination function (or generator), to receive a resolved {@link batch} of data
@@ -74,17 +71,14 @@ var PageError = require('../errors/page');
  *  - `data` = page data resolved as a {@link batch}
  *  - `delay` = number of milliseconds since the last call (`undefined` when `index=0`)
  *
- * The function is called with the same `this` context as the calling method.
+ * The function inherits `this` context from the calling method.
  *
  * It can optionally return a promise object, if notifications are handled asynchronously.
  * And if a promise is returned, the method will not request another page from the `source`
  * function until the promise has been resolved.
  *
  * If the function throws an error or returns a rejected promise, the sequence terminates,
- * and the method rejects with object `{index, error, dest}`:
- * - `index` = index of the page passed into the function
- * - `error` = the error thrown or the rejection reason
- * - `dest` = resolved {@link batch} that was passed into the function
+ * and the method rejects with {@link errors.PageError PageError}, which will have property `dest` set.
  *
  * @param {Number} [limit=0]
  * Limits the maximum number of pages to be requested from the `source`. If the value is greater
@@ -96,29 +90,14 @@ var PageError = require('../errors/page');
  *  - either `source` or `dest` functions throw an error or return a rejected promise
  *
  * @returns {external:Promise}
- * 
+ *
  * When successful, the method resolves with object `{pages, total, duration}`:
  *  - `pages` = number of pages resolved
  *  - `total` = the sum of all page sizes (total number of values resolved)
  *  - `duration` = number of milliseconds consumed by the method
  *
- * When the method fails, there are two types of rejects that may occur:
- *  - *Normal Reject*: when one of the pages failed to resolve as a {@link batch}
- *  - *Internal Reject*: caused by either the `source` or the `dest` functions
+ * When the method fails, it rejects with {@link errors.PageError PageError}.
  *
- * *Normal Rejects* are reported with object `{index, data}`:
- *  - `index` = index of the page rejected by method {@link batch}
- *  - `data` = the rejection data from method {@link batch}
- *
- * *Internal Rejects* are reported with object `{index, error, [source], [dest]}`:
- *  - `index` = index of the page for which the error/reject occurred
- *  - `error` = the error thrown or the rejection reason
- *  - `source` - set when caused by the `source` function (see `source` parameter)
- *  - `dest` - set when caused by the `dest` function (see `dest` parameter)
- *
- * Object for both reject types has method `getError()` to simplify access to the error.
- * For *Normal Rejects* it will return `data.first` (see method {@link batch}),
- * and `error` value for the *Internal Rejects*.
  */
 function page(source, dest, limit, config) {
 

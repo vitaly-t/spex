@@ -58,7 +58,7 @@ var SequenceError = require('../errors/sequence');
  * If the function throws an error or returns a rejected promise, the sequence terminates,
  * and the method rejects with {@link errors.SequenceError SequenceError}, which will have property `source` set.
  *
- * Passing in anything other than a function will throw `Parameter 'source' must be a function.`
+ * Passing in anything other than a function will reject with {@link external:TypeError TypeError} = `Parameter 'source' must be a function.`
  *
  * @param {Function|generator} [dest]
  * Optional destination function (or generator), to receive resolved data for each index,

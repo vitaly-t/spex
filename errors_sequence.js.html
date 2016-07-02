@@ -46,7 +46,8 @@ var errorReasons = {
  * @interface errors.SequenceError
  * @augments external:Error
  * @description
- * This type represents errors rejected by method {@link sequence}, and available as `errors.SequenceError`.
+ * This type represents all errors rejected by method {@link sequence}, except for {@link external:TypeError TypeError}
+ * when the method receives invalid input parameters.
  *
  * @property {string} name
  * Standard {@link external:Error Error} property - error type name = `SequenceError`.
@@ -64,7 +65,7 @@ var errorReasons = {
  * Index of the element in the sequence for which the error/rejection occurred.
  *
  * @property {number} duration
- * Time of processing until the error/rejection occurred.
+ * Duration (in milliseconds) of processing until the error/rejection occurred.
  *
  * @property {string} reason
  * Textual explanation of why the method failed.
