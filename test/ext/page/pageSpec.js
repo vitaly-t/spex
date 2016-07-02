@@ -239,6 +239,7 @@ describe("Page - negative", function () {
 
         it("must reject correctly", function () {
             expect(error.index).toBe(2);
+            expect(error.error.name).toBe("BatchError");
             expect(error.error.data).toEqual([
                 {
                     success: true,
