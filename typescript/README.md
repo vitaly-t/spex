@@ -1,33 +1,14 @@
 ### TypeScript for SPEX
 
-Complete TypeScript ambient declarations for [spex] version 1.0.7 or later.
+Complete TypeScript module declarations for [spex] version 1.0.7 or later.
 
 #### Inclusion
 
-Since all TypeScript files are distributed with the library, you can reference it like this: 
-
-```ts
-/// <reference path='../node_modules/spex/typescript/spex' />
-```
-
-Or you can install it using [Typings]:
-
-```
-$ typings install --save --global github:vitaly-t/spex
-```
-
-Then you can use the generic reference:
-
-```ts
-/// <reference path='../typings/index' />
-```
-
+Typescript should be able to pick up type definition for [spex] without any manual configuration.
 
 #### Usage
 
 ```ts
-/// <reference path="../typings/index" />
-
 import * as spexLib from "spex";
 
 var spex:spexLib.ISpex = spexLib(Promise);
@@ -43,5 +24,4 @@ spex.batch([1, 2, 3])
     });
 ```
 
-[Typings]:https://github.com/typings/typings
 [spex]:https://github.com/vitaly-t/spex

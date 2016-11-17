@@ -1,5 +1,3 @@
-/// <reference path='../../typescript/spex' />
-
 import * as spexLib from 'spex';
 
 var spex = spexLib(Promise);
