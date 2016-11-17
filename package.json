@@ -14,6 +14,7 @@
     "lib",
     "typescript"
   ],
+  "typings": "typescript/spex.d.ts",
   "homepage": "https://github.com/vitaly-t/spex",
   "repository": {
     "type": "git",
