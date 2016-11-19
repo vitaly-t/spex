@@ -1,10 +1,10 @@
 ### TypeScript for SPEX
 
-Complete TypeScript module declarations for [spex] version 1.0.7 or later.
+Complete TypeScript declarations for the [spex] module.
 
 #### Inclusion
 
-Typescript should be able to pick up type definition for [spex] without any manual configuration.
+Typescript should be able to pick up the definitions without any manual configuration.
 
 #### Usage
 

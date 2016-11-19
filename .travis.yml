@@ -10,5 +10,7 @@ matrix:
       script: "npm run travis"
     - node_js: "6"
       script: "npm run travis"
+    - node_js: "7"
+      script: "npm run travis"
 env:
   - BLUEBIRD_DEBUG=0
