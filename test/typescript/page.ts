@@ -1,4 +1,4 @@
-import * as spexLib from 'spex';
+import * as spexLib from '../../typescript/spex';
 
 var spex = spexLib(Promise);
 
@@ -6,11 +6,12 @@ function source() {
 
 }
 
+type PageError = typeof spex.errors.PageError;
+
 spex.page(source)
-    .then((data: any) => {
+    .then((data: spexLib.TPageResult) => {
         var p: number = data.pages;
     })
-    .catch((error: any) => {
-        var e = <typeof spex.errors.PageError>error;
-        var duration: number = e.duration;
+    .catch((error: PageError) => {
+        var duration: number = error.duration;
     });

@@ -1,4 +1,4 @@
-import * as spexLib from 'spex';
+import * as spexLib from '../../typescript/spex';
 
 var main: spexLib.ISpex;
 

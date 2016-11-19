@@ -15,17 +15,6 @@ type TBatchData = {
     origin?: TOriginData
 };
 
-type TPageResult = {
-    pages: number,
-    total: number,
-    duration: number
-};
-
-type TStreamReadOptions = {
-    closable?: boolean,
-    readSize?: number
-};
-
 interface IBatchStat {
     total: number;
     succeeded: number;
@@ -53,7 +42,6 @@ interface IBatchError extends Error {
 
     // API: http://vitaly-t.github.io/spex/errors.BatchError.html#.toString
     toString(): string;
-
 }
 
 // API: http://vitaly-t.github.io/spex/errors.PageError.html
@@ -103,21 +91,37 @@ interface IErrors {
     SequenceError: ISequenceError;
 }
 
-interface IStreamRead {
-    calls: number;
-    reads: number;
-    length: number;
-    duration: number;
-}
-
 // API: http://vitaly-t.github.io/spex/stream.html
 interface IStream {
     // API: http://vitaly-t.github.io/spex/stream.html#.read
-    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, closable?: boolean, readSize?: number): XPromise<IStreamRead>;
-    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: TStreamReadOptions): XPromise<IStreamRead>;
+    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, closable?: boolean, readSize?: number): XPromise<spex.TStreamReadResult>;
+    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: spex.TStreamReadOptions): XPromise<spex.TStreamReadResult>;
 }
 
 declare namespace spex {
+
+    type TStreamReadOptions = {
+        closable?: boolean,
+        readSize?: number
+    };
+
+    type TStreamReadResult = {
+        calls: number;
+        reads: number;
+        length: number;
+        duration: number;
+    };
+
+    type TPageResult = {
+        pages: number,
+        total: number,
+        duration: number
+    };
+
+    type TSequenceResult = {
+        total: number,
+        duration: number
+    };
 
     // PromiseAdapter class;
     // API: http://vitaly-t.github.io/spex/PromiseAdapter.html
@@ -137,8 +141,8 @@ declare namespace spex {
         page(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): XPromise<TPageResult>;
 
         // API: http://vitaly-t.github.io/spex/global.html#sequence
-        sequence(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean): XPromise<any>;
-        sequence(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): XPromise<any>;
+        sequence(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean): XPromise<TSequenceResult | Array<any>>;
+        sequence(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): XPromise<TSequenceResult | Array<any>>;
     }
 
     interface ISpex extends ISpexBase {

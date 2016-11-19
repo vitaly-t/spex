@@ -1,4 +1,5 @@
-import * as spexLib from 'spex';
+import * as spexLib from '../../typescript/spex';
+import {TStreamReadResult} from '../../typescript/spex';
 
 var spex = spexLib(Promise);
 
@@ -7,7 +8,7 @@ function cb() {
 }
 
 spex.stream.read(123, cb)
-    .then((data: any) => {
+    .then((data: TStreamReadResult) => {
         var c: number = data.calls;
     })
     .catch((error: any) => {
