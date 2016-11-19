@@ -5,6 +5,7 @@ var lib = require('./header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 var PromiseAdapter = lib.main.PromiseAdapter;
+var exec = require('child_process').exec;
 
 var dummy = function () {
 };
@@ -160,4 +161,16 @@ describe("Main - positive", function () {
         });
     });
 
+});
+
+describe("Typescript", function() {
+
+    describe("build", function() {
+        it("must build without error", function(done) {
+            exec('tsc', {}, function(error) {
+                expect(error).toBe(null);
+                done();
+            })
+        });
+    });
 });

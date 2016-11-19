@@ -1,6 +1,5 @@
-/// <reference path='../../typescript/spex' />
 "use strict";
-const spexLib = require('spex');
+const spexLib = require("spex");
 var spex = spexLib(Promise);
 spex.batch([])
     .then(data => {
@@ -10,3 +9,4 @@ spex.batch([])
     var e = error;
     var duration = e.stat.duration;
 });
+//# sourceMappingURL=batch.js.map

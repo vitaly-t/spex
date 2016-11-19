@@ -14,6 +14,7 @@
     "lib",
     "typescript"
   ],
+  "typings": "typescript/spex.d.ts",
   "homepage": "https://github.com/vitaly-t/spex",
   "repository": {
     "type": "git",
@@ -38,14 +39,14 @@
     "node": ">=0.10",
     "npm": ">=1.4"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "bluebird": "3.x",
+    "browserify": "13.x",
     "coveralls": "2.x",
     "istanbul": "0.4",
     "jasmine-node": "1.x",
     "jsdoc": "3.x",
-    "browserify": "13.x"
+    "typescript": "^2.0.9"
   }
 }
