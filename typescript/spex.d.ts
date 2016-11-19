@@ -4,8 +4,27 @@
 
 type XPromise<A> = Promise<A>;
 
-type TOriginData = { success: boolean, result: any };
-type TBatchData = { success: boolean, result: any, origin?: TOriginData };
+type TOriginData = {
+    success: boolean,
+    result: any
+};
+
+type TBatchData = {
+    success: boolean,
+    result: any,
+    origin?: TOriginData
+};
+
+type TPageResult = {
+    pages: number,
+    total: number,
+    duration: number
+};
+
+type TStreamReadOptions = {
+    closable?: boolean,
+    readSize?: number
+};
 
 interface IBatchStat {
     total: number;
@@ -95,7 +114,7 @@ interface IStreamRead {
 interface IStream {
     // API: http://vitaly-t.github.io/spex/stream.html#.read
     read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, closable?: boolean, readSize?: number): XPromise<IStreamRead>;
-    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: { closable?: boolean, readSize?: number }): XPromise<IStreamRead>;
+    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: TStreamReadOptions): XPromise<IStreamRead>;
 }
 
 declare namespace spex {
@@ -114,8 +133,8 @@ declare namespace spex {
         batch(values: Array<any>, options: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): XPromise<Array<any>>;
 
         // API: http://vitaly-t.github.io/spex/global.html#page
-        page(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number): XPromise<{ pages: number, total: number, duration: number }>;
-        page(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): XPromise<{ pages: number, total: number, duration: number }>;
+        page(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number): XPromise<TPageResult>;
+        page(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): XPromise<TPageResult>;
 
         // API: http://vitaly-t.github.io/spex/global.html#sequence
         sequence(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean): XPromise<any>;

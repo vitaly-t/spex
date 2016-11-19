@@ -7,10 +7,10 @@ function source() {
 }
 
 spex.page(source)
-    .then(data=> {
-        var p:number = data.pages;
+    .then((data: any) => {
+        var p: number = data.pages;
     })
-    .catch(error=> {
+    .catch((error: any) => {
         var e = <typeof spex.errors.PageError>error;
-        var duration:number = e.duration;
+        var duration: number = e.duration;
     });

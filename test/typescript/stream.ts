@@ -7,8 +7,8 @@ function cb() {
 }
 
 spex.stream.read(123, cb)
-    .then(data=> {
-        var c:number = data.calls;
+    .then((data: any) => {
+        var c: number = data.calls;
     })
-    .catch(error=> {
+    .catch((error: any) => {
     });

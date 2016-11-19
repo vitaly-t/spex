@@ -2,11 +2,10 @@
 const spexLib = require('spex');
 var spex = spexLib(Promise);
 spex.batch([])
-    .then(data => {
+    .then((data) => {
     var r = data[0].anything;
 })
-    .catch(error => {
-    var e = error;
-    var duration = e.stat.duration;
+    .catch((error) => {
+    var duration = error.stat.duration;
 });
 //# sourceMappingURL=batch.js.map

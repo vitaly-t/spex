@@ -7,10 +7,10 @@ function source() {
 }
 
 spex.sequence(source)
-    .then(data=> {
+    .then((data: any) => {
         var r = data[0].anything;
     })
-    .catch(error=> {
+    .catch((error: any) => {
         var e = <typeof spex.errors.SequenceError>error;
-        var duration:number = e.duration;
+        var duration: number = e.duration;
     });

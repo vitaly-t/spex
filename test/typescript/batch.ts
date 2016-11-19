@@ -3,10 +3,9 @@ import * as spexLib from 'spex';
 var spex = spexLib(Promise);
 
 spex.batch([])
-    .then(data=> {
+    .then((data: Array<any>) => {
         var r = data[0].anything;
     })
-    .catch(error=> {
-        var e = <typeof spex.errors.BatchError>error;
-        var duration:number = e.stat.duration;
+    .catch((error: typeof spex.errors.BatchError) => {
+        var duration: number = error.stat.duration;
     });
