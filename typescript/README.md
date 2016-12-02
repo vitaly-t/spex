@@ -1,6 +1,6 @@
 ### TypeScript for SPEX
 
-Complete TypeScript declarations for the [spex] module.
+Complete TypeScript 2.0 declarations for the [spex] module.
 
 #### Inclusion
 
