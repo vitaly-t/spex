@@ -1,12 +1,12 @@
-### TypeScript for SPEX
+## TypeScript for SPEX
 
 Complete TypeScript 2.0 declarations for the [spex] module.
 
-#### Inclusion
+### Inclusion
 
 Typescript should be able to pick up the definitions without any manual configuration.
 
-#### Usage
+### Usage
 
 ```ts
 import * as spexLib from "spex";
