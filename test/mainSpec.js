@@ -163,11 +163,11 @@ describe("Main - positive", function () {
 
 });
 
-describe("Typescript", function() {
+describe("Typescript", function () {
 
-    describe("build", function() {
-        it("must build without error", function(done) {
-            exec('tsc', {}, function(error) {
+    describe("build", function () {
+        it("must build without error", function (done) {
+            exec('tsc', {}, function (error) {
                 expect(error).toBe(null);
                 done();
             })

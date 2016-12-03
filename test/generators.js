@@ -30,7 +30,7 @@ describe("Generators", function () {
                 done();
             });
     });
-    
+
     it("must resolve successfully", function () {
         expect(result.data).toEqual([
             {

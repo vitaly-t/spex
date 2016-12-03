@@ -2,8 +2,6 @@
 // Requires SPEX v1.0.7 or later.
 ////////////////////////////////////////
 
-type XPromise<A> = Promise<A>;
-
 type TOriginData = {
     success: boolean,
     result: any
@@ -94,8 +92,8 @@ interface IErrors {
 // API: http://vitaly-t.github.io/spex/stream.html
 interface IStream {
     // API: http://vitaly-t.github.io/spex/stream.html#.read
-    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, closable?: boolean, readSize?: number): XPromise<spex.TStreamReadResult>;
-    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: spex.TStreamReadOptions): XPromise<spex.TStreamReadResult>;
+    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, closable?: boolean, readSize?: number): Promise<spex.TStreamReadResult>;
+    read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: spex.TStreamReadOptions): Promise<spex.TStreamReadResult>;
 }
 
 declare namespace spex {
@@ -133,16 +131,16 @@ declare namespace spex {
     interface ISpexBase {
 
         // API: http://vitaly-t.github.io/spex/global.html#batch
-        batch(values: Array<any>, cb?: (index: number, success: boolean, result: any, delay: number) => any): XPromise<Array<any>>;
-        batch(values: Array<any>, options: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): XPromise<Array<any>>;
+        batch(values: Array<any>, cb?: (index: number, success: boolean, result: any, delay: number) => any): Promise<Array<any>>;
+        batch(values: Array<any>, options: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<Array<any>>;
 
         // API: http://vitaly-t.github.io/spex/global.html#page
-        page(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number): XPromise<TPageResult>;
-        page(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): XPromise<TPageResult>;
+        page(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number): Promise<TPageResult>;
+        page(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): Promise<TPageResult>;
 
         // API: http://vitaly-t.github.io/spex/global.html#sequence
-        sequence(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean): XPromise<TSequenceResult | Array<any>>;
-        sequence(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): XPromise<TSequenceResult | Array<any>>;
+        sequence(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean): Promise<TSequenceResult | Array<any>>;
+        sequence(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): Promise<TSequenceResult | Array<any>>;
     }
 
     interface ISpex extends ISpexBase {
