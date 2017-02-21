@@ -1,5 +1,5 @@
 import * as spexLib from '../../typescript/spex';
-import {TSequenceResult} from '../../typescript/spex';
+import {TSequenceResult, IArrayExt} from '../../typescript/spex';
 
 var spex = spexLib(Promise);
 
@@ -21,7 +21,7 @@ spex.sequence(source)
 
 // sequence with tracking:
 spex.sequence(source, {track: true})
-    .then((data: Array<any>) => {
+    .then((data: IArrayExt<any>) => {
         var r = data[0].anything;
     })
     .catch((error: SequenceError) => {
