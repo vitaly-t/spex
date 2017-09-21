@@ -8,9 +8,9 @@ var isError = lib.isError;
 
 var SequenceError = require('../../../lib/errors/sequence');
 
-describe("Sequence - negative", function () {
+describe('Sequence - negative', function () {
 
-    describe("with invalid parameters", function () {
+    describe('with invalid parameters', function () {
         var error;
         beforeEach(function (done) {
             spex.sequence()
@@ -19,17 +19,17 @@ describe("Sequence - negative", function () {
                     done();
                 });
         });
-        it("must reject an invalid source function", function () {
+        it('must reject an invalid source function', function () {
             expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
-            expect(error.message).toBe("Parameter 'source' must be a function.");
+            expect(error.message).toBe('Parameter \'source\' must be a function.');
         });
     });
 
-    describe("source error", function () {
+    describe('source error', function () {
 
-        describe("as Error", function () {
-            var r, err = new Error("source error");
+        describe('as Error', function () {
+            var r, err = new Error('source error');
             beforeEach(function (done) {
                 function source() {
                     throw err;
@@ -39,22 +39,22 @@ describe("Sequence - negative", function () {
                     .catch(function (e) {
                         r = e;
                         done();
-                    })
+                    });
             });
 
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
-                expect(r.inspect()).toContain("reason: Source 'source' threw an error at index 0.");
-            })
+                expect(r.inspect()).toContain('reason: Source \'source\' threw an error at index 0.');
+            });
         });
 
-        describe("with a string value", function () {
-            var r, msg = "source error";
+        describe('with a string value', function () {
+            var r, msg = 'source error';
             beforeEach(function (done) {
 
                 spex.sequence(function () {
@@ -63,10 +63,10 @@ describe("Sequence - negative", function () {
                     .catch(function (e) {
                         r = e;
                         done();
-                    })
+                    });
             });
 
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof SequenceError).toBe(true);
                 expect(r.index).toBe(0);
@@ -74,11 +74,11 @@ describe("Sequence - negative", function () {
                 expect(r.error).toBe(msg);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
-                expect(r.inspect()).toContain("reason: Source <anonymous> threw an error at index 0.");
-            })
+                expect(r.inspect()).toContain('reason: Source <anonymous> threw an error at index 0.');
+            });
         });
 
-        describe("with a non-string value", function () {
+        describe('with a non-string value', function () {
             var r;
             beforeEach(function (done) {
 
@@ -88,21 +88,21 @@ describe("Sequence - negative", function () {
                     .catch(function (e) {
                         r = e;
                         done();
-                    })
+                    });
             });
 
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r, 'SequenceError')).toBe(true);
                 expect(r.error).toBe(123);
                 expect(r.message).toBe('123');
-            })
+            });
         });
 
     });
 
-    describe("source reject", function () {
+    describe('source reject', function () {
 
-        var error, msg = "source reject";
+        var error, msg = 'source reject';
         beforeEach(function (done) {
             function source() {
                 return promise.reject(new Error(msg));
@@ -112,22 +112,21 @@ describe("Sequence - negative", function () {
                 .catch(function (e) {
                     error = e;
                     done();
-                })
-
+                });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(error)).toBe(true);
             expect(error instanceof SequenceError).toBe(true);
             expect(error.index).toBe(0);
             expect(error.message).toBe(msg);
             expect('source' in error).toBe(true);
             expect(error.source).toBeUndefined();
-            expect(error.inspect()).toContain("reason: Source 'source' returned a rejection at index 0.");
-        })
+            expect(error.inspect()).toContain('reason: Source \'source\' returned a rejection at index 0.');
+        });
     });
 
-    describe("source reject with a batch", function () {
+    describe('source reject with a batch', function () {
 
         var r;
         beforeEach(function (done) {
@@ -140,24 +139,23 @@ describe("Sequence - negative", function () {
                 .catch(function (e) {
                     r = e;
                     done();
-                })
-
+                });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r instanceof SequenceError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.message).toBe('123');
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
-            expect(r.inspect()).toContain("error: BatchError {");
-        })
+            expect(r.inspect()).toContain('error: BatchError {');
+        });
     });
 
-    describe("destination error", function () {
+    describe('destination error', function () {
 
-        var error, msg = "destination error";
+        var error, msg = 'destination error';
         beforeEach(function (done) {
             function source() {
                 return 123;
@@ -167,26 +165,26 @@ describe("Sequence - negative", function () {
                 throw new Error(msg);
             }
 
-            spex.sequence(source, dest)
+            spex.sequence(source, {dest: dest})
                 .catch(function (e) {
                     error = e;
                     done();
-                })
+                });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(error)).toBe(true);
             expect(error instanceof SequenceError).toBe(true);
             expect(error.message).toBe(msg);
             expect(error.index).toBe(0);
             expect(error.dest).toBe(123);
-            expect(error.inspect()).toContain("reason: Destination 'dest' threw an error at index 0.");
-        })
+            expect(error.inspect()).toContain('reason: Destination \'dest\' threw an error at index 0.');
+        });
     });
 
-    describe("destination reject", function () {
+    describe('destination reject', function () {
 
-        var r, msg = "destination reject";
+        var r, msg = 'destination reject';
         beforeEach(function (done) {
             function source() {
                 return 123;
@@ -196,28 +194,28 @@ describe("Sequence - negative", function () {
                 return promise.reject(new Error(msg));
             }
 
-            spex.sequence(source, dest)
+            spex.sequence(source, {dest: dest})
                 .catch(function (e) {
                     r = e;
                     done();
-                })
+                });
         });
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r instanceof SequenceError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.message).toBe(msg);
             expect(r.dest).toBe(123);
-            expect(r.inspect()).toContain("reason: Destination 'dest' returned a rejection at index 0.");
+            expect(r.inspect()).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
             expect(r.inspect() !== r.toString(1)).toBe(true);
-        })
+        });
     });
 
 });
 
-describe("Sequence - positive", function () {
+describe('Sequence - positive', function () {
 
-    describe("with a limit", function () {
+    describe('with a limit', function () {
         var result, limit = 100;
 
         function source() {
@@ -233,14 +231,14 @@ describe("Sequence - positive", function () {
                     done();
                 });
         });
-        it("must match the limit", function () {
+        it('must match the limit', function () {
             expect(result && typeof result === 'object').toBe(true);
             expect(result.total).toBe(limit);
             expect('duration' in result).toBe(true);
         });
     });
 
-    describe("tracking", function () {
+    describe('tracking', function () {
         var result, tracked = [];
 
         function source(idx) {
@@ -265,7 +263,7 @@ describe("Sequence - positive", function () {
                     done();
                 });
         });
-        it("must track and return the sequence", function () {
+        it('must track and return the sequence', function () {
             expect(result instanceof Array).toBe(true);
             expect('duration' in result).toBe(true);
             expect(result).toEqual([0, 1, 2]);
@@ -273,7 +271,7 @@ describe("Sequence - positive", function () {
         });
     });
 
-    describe("this context", function () {
+    describe('this context', function () {
         var ctx, context = {};
 
         function source() {
@@ -286,7 +284,7 @@ describe("Sequence - positive", function () {
                     done();
                 });
         });
-        it("must be passed in correctly", function () {
+        it('must be passed in correctly', function () {
             expect(ctx).toBe(context);
         });
 
