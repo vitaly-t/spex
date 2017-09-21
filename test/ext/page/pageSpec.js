@@ -7,9 +7,9 @@ var spex = lib.main(promise);
 var isError = lib.isError;
 var PageError = require('../../../lib/errors/page');
 
-describe("Page - negative", function () {
+describe('Page - negative', function () {
 
-    describe("with invalid parameters", function () {
+    describe('with invalid parameters', function () {
         var error;
         beforeEach(function (done) {
             spex.page()
@@ -18,17 +18,17 @@ describe("Page - negative", function () {
                     done();
                 });
         });
-        it("must reject an invalid source function", function () {
+        it('must reject an invalid source function', function () {
             expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
-            expect(error.message).toBe("Parameter 'source' must be a function.");
+            expect(error.message).toBe('Parameter \'source\' must be a function.');
         });
     });
 
-    describe("source error", function () {
+    describe('source error', function () {
 
-        describe("with Error", function () {
-            var r, err = new Error("source error");
+        describe('with Error', function () {
+            var r, err = new Error('source error');
 
             beforeEach(function (done) {
                 function source() {
@@ -39,10 +39,10 @@ describe("Page - negative", function () {
                     .catch(function (reason) {
                         r = reason;
                         done();
-                    })
+                    });
             });
 
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof PageError).toBe(true);
                 expect(r.index).toBe(0);
@@ -50,12 +50,12 @@ describe("Page - negative", function () {
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
                 expect('dest' in r).toBe(false);
-                expect(r.inspect()).toContain("reason: Source 'source' threw an error at index 0.");
-            })
+                expect(r.inspect()).toContain('reason: Source \'source\' threw an error at index 0.');
+            });
         });
 
-        describe("with a string value", function () {
-            var r, err = "source error";
+        describe('with a string value', function () {
+            var r, err = 'source error';
 
             beforeEach(function (done) {
 
@@ -65,10 +65,10 @@ describe("Page - negative", function () {
                     .catch(function (reason) {
                         r = reason;
                         done();
-                    })
+                    });
             });
 
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof PageError).toBe(true);
                 expect(r.index).toBe(0);
@@ -76,11 +76,11 @@ describe("Page - negative", function () {
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
                 expect('dest' in r).toBe(false);
-                expect(r.inspect()).toContain("reason: Source <anonymous> threw an error at index 0.");
-            })
+                expect(r.inspect()).toContain('reason: Source <anonymous> threw an error at index 0.');
+            });
         });
 
-        describe("with a non-string value", function () {
+        describe('with a non-string value', function () {
             var r, err = 123;
 
             beforeEach(function (done) {
@@ -91,21 +91,21 @@ describe("Page - negative", function () {
                     .catch(function (reason) {
                         r = reason;
                         done();
-                    })
+                    });
             });
 
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r, 'PageError')).toBe(true);
                 expect(r.error).toBe(err);
                 expect(r.message).toBe('123');
-            })
+            });
         });
 
     });
 
-    describe("source reject", function () {
+    describe('source reject', function () {
 
-        var r, err = new Error("source reject");
+        var r, err = new Error('source reject');
 
         beforeEach(function (done) {
             function source() {
@@ -116,24 +116,24 @@ describe("Page - negative", function () {
                 .catch(function (reason) {
                     r = reason;
                     done();
-                })
+                });
 
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
-            expect(r.inspect()).toContain("reason: Source 'source' returned a rejection at index 0.");
-        })
+            expect(r.inspect()).toContain('reason: Source \'source\' returned a rejection at index 0.');
+        });
     });
 
-    describe("destination error", function () {
+    describe('destination error', function () {
 
-        var r, err = new Error("destination error");
+        var r, err = new Error('destination error');
         beforeEach(function (done) {
             function source() {
                 return [1, 2, 3];
@@ -143,26 +143,26 @@ describe("Page - negative", function () {
                 throw err;
             }
 
-            spex.page(source, dest)
+            spex.page(source, {dest: dest})
                 .catch(function (reason) {
                     r = reason;
                     done();
-                })
+                });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
-            expect(r.inspect()).toContain("reason: Destination 'dest' threw an error at index 0.");
-        })
+            expect(r.inspect()).toContain('reason: Destination \'dest\' threw an error at index 0.');
+        });
     });
 
-    describe("destination reject", function () {
+    describe('destination reject', function () {
 
-        var r, err = new Error("destination reject");
+        var r, err = new Error('destination reject');
         beforeEach(function (done) {
             function source() {
                 return [1, 2, 3];
@@ -172,26 +172,26 @@ describe("Page - negative", function () {
                 return promise.reject(err);
             }
 
-            spex.page(source, dest)
+            spex.page(source, {dest: dest})
                 .catch(function (reason) {
                     r = reason;
                     done();
-                })
+                });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
-            expect(r.inspect()).toContain("reason: Destination 'dest' returned a rejection at index 0.");
+            expect(r.inspect()).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
             expect(r.inspect() !== r.toString(1)).toBe(true);
-        })
+        });
     });
 
-    describe("page returns wrong value", function () {
-        var r, msg = "Unexpected data returned from the source.";
+    describe('page returns wrong value', function () {
+        var r, msg = 'Unexpected data returned from the source.';
 
         function source(idx) {
             if (!idx) {
@@ -208,18 +208,18 @@ describe("Page - negative", function () {
                 });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(1);
             expect(r.error instanceof Error).toBe(true);
             expect(r.message).toBe(msg);
             expect(r.source).toEqual([1, 2, 3]);
-            expect(r.inspect()).toContain("reason: Source 'source' returned a non-array value at index 1.");
+            expect(r.inspect()).toContain('reason: Source \'source\' returned a non-array value at index 1.');
         });
     });
 
-    describe("page data fail", function () {
+    describe('page data fail', function () {
         var error, err = new Error('second');
 
         function source(idx) {
@@ -237,9 +237,9 @@ describe("Page - negative", function () {
                 });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(error.index).toBe(2);
-            expect(error.error.name).toBe("BatchError");
+            expect(error.error.name).toBe('BatchError');
             expect(error.error.data).toEqual([
                 {
                     success: true,
@@ -256,15 +256,15 @@ describe("Page - negative", function () {
             ]);
             expect(isError(error)).toBe(true);
             expect(error.message).toBe('second');
-            expect(error.inspect()).toContain("reason: Page with index 2 rejected.");
+            expect(error.inspect()).toContain('reason: Page with index 2 rejected.');
         });
     });
 
 });
 
-describe("Page - positive", function () {
+describe('Page - positive', function () {
 
-    describe("with mixed data types", function () {
+    describe('with mixed data types', function () {
 
         var result, tracking = [];
 
@@ -293,14 +293,14 @@ describe("Page - positive", function () {
         }
 
         beforeEach(function (done) {
-            spex.page(source, dest)
+            spex.page(source, {dest: dest})
                 .then(function (data) {
                     result = data;
                     done();
                 });
         });
 
-        it("must return all the data", function () {
+        it('must return all the data', function () {
             expect(result && typeof result === 'object').toBe(true);
             expect(result.pages).toBe(3);
             expect(result.total).toBe(7);
@@ -311,7 +311,7 @@ describe("Page - positive", function () {
         });
     });
 
-    describe("reaching limit", function () {
+    describe('reaching limit', function () {
         var result, limit = 100;
 
         function source(idx) {
@@ -326,7 +326,7 @@ describe("Page - positive", function () {
                 });
         });
 
-        it("must resolve correctly", function () {
+        it('must resolve correctly', function () {
             expect(result && typeof result === 'object').toBe(true);
             expect(result.pages).toBe(limit);
             expect(result.total).toBe(limit * 3);
@@ -334,7 +334,7 @@ describe("Page - positive", function () {
         });
     });
 
-    describe("this context", function () {
+    describe('this context', function () {
         var ctx, context = {};
 
         function source() {
@@ -347,7 +347,7 @@ describe("Page - positive", function () {
                     done();
                 });
         });
-        it("must be passed in correctly", function () {
+        it('must be passed in correctly', function () {
             expect(ctx).toBe(context);
         });
 

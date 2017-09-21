@@ -4,8 +4,6 @@
 
 'use strict';
 
-var util = require('util');
-
 function isError(e, name) {
     var confirmed = e instanceof Error &&
         typeof e === 'object' &&
@@ -20,13 +18,13 @@ function isError(e, name) {
 
     if (!confirmed) {
         if (!(e instanceof Error)) {
-            console.error("ERROR: Not an Error instance.");
+            console.error('ERROR: Not an Error instance.'); // eslint-disable-line no-console
         }
         if (typeof e.message !== 'string') {
-            console.error("ERROR: Message is a not a string:", e.message);
+            console.error('ERROR: Message is a not a string:', e.message); // eslint-disable-line no-console
         }
         if (typeof e.stack !== 'string') {
-            console.error("ERROR: Stack is a not a string:", e.stack);
+            console.error('ERROR: Stack is a not a string:', e.stack); // eslint-disable-line no-console
         }
     }
 

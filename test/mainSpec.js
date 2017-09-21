@@ -1,22 +1,20 @@
 'use strict';
 
-var util = require('util');
 var lib = require('./header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 var PromiseAdapter = lib.main.PromiseAdapter;
-var exec = require('child_process').exec;
 
 var dummy = function () {
 };
 
-describe("Main - negative", function () {
+describe('Main - negative', function () {
 
-    describe("passing invalid promise", function () {
-        var error = "Invalid promise library specified."
+    describe('passing invalid promise', function () {
+        var error = 'Invalid promise library specified.';
 
-        describe("as nothing", function () {
-            it("must throw an error", function () {
+        describe('as nothing', function () {
+            it('must throw an error', function () {
                 expect(function () {
                     lib.main();
                 })
@@ -24,16 +22,16 @@ describe("Main - negative", function () {
             });
         });
 
-        describe("as a wrong type", function () {
-            it("must throw an error", function () {
+        describe('as a wrong type', function () {
+            it('must throw an error', function () {
                 expect(function () {
                     lib.main(123);
                 }).toThrow(error);
             });
         });
 
-        describe("as a dummy function", function () {
-            it("must throw an error", function () {
+        describe('as a dummy function', function () {
+            it('must throw an error', function () {
                 expect(function () {
                     lib.main(dummy);
                 })
@@ -43,8 +41,8 @@ describe("Main - negative", function () {
 
     });
 
-    describe("passing invalid adapter", function () {
-        it("must throw an error", function () {
+    describe('passing invalid adapter', function () {
+        it('must throw an error', function () {
             expect(function () {
                 new PromiseAdapter();
             }).toThrow('Adapter requires a function to create a promise.');
@@ -58,14 +56,14 @@ describe("Main - negative", function () {
     });
 });
 
-describe("Main - positive", function () {
+describe('Main - positive', function () {
 
-    describe("protocol", function () {
+    describe('protocol', function () {
         var inst;
         beforeEach(function () {
             inst = lib.main(promise);
         });
-        it("must be complete", function () {
+        it('must be complete', function () {
             expect(PromiseAdapter instanceof Function).toBe(true);
             expect(inst && typeof inst === 'object').toBe(true);
             expect(inst.batch instanceof Function).toBe(true);
@@ -81,7 +79,7 @@ describe("Main - positive", function () {
         });
     });
 
-    describe("initializing with adapter", function () {
+    describe('initializing with adapter', function () {
         var adapter, inst, p;
         beforeEach(function () {
             adapter = new PromiseAdapter(function () {
@@ -90,36 +88,36 @@ describe("Main - positive", function () {
             inst = lib.main(adapter);
             p = inst.$p(dummy);
         });
-        it("must not throw any error", function () {
+        it('must not throw any error', function () {
             expect(adapter).toBeTruthy();
             expect(inst).toBeTruthy();
             expect(p).toBe(100);
         });
     });
 
-    describe("constructing adapter", function () {
-        it("must be successful with new", function () {
+    describe('constructing adapter', function () {
+        it('must be successful with new', function () {
             var adapter = new PromiseAdapter(dummy, dummy, dummy);
             expect(adapter instanceof PromiseAdapter).toBe(true);
         });
-        it("must be successful without new", function () {
-            var adapter = PromiseAdapter(dummy, dummy, dummy);
+        it('must be successful without new', function () {
+            var adapter = PromiseAdapter(dummy, dummy, dummy); // eslint-disable-line new-cap
             expect(adapter instanceof PromiseAdapter).toBe(true);
         });
-        it("must be successful with wrong context", function () {
+        it('must be successful with wrong context', function () {
             var obj = {};
             var adapter = PromiseAdapter.call(obj, dummy, dummy, dummy);
             expect(adapter instanceof PromiseAdapter).toBe(true);
         });
     });
 
-    describe("multi-init", function () {
+    describe('multi-init', function () {
 
         var PromiseOne = [
             function (cb) {
                 return new promise.Promise(cb);
             },
-            function (data) {
+            function () {
                 return promise.resolve('data-one');
             },
             function (reason) {
@@ -131,7 +129,7 @@ describe("Main - positive", function () {
             function (cb) {
                 return new promise.Promise(cb);
             },
-            function (data) {
+            function () {
                 return promise.resolve('data-two');
             },
             function (reason) {
@@ -156,21 +154,9 @@ describe("Main - positive", function () {
                 });
         });
 
-        it("must be supported", function () {
+        it('must be supported', function () {
             expect(result).toEqual(['data-two', 'data-one']);
         });
     });
 
-});
-
-describe("Typescript", function () {
-
-    describe("build", function () {
-        it("must build without error", function (done) {
-            exec('tsc', {}, function (error) {
-                expect(error).toBe(null);
-                done();
-            })
-        });
-    });
 });

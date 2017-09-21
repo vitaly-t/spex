@@ -5,7 +5,7 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
-describe("Stream.read", function () {
+describe('Stream.read', function () {
 
     var stm;
 
@@ -17,10 +17,10 @@ describe("Stream.read", function () {
         stm.destroy();
     });
 
-    describe("this with generator", function () {
+    describe('this with generator', function () {
         var result, ctx, context = {};
 
-        function * receiver() {
+        function* receiver() {
             ctx = this;
             return yield 'ok';
         }
@@ -33,7 +33,7 @@ describe("Stream.read", function () {
                 });
         });
 
-        it("must resolve with full statistics", function () {
+        it('must resolve with full statistics', function () {
             expect(ctx).toBe(context);
         });
     });

@@ -135,19 +135,13 @@ declare namespace spex {
     interface ISpexBase {
 
         // API: http://vitaly-t.github.io/spex/global.html#batch
-        batch(values: Array<any>, cb?: (index: number, success: boolean, result: any, delay: number) => any): Promise<IArrayExt<any>>;
-
-        batch(values: Array<any>, options: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<IArrayExt<any>>;
+        batch(values: Array<any>, options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<IArrayExt<any>>;
 
         // API: http://vitaly-t.github.io/spex/global.html#page
-        page(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number): Promise<TPageResult>;
-
-        page(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): Promise<TPageResult>;
+        page(source: (index: number, data: any, delay: number) => any, options?: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): Promise<TPageResult>;
 
         // API: http://vitaly-t.github.io/spex/global.html#sequence
-        sequence(source: (index: number, data: any, delay: number) => any, dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean): Promise<TSequenceResult | IArrayExt<any>>;
-
-        sequence(source: (index: number, data: any, delay: number) => any, options: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): Promise<TSequenceResult | IArrayExt<any>>;
+        sequence(source: (index: number, data: any, delay: number) => any, options?: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): Promise<TSequenceResult | IArrayExt<any>>;
     }
 
     interface ISpex extends ISpexBase {

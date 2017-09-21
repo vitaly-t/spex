@@ -6,9 +6,9 @@ var spex = lib.main(promise);
 
 var isError = lib.isError;
 
-describe("Batch - negative", function () {
+describe('Batch - negative', function () {
 
-    describe("with invalid parameters", function () {
+    describe('with invalid parameters', function () {
         var error;
         beforeEach(function (done) {
             spex.batch()
@@ -17,31 +17,31 @@ describe("Batch - negative", function () {
                     done();
                 });
         });
-        it("must reject an invalid array of values", function () {
+        it('must reject an invalid array of values', function () {
             expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
-            expect(error.message).toBe("Method 'batch' requires an array of values.");
+            expect(error.message).toBe('Method \'batch\' requires an array of values.');
         });
     });
 
-    describe("callback error", function () {
+    describe('callback error', function () {
 
-        describe("passing success", function () {
-            var r, err = new Error("callback error");
+        describe('passing success', function () {
+            var r, err = new Error('callback error');
             beforeEach(function (done) {
 
                 function cb() {
                     throw err;
                 }
 
-                spex.batch([1], cb)
+                spex.batch([1], {cb: cb})
                     .catch(function (reason) {
                         r = reason;
                         done();
-                    })
+                    });
 
             });
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r)).toBe(true);
                 expect(r.data).toEqual([{
                     success: false,
@@ -49,24 +49,24 @@ describe("Batch - negative", function () {
                     origin: {success: true, result: 1}
                 }]);
                 expect(r.getErrors()).toEqual([err]);
-            })
+            });
         });
 
-        describe("passing error", function () {
-            var r, err = new Error("callback error"), rejectError = new Error('ops!');
+        describe('passing error', function () {
+            var r, err = new Error('callback error'), rejectError = new Error('ops!');
             beforeEach(function (done) {
 
                 function cb() {
                     throw err;
                 }
 
-                spex.batch([promise.reject(rejectError)], cb)
+                spex.batch([promise.reject(rejectError)], {cb: cb})
                     .catch(function (reason) {
                         r = reason;
                         done();
-                    })
+                    });
             });
-            it("must reject correctly", function () {
+            it('must reject correctly', function () {
                 expect(isError(r)).toBe(true);
                 expect(r.data).toEqual([{
                     success: false,
@@ -74,33 +74,32 @@ describe("Batch - negative", function () {
                     origin: {success: false, result: rejectError}
                 }]);
                 expect(r.getErrors()).toEqual([err]);
-            })
+            });
         });
 
     });
 
-    describe("callback reject", function () {
+    describe('callback reject', function () {
 
-        var r, err = new Error("callback reject");
+        var r, err = new Error('callback reject');
         beforeEach(function (done) {
 
             function cb(index) {
                 if (index) {
                     return promise.resolve();
-                } else {
-                    return promise.reject(err);
                 }
+                return promise.reject(err);
             }
 
             spex.batch([1, 2], {cb: cb})
                 .catch(function (reason) {
                     r = reason;
                     done();
-                })
+                });
 
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
@@ -113,11 +112,11 @@ describe("Batch - negative", function () {
                     result: 2
                 }]);
             expect(r.getErrors()).toEqual([err]);
-        })
+        });
     });
 
-    describe("input reject", function () {
-        var r, err = new Error("no values");
+    describe('input reject', function () {
+        var r, err = new Error('no values');
 
         function value() {
             throw new Error(err);
@@ -128,9 +127,9 @@ describe("Batch - negative", function () {
                 .catch(function (reason) {
                     r = reason;
                     done();
-                })
+                });
         });
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
@@ -142,7 +141,7 @@ describe("Batch - negative", function () {
         });
     });
 
-    describe("input: null reject", function () {
+    describe('input: null reject', function () {
         var r, err = new Error(null);
 
         function value() {
@@ -154,9 +153,9 @@ describe("Batch - negative", function () {
                 .catch(function (reason) {
                     r = reason;
                     done();
-                })
+                });
         });
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
@@ -169,7 +168,7 @@ describe("Batch - negative", function () {
         });
     });
 
-    describe("input: simple reject", function () {
+    describe('input: simple reject', function () {
         var r, err = new Error(123);
 
         function value() {
@@ -181,10 +180,10 @@ describe("Batch - negative", function () {
                 .catch(function (reason) {
                     r = reason;
                     done();
-                })
+                });
         });
 
-        it("must reject correctly", function () {
+        it('must reject correctly', function () {
             expect(isError(r)).toBe(true);
             expect(r.data).toEqual([
                 {
@@ -197,10 +196,10 @@ describe("Batch - negative", function () {
         });
     });
 
-    describe("nested batch reject", function () {
+    describe('nested batch reject', function () {
 
-        describe("with error", function () {
-            var error, err = new Error("internal failure");
+        describe('with error', function () {
+            var error, err = new Error('internal failure');
 
             function problem() {
                 throw err;
@@ -217,7 +216,7 @@ describe("Batch - negative", function () {
                         done();
                     });
             });
-            it("must be reported correctly", function () {
+            it('must be reported correctly', function () {
                 expect(isError(error)).toBe(true);
                 expect(error.first).toEqual(err);
                 expect(error.getErrors()).toEqual([[err]]);
@@ -225,8 +224,8 @@ describe("Batch - negative", function () {
             });
         });
 
-        describe("with value", function () {
-            var error, err = "internal failure";
+        describe('with value', function () {
+            var error, err = 'internal failure';
 
             function problem() {
                 throw err;
@@ -244,21 +243,21 @@ describe("Batch - negative", function () {
                     });
             });
 
-            it("must be reported correctly", function () {
+            it('must be reported correctly', function () {
                 expect(isError(error)).toBe(true);
                 expect(error.first).toEqual(err);
                 expect(error.getErrors()).toEqual([[err]]);
                 expect(error.message).toBe(err);
-                expect(error.inspect()).toContain("stat: { total: 1, succeeded: 0, failed: 1, duration:");
+                expect(error.inspect()).toContain('stat: { total: 1, succeeded: 0, failed: 1, duration:');
             });
         });
 
     });
 });
 
-describe("Batch - positive", function () {
+describe('Batch - positive', function () {
 
-    describe("empty input", function () {
+    describe('empty input', function () {
         var result;
         beforeEach(function (done) {
             spex.batch([])
@@ -267,13 +266,13 @@ describe("Batch - positive", function () {
                     done();
                 });
         });
-        it("must resolve with an empty result", function () {
+        it('must resolve with an empty result', function () {
             expect(result).toEqual([]);
             expect(typeof result.duration).toBe('number');
         });
     });
 
-    describe("this context", function () {
+    describe('this context', function () {
         var ctx, context = {};
 
         function test() {
@@ -287,7 +286,7 @@ describe("Batch - positive", function () {
                 });
         });
 
-        it("must be passed in correctly", function () {
+        it('must be passed in correctly', function () {
             expect(ctx).toBe(context);
         });
 

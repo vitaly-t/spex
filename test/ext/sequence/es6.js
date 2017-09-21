@@ -4,17 +4,17 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
-describe("Sequence callbacks generators", function () {
+describe('Sequence callbacks generators', function () {
     var result, ctx, context = {};
 
-    function * source(index) {
+    function* source(index) {
         ctx = this;
         if (!index) {
             return yield promise.resolve('src');
         }
     }
 
-    function * dest(_, data) {
+    function* dest(_, data) {
         this.data = data;
         return yield promise.resolve('dest');
     }
@@ -26,7 +26,7 @@ describe("Sequence callbacks generators", function () {
                 done();
             });
     });
-    it("must resolve successfully", function () {
+    it('must resolve successfully', function () {
         expect(result).toEqual(['src']);
         expect(ctx).toBe(context);
         expect(context.data).toBe('src');
