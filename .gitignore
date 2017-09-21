@@ -7,3 +7,4 @@ coverage/
 /spex.js
 test/typescript/*.js
 test/typescript/*.map
+package-lock.json

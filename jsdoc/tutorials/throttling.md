@@ -23,14 +23,14 @@ delays needed to implement *load balancing*.
 The example below uses method [page] to initiate a sequence of 5 pages, and then logs the resolved data into the console.
 The `source` function serves each page with a half-second delay.
 
-```javascript
+```js
 var spex = require('spex')(Promise);
 
 function source(index, data, delay) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve([
-                "page-" + index, // simple value;
+                'page-' + index, // simple value;
                 Promise.resolve(Date.now()) // promise value;
             ])
         }, 500); // wait 1/2 second before serving the next page;
@@ -38,12 +38,12 @@ function source(index, data, delay) {
 }
 
 function logger(index, data, delay) {
-    console.log("LOG:", data);
+    console.log('LOG:', data);
 }
 
 spex.page(source, {dest: logger, limit: 5})
     .then(function (data) {
-        console.log("FINISHED:", data);
+        console.log('FINISHED:', data);
     });
 ```
 
@@ -63,18 +63,18 @@ FINISHED: { pages: 5, total: 10, duration: 2520 }
 In the following example we have a [sequence] that returns data while the index is less than 5, and the
 destination function that enforces a 1 second delay on processing each data resolved from the source.
  
-```javascript 
+```js 
 var spex = require('spex')(Promise);
 
 function source(index, data, delay) {
-    console.log("SOURCE:", index, data, delay);
+    console.log('SOURCE:', index, data, delay);
     if (index < 5) {
         return Promise.resolve(index);
     }
 }
 
 function dest(index, data, delay) {
-    console.log("DEST:", index, data, delay);
+    console.log('DEST:', index, data, delay);
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve();
@@ -84,7 +84,7 @@ function dest(index, data, delay) {
 
 spex.sequence(source, dest)
     .then(function (data) {
-        console.log("DATA:", data);
+        console.log('DATA:', data);
     });
 ```
 

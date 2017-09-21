@@ -33,7 +33,7 @@ var spex = require('spex')(Promise);
 
 // function that returns a promise;
 function getWord() {
-    return Promise.resolve("World");
+    return Promise.resolve('World');
 }
 
 // function that returns a value;
@@ -48,17 +48,17 @@ function nested() {
 
 var values = [
     123,
-    "Hello",
+    'Hello',
     getWord,
     Promise.resolve(nested)
 ];
 
 spex.batch(values)
     .then(function (data) {
-        console.log("DATA:", data);
+        console.log('DATA:', data);
     })
     .catch(function (error) {
-        console.log("ERROR:", error);
+        console.log('ERROR:', error);
     });
 ```
 
@@ -72,7 +72,7 @@ Now let's make it fail by changing `getWord` to this:
 
 ```js
 function getWord() {
-    return Promise.reject("World");
+    return Promise.reject('World');
 }
 ```
 
@@ -90,7 +90,7 @@ i.e. the entire array is settled, reporting index-bound results.
 And if instead of reporting the entire reason we call `getErrors()`:
 
 ```js
-console.log("ERROR:", reason.getErrors());
+console.log('ERROR:', reason.getErrors());
 ```
 
 then the output will be:

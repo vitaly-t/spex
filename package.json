@@ -6,9 +6,9 @@
   "typings": "typescript/spex.d.ts",
   "scripts": {
     "test": "jasmine-node test",
-    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc/jsDoc.json ./jsdoc/README.md -u ./jsdoc/tutorials",
+    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc/jsDoc.js ./jsdoc/README.md -u ./jsdoc/tutorials",
     "coverage": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test",
-    "travis": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test --captureExceptions && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "travis": "npm run lint && istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test --captureExceptions && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "browserify": "browserify lib/index.js -s spexLib -o spex.js",
     "lint": "./node_modules/.bin/eslint ./lib"
   },
@@ -41,13 +41,13 @@
     "npm": ">=1.4"
   },
   "devDependencies": {
-    "eslint": "^4.1.1",
-    "bluebird": "3.5",
-    "browserify": "14.x",
-    "coveralls": "2.11",
-    "istanbul": "0.4",
-    "jasmine-node": "1.x",
-    "jsdoc": "3.x",
-    "typescript": "2.4"
+    "bluebird": "~3.5.0",
+    "browserify": "~14.4.0",
+    "coveralls": "~2.11.16",
+    "eslint": "~4.7.1",
+    "istanbul": "~0.4.5",
+    "jasmine-node": "~1.14.5",
+    "jsdoc": "~3.5.5",
+    "typescript": "~2.5.2"
   }
 }

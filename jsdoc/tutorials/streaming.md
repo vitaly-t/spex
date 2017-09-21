@@ -14,7 +14,7 @@ or in bundles (method [page]).
 Below is a simple track-enabled sequence that creates and returns promises one by one.
 It also includes a destination function for logging purposes.
 
-```javascript
+```js
 var spex = require('spex')(Promise);
 
 function source(index, data, delay) {
@@ -54,12 +54,14 @@ DATA: [ 'zero', 'one', 'two', 'three' ]
 ```
 
 And if we run the same sequence without tracking (default):
-```javascript
+
+```js
 spex.sequence(source, dest)
     .then(function (data) {
         console.log('DATA:', data); // print result;
     });
 ```
+
 then the output will change to:
 ```
 LOG: 0 zero undefined
