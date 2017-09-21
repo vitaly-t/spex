@@ -122,7 +122,7 @@ declare namespace spex {
     // API: http://vitaly-t.github.io/spex/stream.html
     interface IStream {
         // API: http://vitaly-t.github.io/spex/stream.html#.read
-        read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: spex.TStreamReadOptions): Promise<spex.TStreamReadResult>;
+        read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: TStreamReadOptions): Promise<TStreamReadResult>;
     }
 
     // PromiseAdapter class;
