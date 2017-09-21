@@ -60,7 +60,7 @@ for (var i = 0; i &lt; 10; i++) {
 }
 console.log('Result:', result);</code></pre><p>we get the following output:</p>
 <pre class="prettyprint source lang-js"><code>Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]</code></pre><p>Now let's create the same sequence using spex:</p>
-<pre class="prettyprint source lang-javascript"><code>function source(index, data) {
+<pre class="prettyprint source lang-js"><code>function source(index, data) {
     return nextPrime(data);
 }
 
@@ -68,7 +68,7 @@ spex.sequence(source, {limit: 10, track: true})
     .then(function (data) {
         console.log('Result:', data);
     });</code></pre><p>It will produce the identical output as before:</p>
-<pre class="prettyprint source lang-js"><code>Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]</code></pre><h3>Benchmarks</h3><p>In the example above our <code>source</code> function returns a number directly, but it can be any <a href="https://github.com/vitaly-t/spex/wiki/Mixed-Values">mixed value</a>.</p>
+<pre class="prettyprint source lang-js"><code>Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]</code></pre><h3>Benchmarks</h3><p>In the example above our <code>source</code> function returns a number directly, but it can be any <a href="http://vitaly-t.github.io/spex/tutorial-mixed.html">mixed value</a>.</p>
 <p>Let's see how the <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> performs compared to the direct calculation as we increase the sequence size.</p>
 <table>
 <thead>
@@ -114,12 +114,16 @@ spex.sequence(source, {limit: 10, track: true})
 </table>
 <ul>
 <li><code>direct</code> - direct sequence calculation;</li>
-<li><code>number</code> - using <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> with the <code>source</code> that returns numbers:<pre class="prettyprint source lang-javascript"><code>function source(index, data) {
-  return nextPrime(data);
-}</code></pre></li>
-<li><code>promise</code> - using <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> with the <code>source</code> that returns promises:<pre class="prettyprint source lang-javascript"><code>function source(index, data) {
-  return Promise.resolve(nextPrime(data));
-}</code></pre></li>
+<li><code>number</code> - using <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> with the <code>source</code> that returns numbers:</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>function source(index, data) {
+    return nextPrime(data);
+}</code></pre><ul>
+<li><code>promise</code> - using <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> with the <code>source</code> that returns promises:</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>function source(index, data) {
+    return Promise.resolve(nextPrime(data));
+}</code></pre><ul>
 <li>All values are given in milliseconds;</li>
 <li>Two measurements for the <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a>: ES6 Promise / Bluebird</li>
 <li>Measured under NodeJS 4.1.1, 64-bit, with i7-4770 @ 3.85GHz</li>

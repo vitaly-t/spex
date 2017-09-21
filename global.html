@@ -105,7 +105,7 @@
     
 
     
-    <h4 class="name" id="batch"><span class="type-signature"></span>batch<span class="signature">(values, cb<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
+    <h4 class="name" id="batch"><span class="type-signature"></span>batch<span class="signature">(values, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
     
 
     
@@ -113,9 +113,7 @@
 
 
 <div class="description">
-    <p><strong>Alternative Syntax:</strong>
-<code>batch(values, {cb})</code> &#8658; <code>Promise</code></p>
-<p>Settles (resolves or rejects) every <a href="tutorial-mixed.html">mixed value</a> in the input array.</p>
+    <p>Settles (resolves or rejects) every <a href="tutorial-mixed.html">mixed value</a> in the input array.</p>
 <p>The method resolves with an array of results, the same as the standard <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all">promise.all</a>,
 while providing comprehensive error details in case of a reject, in the form of
 type <a href="errors.BatchError.html">BatchError</a>.</p>
@@ -189,6 +187,60 @@ type <a href="errors.BatchError.html">BatchError</a>.</p>
 
         <tr>
             
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional Parameters.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
                 <td class="name"><code>cb</code></td>
             
 
@@ -238,6 +290,13 @@ is set to <code>{success, result, origin}</code>:</p>
 <li><code>result</code> = the rejection reason or the error thrown by the notification callback</li>
 <li><code>origin</code> = the original data passed into the callback as object <code>{success, result}</code></li>
 </ul></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -341,7 +400,7 @@ spent resolving all the data.</p>
     
 
     
-    <h4 class="name" id="page"><span class="type-signature"></span>page<span class="signature">(source, dest<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
+    <h4 class="name" id="page"><span class="type-signature"></span>page<span class="signature">(source, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
     
 
     
@@ -349,9 +408,7 @@ spent resolving all the data.</p>
 
 
 <div class="description">
-    <p><strong>Alternative Syntax:</strong>
-<code>page(source, {dest, limit})</code> &#8658; <code>Promise</code></p>
-<p>Resolves a dynamic sequence of pages/arrays with <a href="tutorial-mixed.html">mixed values</a>.</p>
+    <p>Resolves a dynamic sequence of pages/arrays with <a href="tutorial-mixed.html">mixed values</a>.</p>
 <p>The method acquires pages (arrays of <a href="tutorial-mixed.html">mixed values</a>) from the <code>source</code> function, one by one,
 and resolves each page as a <a href="global.html#batch">batch</a>, till no more pages left or an error/reject occurs.</p>
 </div>
@@ -380,8 +437,6 @@ and resolves each page as a <a href="global.html#batch">batch</a>, till no more 
         <th>Attributes</th>
         
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -419,10 +474,6 @@ and resolves each page as a <a href="global.html#batch">batch</a>, till no more 
             
 
             
-                <td class="default">
-                
-                </td>
-            
 
             <td class="description last"><p>Expected to return a <a href="tutorial-mixed.html">mixed value</a> that resolves with the next page of data (array of <a href="tutorial-mixed.html">mixed values</a>).
 Returning or resolving with <code>undefined</code> ends the sequence, and the method resolves.</p>
@@ -441,6 +492,62 @@ the method rejects with the same <a href="errors.PageError.html">PageError</a>, 
 <p>Passing in anything other than a function will reject with <a href="external-TypeError.html">TypeError</a> = <code>Parameter 'source' must be a function.</code></p></td>
         </tr>
 
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional Parameters.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -544,6 +651,13 @@ till one of the following occurs:</p>
     </tbody>
 </table>
 
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -640,7 +754,7 @@ till one of the following occurs:</p>
     
 
     
-    <h4 class="name" id="sequence"><span class="type-signature"></span>sequence<span class="signature">(source, dest<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, track<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
+    <h4 class="name" id="sequence"><span class="type-signature"></span>sequence<span class="signature">(source, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
     
 
     
@@ -648,9 +762,7 @@ till one of the following occurs:</p>
 
 
 <div class="description">
-    <p><strong>Alternative Syntax:</strong>
-<code>sequence(source, {dest, limit, track})</code> &#8658; <code>Promise</code></p>
-<p>Resolves a dynamic sequence of <a href="tutorial-mixed.html">mixed values</a>.</p>
+    <p>Resolves a dynamic sequence of <a href="tutorial-mixed.html">mixed values</a>.</p>
 <p>The method acquires <a href="tutorial-mixed.html">mixed values</a> from the <code>source</code> function, one at a time, and resolves them,
 till either no more values left in the sequence or an error/reject occurs.</p>
 <p>It supports both <a href="tutorial-sequencing.html">linked and detached sequencing</a>.</p>
@@ -680,8 +792,6 @@ till either no more values left in the sequence or an error/reject occurs.</p>
         <th>Attributes</th>
         
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -719,10 +829,6 @@ till either no more values left in the sequence or an error/reject occurs.</p>
             
 
             
-                <td class="default">
-                
-                </td>
-            
 
             <td class="description last"><p>Expected to return the next <a href="tutorial-mixed.html">mixed value</a> to be resolved. Returning or resolving
 with <code>undefined</code> ends the sequence, and the method resolves.</p>
@@ -738,6 +844,62 @@ and the method rejects with <a href="errors.SequenceError.html">SequenceError</a
 <p>Passing in anything other than a function will reject with <a href="external-TypeError.html">TypeError</a> = <code>Parameter 'source' must be a function.</code></p></td>
         </tr>
 
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional Parameters.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -771,6 +933,8 @@ and the method rejects with <a href="errors.SequenceError.html">SequenceError</a
 
             
                 <td class="default">
+                
+                    null
                 
                 </td>
             
@@ -878,6 +1042,13 @@ till one of the following occurs:</p>
 into an array internally, and resolves with that array once the method has finished successfully.</p>
 <p>It must be used with caution, as to the size of the sequence, because accumulating data for
 a very large sequence can result in consuming too much memory.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     

@@ -34,9 +34,6 @@ var BatchError = require('../errors/batch');
 /**
  * @method batch
  * @description
- * **Alternative Syntax:**
- * `batch(values, {cb})` &amp;#8658; `Promise`
- *
  * Settles (resolves or rejects) every [mixed value]{@tutorial mixed} in the input array.
  *
  * The method resolves with an array of results, the same as the standard $[promise.all],
@@ -49,7 +46,10 @@ var BatchError = require('../errors/batch');
  * Passing in anything other than an array will reject with {@link external:TypeError TypeError} =
  * `Method 'batch' requires an array of values.`
  *
- * @param {Function|generator} [cb]
+ * @param {Object} [options]
+ * Optional Parameters.
+ *
+ * @param {Function|generator} [options.cb]
  * Optional callback (or generator) to receive the result for each settled value.
  *
  * Callback Parameters:
@@ -82,7 +82,7 @@ var BatchError = require('../errors/batch');
  *  - notification callback `cb` returned a rejected promise or threw an error
  *
  */
-function batch(values, cb, config) {
+function batch(values, options, config) {
 
     var $p = config.promise, $utils = config.utils;
 
@@ -96,8 +96,11 @@ function batch(values, cb, config) {
         return $p.resolve(empty);
     }
 
-    cb = $utils.wrap(cb);
-    var self = this, start = Date.now();
+    options = options || {};
+
+    var cb = $utils.wrap(options.cb),
+        self = this, start = Date.now();
+
     return $p(function (resolve, reject) {
         var cbTime, errors = [], remaining = values.length,
             result = new Array(remaining);
@@ -172,11 +175,8 @@ function batch(values, cb, config) {
 }
 
 module.exports = function (config) {
-    return function (values, cb) {
-        if (cb &amp;&amp; typeof cb === 'object') {
-            return batch.call(this, values, cb.cb, config);
-        }
-        return batch.call(this, values, cb, config);
+    return function (values, options) {
+        return batch.call(this, values, options, config);
     };
 };
 </code></pre>

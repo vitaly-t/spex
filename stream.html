@@ -200,7 +200,7 @@ stream.read(rs, receiver)
     
 
     
-    <h4 class="name" id=".read"><span class="type-signature">(static) </span>read<span class="signature">(stream, receiver, closable<span class="signature-attributes">opt</span>, readSize<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
+    <h4 class="name" id=".read"><span class="type-signature">(static) </span>read<span class="signature">(stream, receiver, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
     
 
     
@@ -208,11 +208,9 @@ stream.read(rs, receiver)
 
 
 <div class="description">
-    <p><strong>Alternative Syntax:</strong>
-<code>read(stream, receiver, {closable, readSize})</code> &#8658; <code>Promise</code></p>
-<p>Consumes and processes data from a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream.</p>
-<p>It reads the entire stream, using <strong>paused mode</strong>, with support for both synchronous
-and asynchronous data processing.</p>
+    <p>Consumes and processes data from a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream.</p>
+<p>It reads the entire stream, using either <strong>paused mode</strong> (default), or in chunks (see <code>options.readChunks</code>)
+with support for both synchronous and asynchronous data processing.</p>
 <p><strong>NOTE:</strong> Once the method has finished, the onus is on the caller to release the stream
 according to its protocol.</p>
 </div>
@@ -241,8 +239,6 @@ according to its protocol.</p>
         <th>Attributes</th>
         
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -276,10 +272,6 @@ according to its protocol.</p>
                 </td>
             
 
-            
-                <td class="default">
-                
-                </td>
             
 
             <td class="description last"><p><a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">Readable</a> stream object.</p>
@@ -316,10 +308,6 @@ according to its protocol.</p>
             
 
             
-                <td class="default">
-                
-                </td>
-            
 
             <td class="description last"><p>Data processing callback (or generator).</p>
 <p>Passing in anything else will throw <code>Invalid stream receiver.</code></p>
@@ -337,6 +325,62 @@ until the promise has been resolved.</p>
 with the same error / rejection reason.</p></td>
         </tr>
 
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional Parameters.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -373,8 +417,49 @@ with the same error / rejection reason.</p></td>
                 </td>
             
 
-            <td class="description last"><p>Instructs the method to resolve on event <code>close</code> supported by the stream,
-as opposed to event <code>end</code> that's used by default.</p></td>
+            <td class="description last"><p>Instructs the method to resolve on event <code>close</code> supported by the stream, as opposed to event
+<code>end</code> that's used by default.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>readChunks</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>By default, the method handles event <code>readable</code> of the stream to consume data in a simplified form,
+item by item. If you enable this option, the method will instead handle event <code>data</code> of the stream,
+to consume chunks of data.</p></td>
         </tr>
 
     
@@ -413,7 +498,15 @@ as opposed to event <code>end</code> that's used by default.</p></td>
 
             <td class="description last"><p>When the value is greater than 0, it sets the read size from the stream's buffer
 when the next data is available. By default, the method uses as few reads as possible
-to get all the data currently available in the buffer.</p></td>
+to get all the data currently available in the buffer.</p>
+<p>NOTE: This option is ignored when option <code>readChunks</code> is enabled.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     

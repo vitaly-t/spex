@@ -70,7 +70,7 @@ LOG: 1 one 8
 LOG: 2 two 1
 LOG: 3 three 0
 DATA: [ 'zero', 'one', 'two', 'three' ]</code></pre><p>And if we run the same sequence without tracking (default):</p>
-<pre class="prettyprint source lang-js"><code>spex.sequence(source, dest)
+<pre class="prettyprint source lang-js"><code>spex.sequence(source, {dest: dest})
     .then(function (data) {
         console.log('DATA:', data); // print result;
     });</code></pre><p>then the output will change to:</p>
