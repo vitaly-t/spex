@@ -56,7 +56,7 @@ DATA: [ 'zero', 'one', 'two', 'three' ]
 And if we run the same sequence without tracking (default):
 
 ```js
-spex.sequence(source, dest)
+spex.sequence(source, {dest: dest})
     .then(function (data) {
         console.log('DATA:', data); // print result;
     });

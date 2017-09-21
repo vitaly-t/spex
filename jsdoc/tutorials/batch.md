@@ -28,7 +28,7 @@ And this is where method [batch] helps:
 
 Let's start with a positive example, and throw in a few combinations of [mixed values].
  
-```javascript
+```js
 var spex = require('spex')(Promise);
 
 // function that returns a promise;
@@ -102,4 +102,5 @@ ERROR: [ 'World' ]
 This is just to simplify quick access to the list of errors that occurred.
 
 [batch]:http://vitaly-t.github.io/spex/global.html#batch
-[mixed values]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
+[mixed values]:http://vitaly-t.github.io/spex/tutorial-mixed.html
+

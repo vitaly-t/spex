@@ -20,12 +20,14 @@ $ npm install spex
 ## Usage
 
 * For any [Promises/A+] library: [Promise], [Bluebird], [When], [Q], [RSVP], etc.
-```javascript
+
+```js
 var promise = require('bluebird');
 var spex = require('spex')(promise);
 ```
+
 * For ES6 Promise:
-```javascript
+```js
 var spex = require('spex')(Promise);
 ```
 

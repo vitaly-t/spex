@@ -52,7 +52,7 @@ Result: [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 ]
 
 Now let's create the same sequence using spex:
 
-```javascript
+```js
 function source(index, data) {
     return nextPrime(data);
 }
@@ -83,13 +83,16 @@ Let's see how the [sequence] performs compared to the direct calculation as we i
 
 * `direct` - direct sequence calculation;
 * `number` - using [sequence] with the `source` that returns numbers:
-```javascript
+
+```js
 function source(index, data) {
     return nextPrime(data);
 }
 ```
+
 * `promise` - using [sequence] with the `source` that returns promises:
-```javascript
+
+```js
 function source(index, data) {
     return Promise.resolve(nextPrime(data));
 }
@@ -98,6 +101,6 @@ function source(index, data) {
 * Two measurements for the [sequence]: ES6 Promise / Bluebird
 * Measured under NodeJS 4.1.1, 64-bit, with i7-4770 @ 3.85GHz
 
-[mixed value]:https://github.com/vitaly-t/spex/wiki/Mixed-Values
+[mixed value]:http://vitaly-t.github.io/spex/tutorial-mixed.html
 [sequence]:http://vitaly-t.github.io/spex/global.html#sequence
 [Bluebird]:https://github.com/petkaantonov/bluebird

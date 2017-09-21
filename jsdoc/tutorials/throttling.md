@@ -82,7 +82,7 @@ function dest(index, data, delay) {
     });
 }
 
-spex.sequence(source, dest)
+spex.sequence(source, {dest: dest})
     .then(function (data) {
         console.log('DATA:', data);
     });

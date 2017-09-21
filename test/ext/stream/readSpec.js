@@ -113,7 +113,7 @@ describe('Stream/Read - positive', function () {
     var stm;
 
     beforeEach(function () {
-        stm = fs.createReadStream(__filename);
+        stm = fs.createReadStream(__filename, {encoding: 'utf8'});
     });
 
     afterEach(function () {
@@ -128,6 +128,7 @@ describe('Stream/Read - positive', function () {
                     result = data;
                     done();
                 });
+
             function receiver() {
                 return promise.resolve();
             }
@@ -145,6 +146,7 @@ describe('Stream/Read - positive', function () {
                     result = data;
                     done();
                 });
+
             function receiver() {
                 return promise.resolve();
             }
@@ -170,6 +172,7 @@ describe('Stream/Read - positive', function () {
                 .then(function () {
                     done();
                 });
+
             function receiver(index, data, delay) {
                 r = {
                     index: index,
@@ -187,4 +190,22 @@ describe('Stream/Read - positive', function () {
         });
     });
 
+    describe('chunk read', function () {
+        var result;
+        beforeEach(function (done) {
+            spex.stream.read(stm, receiver, {readChunks: true})
+                .then(function () {
+                    done();
+                });
+
+            function receiver(index, data, delay) {
+                result = data;
+            }
+        });
+        it('must receive all the data', function () {
+            expect(Array.isArray(result)).toBe(true);
+            expect(result.length).toBe(1);
+            expect(result[0].length).toBeGreaterThan(500);
+        });
+    });
 });
