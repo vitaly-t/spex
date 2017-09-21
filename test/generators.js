@@ -4,21 +4,21 @@ var lib = require('./header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
-describe("Generators", function () {
+describe('Generators', function () {
 
     var result, ctx = {}, context = {};
 
-    function * positive() {
+    function* positive() {
         ctx.positive = this;
         return yield promise.resolve('yes');
     }
 
-    function * negative() {
+    function* negative() {
         ctx.negative = this;
         return yield promise.reject(new Error('no'));
     }
 
-    function * error() {
+    function* error() {
         ctx.error = this;
         throw new Error('ops!');
     }
@@ -31,7 +31,7 @@ describe("Generators", function () {
             });
     });
 
-    it("must resolve successfully", function () {
+    it('must resolve successfully', function () {
         expect(result.data).toEqual([
             {
                 success: true,

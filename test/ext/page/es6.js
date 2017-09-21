@@ -4,15 +4,15 @@ var lib = require('../../header');
 var promise = lib.promise;
 var spex = lib.main(promise);
 
-describe("Page callbacks generators", function () {
+describe('Page callbacks generators', function () {
     var result, ctx, context = {};
 
-    function * source() {
+    function* source() {
         ctx = this;
         return yield promise.resolve(['src']);
     }
 
-    function * dest(_, data) {
+    function* dest(_, data) {
         this.data = data;
         return yield promise.resolve('dest');
     }
@@ -24,7 +24,7 @@ describe("Page callbacks generators", function () {
                 done();
             });
     });
-    it("must resolve successfully", function () {
+    it('must resolve successfully', function () {
         expect(result.pages).toBe(1);
         expect(result.total).toBe(1);
         expect(ctx).toBe(context);
