@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -40,13 +40,13 @@ on a one-by-one basis. </p>
 delays needed to implement <em>load balancing</em>.</p>
 <h3>Examples</h3><h5>Balanced Page Source</h5><p>The example below uses method <a href="http://vitaly-t.github.io/spex/global.html#page">page</a> to initiate a sequence of 5 pages, and then logs the resolved data into the console.
 The <code>source</code> function serves each page with a half-second delay.</p>
-<pre class="prettyprint source lang-javascript"><code>var spex = require('spex')(Promise);
+<pre class="prettyprint source lang-js"><code>var spex = require('spex')(Promise);
 
 function source(index, data, delay) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve([
-                &quot;page-&quot; + index, // simple value;
+                'page-' + index, // simple value;
                 Promise.resolve(Date.now()) // promise value;
             ])
         }, 500); // wait 1/2 second before serving the next page;
@@ -54,12 +54,12 @@ function source(index, data, delay) {
 }
 
 function logger(index, data, delay) {
-    console.log(&quot;LOG:&quot;, data);
+    console.log('LOG:', data);
 }
 
 spex.page(source, {dest: logger, limit: 5})
     .then(function (data) {
-        console.log(&quot;FINISHED:&quot;, data);
+        console.log('FINISHED:', data);
     });</code></pre><p>Output:</p>
 <pre class="prettyprint source"><code>LOG: [ 'page-0', 1446050705823 ]
 LOG: [ 'page-1', 1446050706327 ]
@@ -68,17 +68,17 @@ LOG: [ 'page-3', 1446050707334 ]
 LOG: [ 'page-4', 1446050707839 ]
 FINISHED: { pages: 5, total: 10, duration: 2520 }</code></pre><h5>Balanced Sequence Receiver</h5><p>In the following example we have a <a href="http://vitaly-t.github.io/spex/global.html#sequence">sequence</a> that returns data while the index is less than 5, and the
 destination function that enforces a 1 second delay on processing each data resolved from the source.</p>
-<pre class="prettyprint source lang-javascript"><code>var spex = require('spex')(Promise);
+<pre class="prettyprint source lang-js"><code>var spex = require('spex')(Promise);
 
 function source(index, data, delay) {
-    console.log(&quot;SOURCE:&quot;, index, data, delay);
+    console.log('SOURCE:', index, data, delay);
     if (index &lt; 5) {
         return Promise.resolve(index);
     }
 }
 
 function dest(index, data, delay) {
-    console.log(&quot;DEST:&quot;, index, data, delay);
+    console.log('DEST:', index, data, delay);
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve();
@@ -88,7 +88,7 @@ function dest(index, data, delay) {
 
 spex.sequence(source, dest)
     .then(function (data) {
-        console.log(&quot;DATA:&quot;, data);
+        console.log('DATA:', data);
     });</code></pre><p>Output:</p>
 <pre class="prettyprint source"><code>SOURCE: 0 undefined undefined
 DEST: 0 0 undefined

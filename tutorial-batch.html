@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -56,7 +56,7 @@ certainly not without a loss in performance. </p>
 
 // function that returns a promise;
 function getWord() {
-    return Promise.resolve(&quot;World&quot;);
+    return Promise.resolve('World');
 }
 
 // function that returns a value;
@@ -71,28 +71,28 @@ function nested() {
 
 var values = [
     123,
-    &quot;Hello&quot;,
+    'Hello',
     getWord,
     Promise.resolve(nested)
 ];
 
 spex.batch(values)
     .then(function (data) {
-        console.log(&quot;DATA:&quot;, data);
+        console.log('DATA:', data);
     })
     .catch(function (error) {
-        console.log(&quot;ERROR:&quot;, error);
+        console.log('ERROR:', error);
     });</code></pre><p>This outputs:</p>
 <pre class="prettyprint source"><code>DATA: [ 123, 'Hello', 'World', '!' ]</code></pre><p>Now let's make it fail by changing <code>getWord</code> to this:</p>
 <pre class="prettyprint source lang-js"><code>function getWord() {
-    return Promise.reject(&quot;World&quot;);
+    return Promise.reject('World');
 }</code></pre><p>Now the output is:</p>
 <pre class="prettyprint source"><code>ERROR: [ { success: true, result: 123 },
   { success: true, result: 'Hello' },
   { success: false, result: 'World' },
   { success: true, result: '!' } ]</code></pre><p>i.e. the entire array is settled, reporting index-bound results. </p>
 <p>And if instead of reporting the entire reason we call <code>getErrors()</code>:</p>
-<pre class="prettyprint source lang-js"><code>console.log(&quot;ERROR:&quot;, reason.getErrors());</code></pre><p>then the output will be:</p>
+<pre class="prettyprint source lang-js"><code>console.log('ERROR:', reason.getErrors());</code></pre><p>then the output will be:</p>
 <pre class="prettyprint source"><code>ERROR: [ 'World' ]</code></pre><p>This is just to simplify quick access to the list of errors that occurred.</p>
 </article>
 

@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -40,40 +40,40 @@
         
             <div class="description"><p>Namespace with methods that implement stream operations, and <a href="stream.html#.read">read</a> is the only method currently supported.</p>
 <p><strong>Synchronous Stream Processing</strong></p>
-<pre class="prettyprint source lang-javascript"><code>var stream = require('spex')(Promise).stream;
+<pre class="prettyprint source lang-js"><code>var stream = require('spex')(Promise).stream;
 var fs = require('fs');
 
 var rs = fs.createReadStream('values.txt');
 
 function receiver(index, data, delay) {
-   console.log(&quot;RECEIVED:&quot;, index, data, delay);
+   console.log('RECEIVED:', index, data, delay);
 }
 
 stream.read(rs, receiver)
-.then(function (data) {
-       console.log(&quot;DATA:&quot;, data);
-   })
-.catch(function (error) {
-       console.log(&quot;ERROR:&quot;, error);
-   });</code></pre><p><strong>Asynchronous Stream Processing</strong></p>
-<pre class="prettyprint source lang-javascript"><code>var stream = require('spex')(Promise).stream;
+    .then(function (data) {
+        console.log('DATA:', data);
+    })
+    .catch(function (error) {
+        console.log('ERROR:', error);
+    });</code></pre><p><strong>Asynchronous Stream Processing</strong></p>
+<pre class="prettyprint source lang-js"><code>var stream = require('spex')(Promise).stream;
 var fs = require('fs');
 
 var rs = fs.createReadStream('values.txt');
 
 function receiver(index, data, delay) {
    return new Promise(function (resolve) {
-       console.log(&quot;RECEIVED:&quot;, index, data, delay);
+       console.log('RECEIVED:', index, data, delay);
        resolve();
    });
 }
 
 stream.read(rs, receiver)
-.then(function (data) {
-       console.log(&quot;DATA:&quot;, data);
-   })
-.catch(function (error) {
-       console.log(&quot;ERROR:&quot;, error);
+    .then(function (data) {
+        console.log('DATA:', data);
+    })
+    .catch(function (error) {
+        console.log('ERROR:', error);
    });</code></pre></div>
         
 
@@ -183,7 +183,9 @@ stream.read(rs, receiver)
 
     
 
-     
+    
+
+    
 
     
 
@@ -197,7 +199,9 @@ stream.read(rs, receiver)
 
     
 
+    
     <h4 class="name" id=".read"><span class="type-signature">(static) </span>read<span class="signature">(stream, receiver, closable<span class="signature-attributes">opt</span>, readSize<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="external-Promise.html">external:Promise</a>}</span></h4>
+    
 
     
 
@@ -507,6 +511,8 @@ which can happen as a result of:</p>
 </dl>
 
     
+
+
 
 
 
