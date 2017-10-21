@@ -1,4 +1,6 @@
-var $test = require("../test");
+'use strict';
+
+var $test = require('../test');
 
 var $spex, // spex library instance;
     $lib; // name of the promise library;
@@ -10,14 +12,14 @@ function run(size, done) {
     }
     $spex.batch(data)
         .then(function (d) {
-            console.log($lib.name + "(" + $test.format(size) + "): " + d.duration);
+            console.log($lib.name + '(' + $test.format(size) + '): ' + d.duration);
             setTimeout(function () {
                 done();
             }, 100);
         });
 }
 
-function run_all(spex, lib, done) {
+function runAll(spex, lib, done) {
     $spex = spex;
     $lib = lib;
     var sizes = [10, 100, 1000, 10000, 100000, 1000000, 10000000];
@@ -36,4 +38,4 @@ function run_all(spex, lib, done) {
     loop(0);
 }
 
-$test.run(run_all, "Batch Values");
+$test.run(runAll, 'Batch Values');

@@ -1,28 +1,29 @@
-var $test = require("../test");
+'use strict';
+
+var $test = require('../test');
 
 var $spex, // spex library instance;
-    $lib, // name of the promise library;
-    $p; // promise library;
+    $lib; // name of the promise library;
 
 function source(idx) {
     return idx;
 }
 
 function run(size, done) {
-    $spex.sequence(source, null, size)
+    $spex.sequence(source, {limit: size})
         .then(function (data) {
-            console.log($lib.name + "(" + $test.format(size) + "): " + data.duration);
+            console.log($lib.name + '(' + $test.format(size) + '): ' + data.duration);
             setTimeout(function () {
                 done();
             }, 100);
         });
 }
 
-function run_all(spex, lib, done) {
+function runAll(spex, lib, done) {
     $spex = spex;
     $lib = lib;
-    $p = spex.$p;
-    var sizes = [10, 100, 1000, 10000, 100000, 1000000, 10000000];
+
+    var sizes = [10, 100, 1000, 10000, 100000, 1000000];
 
     function loop(idx) {
         run(sizes[idx], function () {
@@ -38,4 +39,4 @@ function run_all(spex, lib, done) {
     loop(0);
 }
 
-$test.run(run_all, "Sequence Values");
+$test.run(runAll, 'Sequence Values');
