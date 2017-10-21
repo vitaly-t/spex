@@ -1,6 +1,8 @@
 'use strict';
 
 var lib = require('../../header');
+var tools = require('../../tools');
+
 var promise = lib.promise;
 var spex = lib.main(promise);
 
@@ -50,7 +52,7 @@ describe('Page - negative', function () {
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
                 expect('dest' in r).toBe(false);
-                expect(r.inspect()).toContain('reason: Source \'source\' threw an error at index 0.');
+                expect(tools.inspect(r)).toContain('reason: Source \'source\' threw an error at index 0.');
             });
         });
 
@@ -76,7 +78,7 @@ describe('Page - negative', function () {
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
                 expect('dest' in r).toBe(false);
-                expect(r.inspect()).toContain('reason: Source <anonymous> threw an error at index 0.');
+                expect(tools.inspect(r)).toContain('reason: Source <anonymous> threw an error at index 0.');
             });
         });
 
@@ -127,7 +129,7 @@ describe('Page - negative', function () {
             expect(r.error).toBe(err);
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
-            expect(r.inspect()).toContain('reason: Source \'source\' returned a rejection at index 0.');
+            expect(tools.inspect(r)).toContain('reason: Source \'source\' returned a rejection at index 0.');
         });
     });
 
@@ -156,7 +158,7 @@ describe('Page - negative', function () {
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
-            expect(r.inspect()).toContain('reason: Destination \'dest\' threw an error at index 0.');
+            expect(tools.inspect(r)).toContain('reason: Destination \'dest\' threw an error at index 0.');
         });
     });
 
@@ -185,8 +187,8 @@ describe('Page - negative', function () {
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
-            expect(r.inspect()).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
-            expect(r.inspect() !== r.toString(1)).toBe(true);
+            expect(tools.inspect(r)).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
+            expect(tools.inspect(r) !== r.toString(1)).toBe(true);
         });
     });
 
@@ -215,7 +217,7 @@ describe('Page - negative', function () {
             expect(r.error instanceof Error).toBe(true);
             expect(r.message).toBe(msg);
             expect(r.source).toEqual([1, 2, 3]);
-            expect(r.inspect()).toContain('reason: Source \'source\' returned a non-array value at index 1.');
+            expect(tools.inspect(r)).toContain('reason: Source \'source\' returned a non-array value at index 1.');
         });
     });
 
@@ -256,7 +258,7 @@ describe('Page - negative', function () {
             ]);
             expect(isError(error)).toBe(true);
             expect(error.message).toBe('second');
-            expect(error.inspect()).toContain('reason: Page with index 2 rejected.');
+            expect(tools.inspect(error)).toContain('reason: Page with index 2 rejected.');
         });
     });
 

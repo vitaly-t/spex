@@ -1,6 +1,8 @@
 'use strict';
 
 var lib = require('../../header');
+var tools = require('../../tools');
+
 var promise = lib.promise;
 var spex = lib.main(promise);
 
@@ -248,7 +250,7 @@ describe('Batch - negative', function () {
                 expect(error.first).toEqual(err);
                 expect(error.getErrors()).toEqual([[err]]);
                 expect(error.message).toBe(err);
-                expect(error.inspect()).toContain('stat: { total: 1, succeeded: 0, failed: 1, duration:');
+                expect(tools.inspect(error)).toContain('stat: { total: 1, succeeded: 0, failed: 1, duration:');
             });
         });
 

@@ -1,6 +1,8 @@
 'use strict';
 
 var lib = require('../../header');
+var tools = require('../../tools');
+
 var promise = lib.promise;
 var spex = lib.main(promise);
 
@@ -49,7 +51,7 @@ describe('Sequence - negative', function () {
                 expect(r.error).toBe(err);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
-                expect(r.inspect()).toContain('reason: Source \'source\' threw an error at index 0.');
+                expect(tools.inspect(r)).toContain('reason: Source \'source\' threw an error at index 0.');
             });
         });
 
@@ -74,7 +76,7 @@ describe('Sequence - negative', function () {
                 expect(r.error).toBe(msg);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
-                expect(r.inspect()).toContain('reason: Source <anonymous> threw an error at index 0.');
+                expect(tools.inspect(r)).toContain('reason: Source <anonymous> threw an error at index 0.');
             });
         });
 
@@ -122,7 +124,7 @@ describe('Sequence - negative', function () {
             expect(error.message).toBe(msg);
             expect('source' in error).toBe(true);
             expect(error.source).toBeUndefined();
-            expect(error.inspect()).toContain('reason: Source \'source\' returned a rejection at index 0.');
+            expect(tools.inspect(error)).toContain('reason: Source \'source\' returned a rejection at index 0.');
         });
     });
 
@@ -149,7 +151,7 @@ describe('Sequence - negative', function () {
             expect(r.message).toBe('123');
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
-            expect(r.inspect()).toContain('error: BatchError {');
+            expect(tools.inspect(r)).toContain('error: BatchError {');
         });
     });
 
@@ -178,7 +180,7 @@ describe('Sequence - negative', function () {
             expect(error.message).toBe(msg);
             expect(error.index).toBe(0);
             expect(error.dest).toBe(123);
-            expect(error.inspect()).toContain('reason: Destination \'dest\' threw an error at index 0.');
+            expect(tools.inspect(error)).toContain('reason: Destination \'dest\' threw an error at index 0.');
         });
     });
 
@@ -206,8 +208,8 @@ describe('Sequence - negative', function () {
             expect(r.index).toBe(0);
             expect(r.message).toBe(msg);
             expect(r.dest).toBe(123);
-            expect(r.inspect()).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
-            expect(r.inspect() !== r.toString(1)).toBe(true);
+            expect(tools.inspect(r)).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
+            expect(tools.inspect(r) !== r.toString(1)).toBe(true);
         });
     });
 
