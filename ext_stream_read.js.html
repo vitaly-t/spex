@@ -98,9 +98,9 @@
  */
 function read(stream, receiver, options, config) {
 
-    var $p = config.promise, $utils = config.utils;
+    var $p = config.promise, utils = config.utils;
 
-    if (!$utils.isReadableStream(stream)) {
+    if (!utils.isReadableStream(stream)) {
         return $p.reject(new TypeError('Readable stream is required.'));
     }
 
@@ -108,7 +108,7 @@ function read(stream, receiver, options, config) {
         return $p.reject(new TypeError('Invalid stream receiver.'));
     }
 
-    receiver = $utils.wrap(receiver);
+    receiver = utils.wrap(receiver);
 
     options = options || {};
 
@@ -186,7 +186,7 @@ function read(stream, receiver, options, config) {
                 return;
             }
 
-            if ($utils.isPromise(result)) {
+            if (utils.isPromise(result)) {
                 result
                     .then(function () {
                         waiting = false;

@@ -29,7 +29,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-var $npm = {
+var npm = {
     BatchError: require('./batch'),
     PageError: require('./page'),
     SequenceError: require('./sequence')
@@ -60,9 +60,9 @@ var $npm = {
  *
  */
 module.exports = {
-    BatchError: $npm.BatchError,
-    PageError: $npm.PageError,
-    SequenceError: $npm.SequenceError
+    BatchError: npm.BatchError,
+    PageError: npm.PageError,
+    SequenceError: npm.SequenceError
 };
 
 Object.freeze(module.exports);

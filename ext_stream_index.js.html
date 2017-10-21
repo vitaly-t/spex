@@ -29,7 +29,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-var $npm = {
+var npm = {
     read: require('./read')
 };
 
@@ -89,7 +89,7 @@ var $npm = {
  */
 module.exports = function (config) {
     var res = {
-        read: $npm.read(config)
+        read: npm.read(config)
     };
     Object.freeze(res);
     return res;

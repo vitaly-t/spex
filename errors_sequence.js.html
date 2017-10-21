@@ -29,7 +29,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-var $npm = {
+var npm = {
     u: require('util'),
     os: require('os'),
     utils: require('../utils/static')
@@ -94,7 +94,7 @@ function SequenceError(e, code, cbName, duration) {
     } else {
         this.message = this.error;
         if (typeof this.message !== 'string') {
-            this.message = $npm.u.inspect(this.message);
+            this.message = npm.u.inspect(this.message);
         }
     }
 
@@ -105,12 +105,12 @@ function SequenceError(e, code, cbName, duration) {
     }
 
     cbName = cbName ? ('\'' + cbName + '\'') : '&lt;anonymous>';
-    this.reason = $npm.u.format(errorReasons[code], cbName, e.index);
+    this.reason = npm.u.format(errorReasons[code], cbName, e.index);
 
     Error.captureStackTrace(this, SequenceError);
 }
 
-$npm.u.inherits(SequenceError, Error);
+npm.u.inherits(SequenceError, Error);
 SequenceError.prototype.name = 'SequenceError';
 
 /**
@@ -129,8 +129,8 @@ SequenceError.prototype.toString = function (level) {
 
     level = level > 0 ? parseInt(level) : 0;
 
-    var gap0 = $npm.utils.messageGap(level),
-        gap1 = $npm.utils.messageGap(level + 1),
+    var gap0 = npm.utils.messageGap(level),
+        gap1 = npm.utils.messageGap(level + 1),
         lines = [
             'SequenceError {',
             gap1 + 'message: ' + JSON.stringify(this.message),
@@ -139,14 +139,14 @@ SequenceError.prototype.toString = function (level) {
             gap1 + 'duration: ' + this.duration
         ];
 
-    lines.push(gap1 + 'error: ' + $npm.utils.formatError(this.error, level + 1));
+    lines.push(gap1 + 'error: ' + npm.utils.formatError(this.error, level + 1));
     lines.push(gap0 + '}');
-    return lines.join($npm.os.EOL);
+    return lines.join(npm.os.EOL);
 };
 
-SequenceError.prototype.inspect = function () {
+npm.utils.addInspection(SequenceError, function () {
     return this.toString();
-};
+});
 
 module.exports = SequenceError;
 </code></pre>
