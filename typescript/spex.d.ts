@@ -128,7 +128,7 @@ declare namespace spex {
     // PromiseAdapter class;
     // API: http://vitaly-t.github.io/spex/PromiseAdapter.html
     class PromiseAdapter {
-        constructor(create: (cb: any) => Object, resolve: (data: any) => void, reject: (reason: any) => void);
+        constructor(create: (cb: any) => object, resolve: (data: any) => void, reject: (reason: any) => void);
     }
 
     // Subset of the base methods only, to be used by pg-promise
