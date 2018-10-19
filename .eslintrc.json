@@ -13,6 +13,7 @@
     "new-cap": "error",
     "no-console": "error",
     "comma-dangle": "error",
+    "no-shadow": "error",
     "indent": [
       "error",
       4,

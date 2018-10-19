@@ -63,7 +63,10 @@ describe('Main - positive', function () {
         beforeEach(function () {
             inst = lib.main(promise);
         });
-        it('must be complete', function () {
+        it('must contain all pre-initialization properties', function () {
+            expect(lib.main.errors).toBe(inst.errors);
+        });
+        it('must contain all post-initialization properties', function () {
             expect(PromiseAdapter instanceof Function).toBe(true);
             expect(inst && typeof inst === 'object').toBe(true);
             expect(inst.batch instanceof Function).toBe(true);
