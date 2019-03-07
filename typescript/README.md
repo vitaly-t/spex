@@ -13,7 +13,7 @@ import * as spexLib from "spex";
 
 var spex:spexLib.ISpex = spexLib(Promise);
 
-type BatchError = typeof spex.errors.BatchError;
+type BatchError = spexLib.errors.BatchError;
 
 spex.batch([1, 2, 3])
     .then(data=> {

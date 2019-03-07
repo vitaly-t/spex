@@ -3,7 +3,7 @@ import {IArrayExt} from '../../typescript/spex';
 
 var spex = spexLib(Promise);
 
-type BatchError = typeof spex.errors.BatchError;
+type BatchError = spexLib.errors.BatchError;
 
 spex.batch([])
     .then((data: IArrayExt<any>) => {

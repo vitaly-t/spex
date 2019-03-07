@@ -7,7 +7,7 @@ function source() {
 
 }
 
-type PageError = typeof spex.errors.PageError;
+type PageError = spexLib.errors.PageError;
 
 spex.page(source)
     .then((data: TPageResult) => {
