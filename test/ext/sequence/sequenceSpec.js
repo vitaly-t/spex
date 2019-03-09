@@ -134,7 +134,7 @@ describe('Sequence - negative', function () {
         beforeEach(function (done) {
 
             function source() {
-                return spex.batch([promise.reject(123)]);
+                return spex.batch([promise.reject(new Error('123'))]);
             }
 
             spex.sequence(source)
