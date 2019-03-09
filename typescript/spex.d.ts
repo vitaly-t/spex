@@ -50,73 +50,71 @@ declare namespace spex {
         duration: number;
     }
 
-    // API: http://vitaly-t.github.io/spex/errors.BatchError.html
-    interface IBatchError extends Error {
+    // Errors namespace
+    // API: http://vitaly-t.github.io/spex/errors.html
+    namespace errors {
+        // API: http://vitaly-t.github.io/spex/errors.BatchError.html
+        class BatchError extends Error {
 
-        // standard error properties:
-        name: string;
-        message: string;
-        stack: string;
+            // standard error properties:
+            name: string;
+            message: string;
+            stack: string;
 
-        // extended properties:
-        data: Array<TBatchData>;
+            // extended properties:
+            data: Array<TBatchData>;
 
-        stat: IBatchStat;
+            stat: IBatchStat;
 
-        first: any;
+            first: any;
 
-        // API: http://vitaly-t.github.io/spex/errors.BatchError.html#.getErrors
-        getErrors(): Array<any>;
+            // API: http://vitaly-t.github.io/spex/errors.BatchError.html#.getErrors
+            getErrors(): Array<any>;
 
-        // API: http://vitaly-t.github.io/spex/errors.BatchError.html#.toString
-        toString(): string;
-    }
+            // API: http://vitaly-t.github.io/spex/errors.BatchError.html#.toString
+            toString(): string;
+        }
 
-    // API: http://vitaly-t.github.io/spex/errors.PageError.html
-    interface IPageError extends Error {
+        // API: http://vitaly-t.github.io/spex/errors.PageError.html
+        class PageError extends Error {
 
-        // standard error properties:
-        name: string;
-        message: string;
-        stack: string;
+            // standard error properties:
+            name: string;
+            message: string;
+            stack: string;
 
-        // extended properties:
-        error: any;
-        index: number;
-        duration: number;
-        reason: string;
-        source: any;
-        dest: any;
+            // extended properties:
+            error: any;
+            index: number;
+            duration: number;
+            reason: string;
+            source: any;
+            dest: any;
 
-        // API: http://vitaly-t.github.io/spex/errors.PageError.html#.toString
-        toString(): string;
-    }
+            // API: http://vitaly-t.github.io/spex/errors.PageError.html#.toString
+            toString(): string;
+        }
 
-    // API: http://vitaly-t.github.io/spex/errors.SequenceError.html
-    interface ISequenceError extends Error {
+        // API: http://vitaly-t.github.io/spex/errors.SequenceError.html
+        class SequenceError extends Error {
 
-        // standard error properties:
-        name: string;
-        message: string;
-        stack: string;
+            // standard error properties:
+            name: string;
+            message: string;
+            stack: string;
 
-        // extended properties:
-        error: any;
-        index: number;
-        duration: number;
-        reason: string;
-        source: any;
-        dest: any;
+            // extended properties:
+            error: any;
+            index: number;
+            duration: number;
+            reason: string;
+            source: any;
+            dest: any;
 
-        // API: http://vitaly-t.github.io/spex/errors.SequenceError.html#.toString
-        toString(): string;
+            // API: http://vitaly-t.github.io/spex/errors.SequenceError.html#.toString
+            toString(): string;
 
-    }
-
-    interface IErrors {
-        BatchError: IBatchError;
-        PageError: IPageError;
-        SequenceError: ISequenceError;
+        }
     }
 
     // API: http://vitaly-t.github.io/spex/stream.html
@@ -150,7 +148,7 @@ declare namespace spex {
         stream: IStream;
 
         // API: http://vitaly-t.github.io/spex/errors.html
-        errors: IErrors;
+        errors: typeof errors;
     }
 
 }

@@ -7,7 +7,7 @@ function source() {
 
 }
 
-type SequenceError = typeof spex.errors.SequenceError;
+type SequenceError = spexLib.errors.SequenceError;
 
 // default sequence:
 spex.sequence(source)
