@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/vitaly-t/spex.svg?branch=master)](https://travis-ci.org/vitaly-t/spex)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/spex/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/spex?branch=master)
 [![Downloads Count](http://img.shields.io/npm/dm/spex.svg)](https://www.npmjs.com/package/spex)
-[![Join the chat at https://gitter.im/vitaly-t/spex](https://badges.gitter.im/vitaly-t/spex.svg)](https://gitter.im/vitaly-t/spex?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/vitaly-t/spex](https://badges.gitter.im/vitaly-t/spex.svg)](https://gitter.im/vitaly-t/spex?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Greenkeeper badge](https://badges.greenkeeper.io/vitaly-t/spex.svg)](https://greenkeeper.io/)
 
 [batch], [page], [sequence] - promise methods for the following patterns:
 * [Data Throttling & Load Balancing](http://vitaly-t.github.io/spex/tutorial-throttling.html)
