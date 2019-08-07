@@ -41,13 +41,13 @@
     "npm": ">=1.4"
   },
   "devDependencies": {
-    "bluebird": "3.5.3",
-    "browserify": "16.2.3",
-    "coveralls": "3.0.3",
-    "eslint": "5.15.1",
+    "bluebird": "3.5.5",
+    "browserify": "16.3.0",
+    "coveralls": "3.0.6",
+    "eslint": "6.1.0",
     "istanbul": "0.4.5",
-    "jasmine-node": "1.16.2",
-    "jsdoc": "3.5.5",
-    "typescript": "3.3.3333"
+    "jasmine-node": "3.0.0",
+    "jsdoc": "3.6.3",
+    "typescript": "3.5.3"
   }
 }
