@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "benchmarks/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
