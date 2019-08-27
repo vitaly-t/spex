@@ -31,7 +31,8 @@ describe('Sequence - negative', () => {
     describe('source error', () => {
 
         describe('as Error', () => {
-            let r, err = new Error('source error');
+            const err = new Error('source error');
+            let r;
             beforeEach(done => {
                 function source() {
                     throw err;
@@ -56,7 +57,8 @@ describe('Sequence - negative', () => {
         });
 
         describe('with a string value', () => {
-            let r, msg = 'source error';
+            const msg = 'source error';
+            let r;
             beforeEach(done => {
 
                 spex.sequence(() => {
@@ -103,8 +105,8 @@ describe('Sequence - negative', () => {
     });
 
     describe('source reject', () => {
-
-        let error, msg = 'source reject';
+        const msg = 'source reject';
+        let error;
         beforeEach(done => {
             function source() {
                 return promise.reject(new Error(msg));
@@ -156,8 +158,8 @@ describe('Sequence - negative', () => {
     });
 
     describe('destination error', () => {
-
-        let error, msg = 'destination error';
+        const msg = 'destination error';
+        let error;
         beforeEach(done => {
             function source() {
                 return 123;
@@ -185,8 +187,8 @@ describe('Sequence - negative', () => {
     });
 
     describe('destination reject', () => {
-
-        let r, msg = 'destination reject';
+        const msg = 'destination reject';
+        let r;
         beforeEach(done => {
             function source() {
                 return 123;
@@ -218,7 +220,8 @@ describe('Sequence - negative', () => {
 describe('Sequence - positive', () => {
 
     describe('with a limit', () => {
-        let result, limit = 100;
+        const limit = 100;
+        let result;
 
         function source() {
             return 123;
@@ -241,7 +244,8 @@ describe('Sequence - positive', () => {
     });
 
     describe('tracking', () => {
-        let result, tracked = [];
+        const tracked = [];
+        let result;
 
         function source(idx) {
             if (idx < 3) {
@@ -274,7 +278,8 @@ describe('Sequence - positive', () => {
     });
 
     describe('this context', () => {
-        let ctx, context = {};
+        const context = {};
+        let ctx;
 
         function source() {
             ctx = this;

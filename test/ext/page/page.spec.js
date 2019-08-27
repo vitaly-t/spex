@@ -30,7 +30,8 @@ describe('Page - negative', () => {
     describe('source error', () => {
 
         describe('with Error', () => {
-            let r, err = new Error('source error');
+            const err = new Error('source error');
+            let r;
 
             beforeEach(done => {
                 function source() {
@@ -57,7 +58,8 @@ describe('Page - negative', () => {
         });
 
         describe('with a string value', () => {
-            let r, err = 'source error';
+            const err = 'source error';
+            let r;
 
             beforeEach(done => {
 
@@ -83,7 +85,8 @@ describe('Page - negative', () => {
         });
 
         describe('with a non-string value', () => {
-            let r, err = 123;
+            const err = 123;
+            let r;
 
             beforeEach(done => {
 
@@ -106,8 +109,8 @@ describe('Page - negative', () => {
     });
 
     describe('source reject', () => {
-
-        let r, err = new Error('source reject');
+        const err = new Error('source reject');
+        let r;
 
         beforeEach(done => {
             function source() {
@@ -134,8 +137,8 @@ describe('Page - negative', () => {
     });
 
     describe('destination error', () => {
-
-        let r, err = new Error('destination error');
+        const err = new Error('destination error');
+        let r;
         beforeEach(done => {
             function source() {
                 return [1, 2, 3];
@@ -163,8 +166,8 @@ describe('Page - negative', () => {
     });
 
     describe('destination reject', () => {
-
-        let r, err = new Error('destination reject');
+        const err = new Error('destination reject');
+        let r;
         beforeEach(done => {
             function source() {
                 return [1, 2, 3];
@@ -193,7 +196,8 @@ describe('Page - negative', () => {
     });
 
     describe('page returns wrong value', () => {
-        let r, msg = 'Unexpected data returned from the source.';
+        const msg = 'Unexpected data returned from the source.';
+        let r;
 
         function source(idx) {
             if (!idx) {
@@ -222,7 +226,8 @@ describe('Page - negative', () => {
     });
 
     describe('page data fail', () => {
-        let error, err = new Error('second');
+        const err = new Error('second');
+        let error;
 
         function source(idx) {
             if (idx > 1) {
@@ -267,8 +272,8 @@ describe('Page - negative', () => {
 describe('Page - positive', () => {
 
     describe('with mixed data types', () => {
-
-        let result, tracking = [];
+        const tracking = [];
+        let result;
 
         function val() {
             return spex.batch(['one']);
@@ -314,7 +319,8 @@ describe('Page - positive', () => {
     });
 
     describe('reaching limit', () => {
-        let result, limit = 100;
+        const limit = 100;
+        let result;
 
         function source(idx) {
             return [1, idx, 'last'];
@@ -337,7 +343,8 @@ describe('Page - positive', () => {
     });
 
     describe('this context', () => {
-        let ctx, context = {};
+        const context = {};
+        let ctx;
 
         function source() {
             ctx = this;

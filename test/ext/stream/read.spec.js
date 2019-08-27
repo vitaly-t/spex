@@ -70,7 +70,8 @@ describe('Stream/Read - negative', () => {
     });
 
     describe('receiver rejecting', () => {
-        let error, err = new Error('stop');
+        const err = new Error('stop');
+        let error;
         beforeEach(done => {
             function receiver() {
                 return promise.reject(err);

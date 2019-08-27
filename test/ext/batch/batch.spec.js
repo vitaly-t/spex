@@ -29,7 +29,8 @@ describe('Batch - negative', () => {
     describe('callback error', () => {
 
         describe('passing success', () => {
-            let r, err = new Error('callback error');
+            const err = new Error('callback error');
+            let r;
             beforeEach(done => {
 
                 function cb() {
@@ -55,7 +56,8 @@ describe('Batch - negative', () => {
         });
 
         describe('passing error', () => {
-            let r, err = new Error('callback error'), rejectError = new Error('ops!');
+            const err = new Error('callback error'), rejectError = new Error('ops!');
+            let r;
             beforeEach(done => {
 
                 function cb() {
@@ -82,8 +84,8 @@ describe('Batch - negative', () => {
     });
 
     describe('callback reject', () => {
-
-        let r, err = new Error('callback reject');
+        const err = new Error('callback reject');
+        let r;
         beforeEach(done => {
 
             function cb(index) {
@@ -118,10 +120,11 @@ describe('Batch - negative', () => {
     });
 
     describe('input reject', () => {
-        let r, err = new Error('no values');
+        const err = new Error('no values');
+        let r;
 
         function value() {
-            throw new Error(err);
+            throw err;
         }
 
         beforeEach(done => {
@@ -144,7 +147,8 @@ describe('Batch - negative', () => {
     });
 
     describe('input: null reject', () => {
-        let r, err = new Error(null);
+        const err = new Error(null);
+        let r;
 
         function value() {
             throw err;
@@ -171,7 +175,8 @@ describe('Batch - negative', () => {
     });
 
     describe('input: simple reject', () => {
-        let r, err = new Error(123);
+        const err = new Error(123);
+        let r;
 
         function value() {
             throw err;
@@ -201,7 +206,8 @@ describe('Batch - negative', () => {
     describe('nested batch reject', () => {
 
         describe('with error', () => {
-            let error, err = new Error('internal failure');
+            const err = new Error('internal failure');
+            let error;
 
             function problem() {
                 throw err;
@@ -227,7 +233,8 @@ describe('Batch - negative', () => {
         });
 
         describe('with value', () => {
-            let error, err = 'internal failure';
+            const err = 'internal failure';
+            let error;
 
             function problem() {
                 throw err;
@@ -275,7 +282,8 @@ describe('Batch - positive', () => {
     });
 
     describe('this context', () => {
-        let ctx, context = {};
+        const context = {};
+        let ctx;
 
         function test() {
             ctx = this;

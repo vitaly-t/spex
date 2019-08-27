@@ -7,6 +7,7 @@
   "extends": "eslint:recommended",
   "rules": {
     "no-var": "error",
+    "prefer-const": "error",
     "prefer-arrow-callback": "error",
     "no-else-return": "error",
     "no-multi-spaces": "error",
