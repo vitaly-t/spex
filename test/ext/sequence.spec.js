@@ -45,6 +45,8 @@ describe('Sequence - negative', () => {
 
             it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
+                expect(r.name).toBe('SequenceError');
+                expect(r instanceof Error).toBe(true);
                 expect(r instanceof SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);

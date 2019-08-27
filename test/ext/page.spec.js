@@ -46,7 +46,9 @@ describe('Page - negative', () => {
 
             it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
+                expect(r instanceof Error).toBe(true);
                 expect(r instanceof PageError).toBe(true);
+                expect(r.name).toBe('PageError');
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
                 expect('source' in r).toBe(true);
@@ -245,8 +247,9 @@ describe('Page - negative', () => {
 
         it('must reject correctly', () => {
             expect(error.index).toBe(2);
-            expect(error.error.name).toBe('BatchError');
+            expect(error.error instanceof Error).toBeTruthy();
             expect(error.error instanceof BatchError).toBeTruthy();
+            expect(error.error.name).toBe('BatchError');
             expect(error.error.data).toEqual([
                 {
                     success: true,
