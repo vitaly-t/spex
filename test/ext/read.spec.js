@@ -1,5 +1,5 @@
 const fs = require('fs');
-const lib = require('../../header');
+const lib = require('../header');
 const promise = lib.promise;
 const spex = lib.main(promise);
 
@@ -207,4 +207,45 @@ describe('Stream/Read - positive', () => {
             expect(result[0].length).toBeGreaterThan(500);
         });
     });
+});
+
+describe('Stream.read', () => {
+
+    let stm;
+
+    beforeEach(() => {
+        stm = fs.createReadStream(__filename);
+    });
+
+    afterEach(() => {
+        stm.destroy();
+    });
+
+    describe('this with generator', () => {
+        const context = {};
+        let result, ctx;
+
+        function* receiver() {
+            ctx = this;
+            return yield 'ok';
+        }
+
+        beforeEach(done => {
+            spex.stream.read.call(context, stm, receiver)
+                .then(data => {
+                    result = data;
+                    done();
+                });
+        });
+
+        it('must resolve with full statistics', () => {
+            expect(ctx).toBe(context);
+            expect(result && typeof result === 'object').toBeTruthy();
+            expect(result.calls).toBe(2);
+            expect(result.reads).toBe(2);
+            expect('length' in result).toBeTruthy();
+            expect('duration' in result).toBeTruthy();
+        });
+    });
+
 });

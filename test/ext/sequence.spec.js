@@ -1,12 +1,12 @@
-const lib = require('../../header');
-const tools = require('../../tools');
+const lib = require('../header');
+const tools = require('../tools');
 
 const promise = lib.promise;
 const spex = lib.main(promise);
 
 const isError = lib.isError;
 
-const SequenceError = require('../../../lib/errors/sequence');
+const SequenceError = require('../../lib/errors/sequence');
 
 describe('Sequence - negative', () => {
 
@@ -295,4 +295,34 @@ describe('Sequence - positive', () => {
 
     });
 
+});
+
+describe('Sequence callbacks generators', () => {
+    const context = {};
+    let result, ctx;
+
+    function* source(index) {
+        ctx = this;
+        if (!index) {
+            return yield promise.resolve('src');
+        }
+    }
+
+    function* dest(_, data) {
+        this.data = data;
+        return yield promise.resolve('dest');
+    }
+
+    beforeEach(done => {
+        spex.sequence.call(context, source, {dest: dest, track: true})
+            .then(data => {
+                result = data;
+                done();
+            });
+    });
+    it('must resolve successfully', () => {
+        expect(result).toEqual(['src']);
+        expect(ctx).toBe(context);
+        expect(context.data).toBe('src');
+    });
 });

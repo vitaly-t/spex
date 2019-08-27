@@ -1,5 +1,5 @@
-const lib = require('../../header');
-const tools = require('../../tools');
+const lib = require('../header');
+const tools = require('../tools');
 
 const promise = lib.promise;
 const spex = lib.main(promise);
@@ -300,4 +300,26 @@ describe('Batch - positive', () => {
 
     });
 
+});
+
+describe('Batch callback as generator', () => {
+    const context = {};
+    let result, ctx;
+
+    function* cb() {
+        ctx = this;
+        return yield promise.resolve('yes');
+    }
+
+    beforeEach(done => {
+        spex.batch.call(context, [1], {cb: cb})
+            .then(data => {
+                result = data;
+                done();
+            });
+    });
+    it('must resolve successfully', () => {
+        expect(result).toEqual([1]);
+        expect(ctx).toBe(context);
+    });
 });

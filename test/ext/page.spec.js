@@ -1,11 +1,11 @@
-const lib = require('../../header');
-const tools = require('../../tools');
+const lib = require('../header');
+const tools = require('../tools');
 
 const promise = lib.promise;
 const spex = lib.main(promise);
 
 const isError = lib.isError;
-const PageError = require('../../../lib/errors/page');
+const PageError = require('../../lib/errors/page');
 
 describe('Page - negative', () => {
 
@@ -360,4 +360,33 @@ describe('Page - positive', () => {
 
     });
 
+});
+
+describe('Page callbacks generators', () => {
+    const context = {};
+    let result, ctx;
+
+    function* source() {
+        ctx = this;
+        return yield promise.resolve(['src']);
+    }
+
+    function* dest(_, data) {
+        this.data = data;
+        return yield promise.resolve('dest');
+    }
+
+    beforeEach(done => {
+        spex.page.call(context, source, {dest: dest, limit: 1})
+            .then(data => {
+                result = data;
+                done();
+            });
+    });
+    it('must resolve successfully', () => {
+        expect(result.pages).toBe(1);
+        expect(result.total).toBe(1);
+        expect(ctx).toBe(context);
+        expect(context.data).toEqual(['src']);
+    });
 });
