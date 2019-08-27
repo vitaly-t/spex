@@ -23,7 +23,7 @@ The library exposes global variable `spexLib`, to be initialized as shown in the
 ```html
 <script src="spex.js"></script>
 <script>
-    var spex = spexLib(Promise); // Initializing with ES6 Promise;
+    const spex = spexLib(Promise); // Initializing with ES6 Promise;
 </script>
 ```
 

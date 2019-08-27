@@ -15,7 +15,7 @@ Below is a simple track-enabled sequence that creates and returns promises one b
 It also includes a destination function for logging purposes.
 
 ```js
-var spex = require('spex')(Promise);
+const spex = require('spex')(Promise);
 
 function source(index, data, delay) {
     // create and return a promise objects dynamically,
@@ -39,7 +39,7 @@ function dest(index, data, delay) {
 }
 
 spex.sequence(source, {dest: dest, track: true})
-    .then(function (data) {
+    .then(data => {
         console.log('DATA:', data); // print result;
     });
 ```
@@ -57,7 +57,7 @@ And if we run the same sequence without tracking (default):
 
 ```js
 spex.sequence(source, {dest: dest})
-    .then(function (data) {
+    .then(data => {
         console.log('DATA:', data); // print result;
     });
 ```

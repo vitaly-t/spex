@@ -18,7 +18,7 @@ Let's implement a linked sequence that calculates primes from the previous resul
 ```js
 function nextPrime(value) {
     if (value > 2) {
-        var i, q;
+        let i, q;
         do {
             i = 3;
             value += 2;
@@ -36,8 +36,9 @@ function nextPrime(value) {
 Building a sequence of the first 10 primes directly:
 
 ```js
-var value, result = [];
-for (var i = 0; i < 10; i++) {
+const result = [];
+let value;
+for (let i = 0; i < 10; i++) {
     value = nextPrime(value);
     result.push(value);
 }
@@ -58,7 +59,7 @@ function source(index, data) {
 }
 
 spex.sequence(source, {limit: 10, track: true})
-    .then(function (data) {
+    .then(data => {
         console.log('Result:', data);
     });
 ```

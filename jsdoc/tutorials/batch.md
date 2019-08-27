@@ -29,7 +29,7 @@ And this is where method [batch] helps:
 Let's start with a positive example, and throw in a few combinations of [mixed values].
  
 ```js
-var spex = require('spex')(Promise);
+const spex = require('spex')(Promise);
 
 // function that returns a promise;
 function getWord() {
@@ -46,7 +46,7 @@ function nested() {
     return getExcl;
 }
 
-var values = [
+const values = [
     123,
     'Hello',
     getWord,
@@ -54,10 +54,10 @@ var values = [
 ];
 
 spex.batch(values)
-    .then(function (data) {
+    .then(data => {
         console.log('DATA:', data);
     })
-    .catch(function (error) {
+    .catch(error => {
         console.log('ERROR:', error);
     });
 ```
