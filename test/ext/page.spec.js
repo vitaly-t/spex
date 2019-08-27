@@ -5,8 +5,8 @@ const promise = lib.promise;
 const spex = lib.main(promise);
 
 const isError = lib.isError;
-const PageError = require('../../lib/errors/page');
-const BatchError = require('../../lib/errors/batch');
+const {PageError} = require('../../lib/errors/page');
+const {BatchError} = require('../../lib/errors/batch');
 
 describe('Page - negative', () => {
 

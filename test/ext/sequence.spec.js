@@ -6,7 +6,7 @@ const spex = lib.main(promise);
 
 const isError = lib.isError;
 
-const SequenceError = require('../../lib/errors/sequence');
+const {SequenceError} = require('../../lib/errors/sequence');
 
 describe('Sequence - negative', () => {
 
