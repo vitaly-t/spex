@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -27,9 +27,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * @method stream.read
  * @description
  * Consumes and processes data from a $[Readable] stream.
@@ -98,7 +96,7 @@
  */
 function read(stream, receiver, options, config) {
 
-    var $p = config.promise, utils = config.utils;
+    const $p = config.promise, utils = config.utils;
 
     if (!utils.isReadableStream(stream)) {
         return $p.reject(new TypeError('Readable stream is required.'));
@@ -112,12 +110,11 @@ function read(stream, receiver, options, config) {
 
     options = options || {};
 
-    var cbTime, ready, waiting, stop,
-        readSize = (options.readSize > 0) ? parseInt(options.readSize) : null,
-        self = this, reads = 0, length = 0, start = Date.now(), index = 0,
-        receiveEvent = options.readChunks ? 'data' : 'readable';
+    const readSize = (options.readSize > 0) ? parseInt(options.readSize) : null,
+        self = this, start = Date.now(), receiveEvent = options.readChunks ? 'data' : 'readable';
+    let cbTime, ready, waiting, stop, reads = 0, length = 0, index = 0;
 
-    return $p(function (resolve, reject) {
+    return $p((resolve, reject) => {
 
         function onReceive(data) {
             ready = true;
@@ -148,7 +145,7 @@ function read(stream, receiver, options, config) {
                 return;
             }
             ready = false;
-            var cache;
+            let cache;
             if (options.readChunks) {
                 cache = data;
                 // istanbul ignore else;
@@ -161,8 +158,9 @@ function read(stream, receiver, options, config) {
             } else {
                 cache = [];
                 waiting = true;
+                let page;
                 do {
-                    var page = stream.read(readSize);
+                    page = stream.read(readSize);
                     if (page) {
                         cache.push(page);
                         // istanbul ignore next: requires a unique stream that
@@ -178,8 +176,9 @@ function read(stream, receiver, options, config) {
                 }
             }
 
-            var result, cbNow = Date.now(),
+            const cbNow = Date.now(),
                 cbDelay = index ? (cbNow - cbTime) : undefined;
+            let result;
             cbTime = cbNow;
             try {
                 result = receiver.call(self, index++, cache, cbDelay);
@@ -190,12 +189,12 @@ function read(stream, receiver, options, config) {
 
             if (utils.isPromise(result)) {
                 result
-                    .then(function () {
+                    .then(() => {
                         waiting = false;
                         process();
                         return null; // this dummy return is just to prevent Bluebird warnings;
                     })
-                    .catch(function (error) {
+                    .catch(error => {
                         fail(error);
                     });
             } else {

@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -27,9 +27,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-var SequenceError = require('../errors/sequence');
+            <pre class="prettyprint source linenums"><code>const SequenceError = require('../errors/sequence');
 
 /**
  * @method sequence
@@ -110,7 +108,7 @@ var SequenceError = require('../errors/sequence');
  */
 function sequence(source, options, config) {
 
-    var $p = config.promise, utils = config.utils;
+    const $p = config.promise, utils = config.utils;
 
     if (typeof source !== 'function') {
         return $p.reject(new TypeError('Parameter \'source\' must be a function.'));
@@ -120,17 +118,18 @@ function sequence(source, options, config) {
 
     options = options || {};
 
-    var limit = (options.limit > 0) ? parseInt(options.limit) : 0,
+    const limit = (options.limit > 0) ? parseInt(options.limit) : 0,
         dest = utils.wrap(options.dest),
-        self = this, data, srcTime, destTime, result = [], start = Date.now();
+        self = this, start = Date.now();
+    let data, srcTime, destTime, result = [];
 
-    return $p(function (resolve, reject) {
+    return $p((resolve, reject) => {
 
         function loop(idx) {
-            var srcNow = Date.now(),
+            const srcNow = Date.now(),
                 srcDelay = idx ? (srcNow - srcTime) : undefined;
             srcTime = srcNow;
-            utils.resolve.call(self, source, [idx, data, srcDelay], function (value, delayed) {
+            utils.resolve.call(self, source, [idx, data, srcDelay], (value, delayed) => {
                 data = value;
                 if (data === undefined) {
                     success();
@@ -139,8 +138,9 @@ function sequence(source, options, config) {
                         result.push(data);
                     }
                     if (dest) {
-                        var destResult, destNow = Date.now(),
+                        const destNow = Date.now(),
                             destDelay = idx ? (destNow - destTime) : undefined;
+                        let destResult;
                         destTime = destNow;
                         try {
                             destResult = dest.call(self, idx, data, destDelay);
@@ -153,11 +153,11 @@ function sequence(source, options, config) {
                         }
                         if (utils.isPromise(destResult)) {
                             destResult
-                                .then(function () {
+                                .then(() => {
                                     next(true);
                                     return null; // this dummy return is just to prevent Bluebird warnings;
                                 })
-                                .catch(function (error) {
+                                .catch(error => {
                                     fail({
                                         error: error,
                                         dest: data
@@ -170,7 +170,7 @@ function sequence(source, options, config) {
                         next(delayed);
                     }
                 }
-            }, function (reason, isRej) {
+            }, (reason, isRej) => {
                 fail({
                     error: reason,
                     source: data
@@ -185,7 +185,7 @@ function sequence(source, options, config) {
                         loop(idx);
                     } else {
                         $p.resolve()
-                            .then(function () {
+                            .then(() => {
                                 loop(idx);
                                 return null; // this dummy return is just to prevent Bluebird warnings;
                             });
@@ -194,7 +194,7 @@ function sequence(source, options, config) {
             }
 
             function success() {
-                var length = Date.now() - start;
+                const length = Date.now() - start;
                 if (options.track) {
                     utils.extend(result, 'duration', length);
                 } else {

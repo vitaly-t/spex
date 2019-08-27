@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -27,9 +27,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-var npm = {
+            <pre class="prettyprint source linenums"><code>const npm = {
     utils: require('./utils'),
     batch: require('./ext/batch'),
     page: require('./ext/page'),
@@ -53,12 +51,12 @@ var npm = {
  * ### usage
  * For any third-party promise library:
  * ```js
- * var promise = require('bluebird');
- * var spex = require('spex')(promise);
+ * const promise = require('bluebird');
+ * const spex = require('spex')(promise);
  * ```
  * For ES6 promises:
  * ```js
- * var spex = require('spex')(Promise);
+ * const spex = require('spex')(Promise);
  * ```
  *
  * @param {Object|Function} promiseLib
@@ -80,10 +78,10 @@ var npm = {
  */
 function main(promiseLib) {
 
-    var spex = {}, // library instance;
+    const spex = {}, // library instance;
         promise = parsePromiseLib(promiseLib); // promise library parsing;
 
-    var config = {
+    const config = {
         spex: spex,
         promise: promise,
         utils: npm.utils(promise)
@@ -106,7 +104,7 @@ function main(promiseLib) {
 // Parses and validates a promise library;
 function parsePromiseLib(lib) {
     if (lib) {
-        var promise;
+        let promise;
         if (lib instanceof main.PromiseAdapter) {
             promise = function (func) {
                 return lib.create(func);
@@ -115,9 +113,9 @@ function parsePromiseLib(lib) {
             promise.reject = lib.reject;
             return promise;
         }
-        var t = typeof lib;
+        const t = typeof lib;
         if (t === 'function' || t === 'object') {
-            var Root = typeof lib.Promise === 'function' ? lib.Promise : lib;
+            const Root = typeof lib.Promise === 'function' ? lib.Promise : lib;
             promise = function (func) {
                 return new Root(func);
             };

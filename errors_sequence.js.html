@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -27,15 +27,13 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-var npm = {
+            <pre class="prettyprint source linenums"><code>const npm = {
     u: require('util'),
     os: require('os'),
     utils: require('../utils/static')
 };
 
-var errorReasons = {
+const errorReasons = {
     0: 'Source %s returned a rejection at index %d.',
     1: 'Source %s threw an error at index %d.',
     2: 'Destination %s returned a rejection at index %d.',
@@ -85,6 +83,8 @@ var errorReasons = {
  */
 function SequenceError(e, code, cbName, duration) {
 
+    // TODO: Replace with ES6 class (like in pg-promise)
+
     this.index = e.index;
     this.duration = duration;
     this.error = e.error;
@@ -129,7 +129,7 @@ SequenceError.prototype.toString = function (level) {
 
     level = level > 0 ? parseInt(level) : 0;
 
-    var gap0 = npm.utils.messageGap(level),
+    const gap0 = npm.utils.messageGap(level),
         gap1 = npm.utils.messageGap(level + 1),
         lines = [
             'SequenceError {',

@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -27,9 +27,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-var BatchError = require('../errors/batch');
+            <pre class="prettyprint source linenums"><code>const BatchError = require('../errors/batch');
 
 /**
  * @method batch
@@ -84,31 +82,31 @@ var BatchError = require('../errors/batch');
  */
 function batch(values, options, config) {
 
-    var $p = config.promise, utils = config.utils;
+    const $p = config.promise, utils = config.utils;
 
     if (!Array.isArray(values)) {
         return $p.reject(new TypeError('Method \'batch\' requires an array of values.'));
     }
 
     if (!values.length) {
-        var empty = [];
+        const empty = [];
         utils.extend(empty, 'duration', 0);
         return $p.resolve(empty);
     }
 
     options = options || {};
 
-    var cb = utils.wrap(options.cb),
+    const cb = utils.wrap(options.cb),
         self = this, start = Date.now();
 
-    return $p(function (resolve, reject) {
-        var cbTime, errors = [], remaining = values.length,
-            result = new Array(remaining);
-        values.forEach(function (item, i) {
-            utils.resolve.call(self, item, null, function (data) {
+    return $p((resolve, reject) => {
+        let cbTime, remaining = values.length;
+        const errors = [], result = new Array(remaining);
+        values.forEach((item, i) => {
+            utils.resolve.call(self, item, null, data => {
                 result[i] = data;
                 step(i, true, data);
-            }, function (reason) {
+            }, reason => {
                 result[i] = {success: false, result: reason};
                 errors.push(i);
                 step(i, false, reason);
@@ -117,8 +115,9 @@ function batch(values, options, config) {
 
         function step(idx, pass, data) {
             if (cb) {
-                var cbResult, cbNow = Date.now(),
+                const cbNow = Date.now(),
                     cbDelay = idx ? (cbNow - cbTime) : undefined;
+                let cbResult;
                 cbTime = cbNow;
                 try {
                     cbResult = cb.call(self, idx, pass, data, cbDelay);
@@ -128,7 +127,7 @@ function batch(values, options, config) {
                 if (utils.isPromise(cbResult)) {
                     cbResult
                         .then(check)
-                        .catch(function (error) {
+                        .catch(error => {
                             setError(error);
                             check();
                         });
@@ -140,7 +139,7 @@ function batch(values, options, config) {
             }
 
             function setError(e) {
-                var r = pass ? {success: false} : result[idx];
+                const r = pass ? {success: false} : result[idx];
                 if (pass) {
                     result[idx] = r;
                     errors.push(idx);
@@ -154,7 +153,7 @@ function batch(values, options, config) {
                     if (errors.length) {
                         errors.sort();
                         if (errors.length &lt; result.length) {
-                            for (var i = 0, k = 0; i &lt; result.length; i++) {
+                            for (let i = 0, k = 0; i &lt; result.length; i++) {
                                 if (i === errors[k]) {
                                     k++;
                                 } else {

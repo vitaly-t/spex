@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -29,7 +29,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>PromiseAdapter<span class="signature">(create, resolve, reject)</span><span class="type-signature"> &rarr; {<a href="PromiseAdapter.html">PromiseAdapter</a>}</span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>PromiseAdapter<span class="signature">(create, resolve, reject)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,7 +42,7 @@
     
 
     
-    <h4 class="name" id="PromiseAdapter"><span class="type-signature"></span>new PromiseAdapter<span class="signature">(create, resolve, reject)</span><span class="type-signature"> &rarr; {<a href="PromiseAdapter.html">PromiseAdapter</a>}</span></h4>
+    <h4 class="name" id="PromiseAdapter"><span class="type-signature"></span>new PromiseAdapter<span class="signature">(create, resolve, reject)</span><span class="type-signature"></span></h4>
     
 
     
@@ -58,19 +58,18 @@ via functions that implement the primary operations with promises:</p>
 <li>resolve a promise with some result data</li>
 <li>reject a promise with a reason</li>
 </ul>
-<h4>Example</h4><p>Below is an example of setting up a <a href="tutorial-client.html">client-side</a> adapter for AngularJS $q.</p>
-<pre class="prettyprint source lang-js"><code>var spexLib = require('spex'); // or include client-side spex.js
+<h4>Example</h4>
+<p>Below is an example of setting up a <a href="tutorial-client.html">client-side</a> adapter for AngularJS $q.</p>
+<pre class="prettyprint source lang-js"><code>const spexLib = require('spex'); // or include client-side spex.js
 
-var adapter = new spexLib.PromiseAdapter(
-   function (cb) {
-       return $q(cb); // creating a new promise;
-   }, function (data) {
-       return $q.when(data); // resolving a promise;
-   }, function (reason) {
-       return $q.reject(reason); // rejecting a promise;
-   });
+const adapter = new spexLib.PromiseAdapter(
+   cb => $q(cb), // creating a new promise;
+   data => $q.when(data), // resolving a promise;
+   reason => $q.reject(reason) // rejecting a promise;
+   );
 
-var spex = spexLib(adapter);</code></pre><p>Please note that AngularJS 1.4.1 or later no longer requires a promise adapter.</p>
+const spex = spexLib(adapter);
+</code></pre>
 </div>
 
 
@@ -213,7 +212,7 @@ The callback parameter is expected to be <code>function(resolve, reject)</code>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="adapter.js.html">adapter.js</a>, <a href="adapter.js.html#line3">line 3</a>
+        <a href="adapter.js.html">adapter.js</a>, <a href="adapter.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -243,24 +242,8 @@ The callback parameter is expected to be <code>function(resolve, reject)</code>.
 
 
 
-<h5>Returns:</h5>
-
-        
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="PromiseAdapter.html">PromiseAdapter</a></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 

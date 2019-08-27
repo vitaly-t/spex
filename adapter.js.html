@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -27,9 +27,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * @class PromiseAdapter
  * @description
  * Adapter for the primary promise operations.
@@ -46,20 +44,16 @@
  * Below is an example of setting up a [client-side]{@tutorial client} adapter for AngularJS $q.
  *
  * ```js
- * var spexLib = require('spex'); // or include client-side spex.js
+ * const spexLib = require('spex'); // or include client-side spex.js
  *
- * var adapter = new spexLib.PromiseAdapter(
- *    function (cb) {
- *        return $q(cb); // creating a new promise;
- *    }, function (data) {
- *        return $q.when(data); // resolving a promise;
- *    }, function (reason) {
- *        return $q.reject(reason); // rejecting a promise;
- *    });
+ * const adapter = new spexLib.PromiseAdapter(
+ *    cb => $q(cb), // creating a new promise;
+ *    data => $q.when(data), // resolving a promise;
+ *    reason => $q.reject(reason) // rejecting a promise;
+ *    );
  *
- * var spex = spexLib(adapter);
+ * const spex = spexLib(adapter);
  * ```
- * Please note that AngularJS 1.4.1 or later no longer requires a promise adapter.
  *
  * @param {Function} create
  * A function that takes a callback parameter and returns a new promise object.
@@ -79,28 +73,24 @@
  *
  * @see {@tutorial client}
  *
- * @returns {PromiseAdapter}
  */
-function PromiseAdapter(create, resolve, reject) {
+class PromiseAdapter {
+    constructor(create, resolve, reject) {
+        this.create = create;
+        this.resolve = resolve;
+        this.reject = reject;
 
-    if (!(this instanceof PromiseAdapter)) {
-        return new PromiseAdapter(create, resolve, reject);
-    }
+        if (typeof create !== 'function') {
+            throw new TypeError('Adapter requires a function to create a promise.');
+        }
 
-    this.create = create;
-    this.resolve = resolve;
-    this.reject = reject;
+        if (typeof resolve !== 'function') {
+            throw new TypeError('Adapter requires a function to resolve a promise.');
+        }
 
-    if (typeof create !== 'function') {
-        throw new TypeError('Adapter requires a function to create a promise.');
-    }
-
-    if (typeof resolve !== 'function') {
-        throw new TypeError('Adapter requires a function to resolve a promise.');
-    }
-
-    if (typeof reject !== 'function') {
-        throw new TypeError('Adapter requires a function to reject a promise.');
+        if (typeof reject !== 'function') {
+            throw new TypeError('Adapter requires a function to reject a promise.');
+        }
     }
 }
 
