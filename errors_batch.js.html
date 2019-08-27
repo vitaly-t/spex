@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -34,7 +34,7 @@
 };
 
 /**
- * @interface errors.BatchError
+ * @class errors.BatchError
  * @augments external:Error
  * @description
  * This type represents all errors rejected by method {@link batch}, except for {@link external:TypeError TypeError}
@@ -83,11 +83,61 @@
  * @see {@link batch}
  *
  */
-function BatchError(result, errors, duration) {
+class BatchError extends Error {
 
-    // TODO: Replace with ES6 class (like in pg-promise)
+    constructor(result, errors, duration) {
 
-    this.data = result;
+        function getErrors() {
+            const err = new Array(errors.length);
+            for (let i = 0; i &lt; errors.length; i++) {
+                err[i] = result[errors[i]].result;
+                if (err[i] instanceof BatchError) {
+                    err[i] = err[i].getErrors();
+                }
+            }
+            npm.utils.extend(err, '$isErrorList', true);
+            return err;
+        }
+
+        const e = getErrors();
+
+        let first = e[0];
+
+        while (first &amp;&amp; first.$isErrorList) {
+            first = first[0];
+        }
+
+        let message;
+
+        if (first instanceof Error) {
+            message = first.message;
+        } else {
+            if (typeof first !== 'string') {
+                first = npm.u.inspect(first);
+            }
+            message = first;
+        }
+
+        super(message);
+        this.name = this.constructor.name;
+
+        this.data = result;
+
+        // we do not show it within the inspect, because when the error
+        // happens for a nested result, the output becomes a mess.
+        this.first = first;
+
+        this.stat = {
+            total: result.length,
+            succeeded: result.length - e.length,
+            failed: e.length,
+            duration: duration
+        };
+
+        this.getErrors = getErrors;
+
+        Error.captureStackTrace(this, this.constructor);
+    }
 
     /**
      * @method errors.BatchError.getErrors
@@ -98,51 +148,7 @@ function BatchError(result, errors, duration) {
      *
      * @returns {array}
      */
-    this.getErrors = function () {
-        const err = new Array(errors.length);
-        for (let i = 0; i &lt; errors.length; i++) {
-            err[i] = result[errors[i]].result;
-            if (err[i] instanceof BatchError) {
-                err[i] = err[i].getErrors();
-            }
-        }
-        npm.utils.extend(err, '$isErrorList', true);
-        return err;
-    };
-
-    const e = this.getErrors();
-    let first = e[0];
-
-    while (first &amp;&amp; first.$isErrorList) {
-        first = first[0];
-    }
-
-    // we do not show it within the inspect, because when the error
-    // happens for a nested result, the output becomes a mess.
-    this.first = first;
-
-    if (first instanceof Error) {
-        this.message = first.message;
-    } else {
-        if (typeof first !== 'string') {
-            first = npm.u.inspect(first);
-        }
-        this.message = first;
-    }
-
-    this.stat = {
-        total: result.length,
-        succeeded: result.length - e.length,
-        failed: e.length,
-        duration: duration
-    };
-
-    Error.captureStackTrace(this, BatchError);
-
 }
-
-npm.u.inherits(BatchError, Error);
-BatchError.prototype.name = 'BatchError';
 
 /**
  * @method errors.BatchError.toString
@@ -192,7 +198,8 @@ npm.utils.addInspection(BatchError, function () {
     return this.toString();
 });
 
-module.exports = BatchError;
+module.exports = {BatchError};
+
 </code></pre>
         </article>
     </section>

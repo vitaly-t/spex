@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Interfaces</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -41,7 +41,7 @@ const errorReasons = {
 };
 
 /**
- * @interface errors.SequenceError
+ * @class errors.SequenceError
  * @augments external:Error
  * @description
  * This type represents all errors rejected by method {@link sequence}, except for {@link external:TypeError TypeError}
@@ -81,37 +81,39 @@ const errorReasons = {
  * @see {@link sequence}
  *
  */
-function SequenceError(e, code, cbName, duration) {
+class SequenceError extends Error {
 
-    // TODO: Replace with ES6 class (like in pg-promise)
+    constructor(e, code, cbName, duration) {
 
-    this.index = e.index;
-    this.duration = duration;
-    this.error = e.error;
-
-    if (this.error instanceof Error) {
-        this.message = this.error.message;
-    } else {
-        this.message = this.error;
-        if (typeof this.message !== 'string') {
-            this.message = npm.u.inspect(this.message);
+        let message;
+        if (e.error instanceof Error) {
+            message = e.error.message;
+        } else {
+            message = e.error;
+            if (typeof message !== 'string') {
+                message = npm.u.inspect(message);
+            }
         }
+
+        super(message);
+        this.name = this.constructor.name;
+
+        this.index = e.index;
+        this.duration = duration;
+        this.error = e.error;
+
+        if ('source' in e) {
+            this.source = e.source;
+        } else {
+            this.dest = e.dest;
+        }
+
+        cbName = cbName ? ('\'' + cbName + '\'') : '&lt;anonymous>';
+        this.reason = npm.u.format(errorReasons[code], cbName, e.index);
+
+        Error.captureStackTrace(this, this.constructor);
     }
-
-    if ('source' in e) {
-        this.source = e.source;
-    } else {
-        this.dest = e.dest;
-    }
-
-    cbName = cbName ? ('\'' + cbName + '\'') : '&lt;anonymous>';
-    this.reason = npm.u.format(errorReasons[code], cbName, e.index);
-
-    Error.captureStackTrace(this, SequenceError);
 }
-
-npm.u.inherits(SequenceError, Error);
-SequenceError.prototype.name = 'SequenceError';
 
 /**
  * @method errors.SequenceError.toString
@@ -148,7 +150,8 @@ npm.utils.addInspection(SequenceError, function () {
     return this.toString();
 });
 
-module.exports = SequenceError;
+module.exports = {SequenceError};
+
 </code></pre>
         </article>
     </section>
