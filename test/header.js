@@ -3,7 +3,7 @@
 /////////////////////////////////////
 
 function isError(e, name) {
-    var confirmed = e instanceof Error &&
+    let confirmed = e instanceof Error &&
         typeof e === 'object' &&
         typeof e.message === 'string' &&
         typeof e.stack === 'string';
