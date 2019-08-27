@@ -101,15 +101,6 @@ describe('Main - positive', () => {
             const adapter = new PromiseAdapter(dummy, dummy, dummy);
             expect(adapter instanceof PromiseAdapter).toBe(true);
         });
-        it('must be successful without new', () => {
-            const adapter = PromiseAdapter(dummy, dummy, dummy); // eslint-disable-line new-cap
-            expect(adapter instanceof PromiseAdapter).toBe(true);
-        });
-        it('must be successful with wrong context', () => {
-            const obj = {};
-            const adapter = PromiseAdapter.call(obj, dummy, dummy, dummy);
-            expect(adapter instanceof PromiseAdapter).toBe(true);
-        });
     });
 
     describe('multi-init', () => {
@@ -138,8 +129,8 @@ describe('Main - positive', () => {
             }
         ];
 
-        const one = PromiseAdapter.apply(null, PromiseOne);
-        const two = PromiseAdapter.apply(null, PromiseTwo);
+        const one = new PromiseAdapter(...PromiseOne);
+        const two = new PromiseAdapter(...PromiseTwo);
         let result;
 
         beforeEach(done => {
