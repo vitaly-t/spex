@@ -1,19 +1,19 @@
 ////////////////////////////////////////
-// Requires SPEX v2.1.0 or later.
+// Requires SPEX v2.3.0 or later.
 ////////////////////////////////////////
 
 declare namespace spex {
 
-    type TOriginData = {
-        success: boolean,
-        result: any
-    };
+    interface IOriginData {
+        success: boolean;
+        result: any;
+    }
 
-    type TBatchData = {
-        success: boolean,
-        result: any,
-        origin?: TOriginData
-    };
+    interface IBatchData {
+        success: boolean;
+        result: any;
+        origin?: IOriginData;
+    }
 
     interface IBatchStat {
         total: number;
@@ -22,29 +22,29 @@ declare namespace spex {
         duration: number;
     }
 
-    type TStreamReadOptions = {
-        closable?: boolean,
-        readChunks?: boolean,
-        readSize?: number
-    };
+    interface IStreamReadOptions {
+        closable?: boolean;
+        readChunks?: boolean;
+        readSize?: number;
+    }
 
-    type TStreamReadResult = {
+    interface IStreamReadResult {
         calls: number;
         reads: number;
         length: number;
         duration: number;
-    };
+    }
 
-    type TPageResult = {
-        pages: number,
-        total: number,
-        duration: number
-    };
+    interface IPageResult {
+        pages: number;
+        total: number;
+        duration: number;
+    }
 
-    type TSequenceResult = {
-        total: number,
-        duration: number
-    };
+    interface ISequenceResult {
+        total: number;
+        duration: number;
+    }
 
     interface IArrayExt<T> extends Array<T> {
         duration: number;
@@ -62,7 +62,7 @@ declare namespace spex {
             stack: string;
 
             // extended properties:
-            data: Array<TBatchData>;
+            data: Array<IBatchData>;
 
             stat: IBatchStat;
 
@@ -120,7 +120,7 @@ declare namespace spex {
     // API: http://vitaly-t.github.io/spex/stream.html
     interface IStream {
         // API: http://vitaly-t.github.io/spex/stream.html#.read
-        read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: TStreamReadOptions): Promise<TStreamReadResult>;
+        read(stream: any, receiver: (index: number, data: Array<any>, delay: number) => any, options?: IStreamReadOptions): Promise<IStreamReadResult>;
     }
 
     // PromiseAdapter class;
@@ -136,10 +136,10 @@ declare namespace spex {
         batch(values: Array<any>, options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<IArrayExt<any>>;
 
         // API: http://vitaly-t.github.io/spex/global.html#page
-        page(source: (index: number, data: any, delay: number) => any, options?: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): Promise<TPageResult>;
+        page(source: (index: number, data: any, delay: number) => any, options?: { dest?: (index: number, data: any, delay: number) => any, limit?: number }): Promise<IPageResult>;
 
         // API: http://vitaly-t.github.io/spex/global.html#sequence
-        sequence(source: (index: number, data: any, delay: number) => any, options?: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): Promise<TSequenceResult | IArrayExt<any>>;
+        sequence(source: (index: number, data: any, delay: number) => any, options?: { dest?: (index: number, data: any, delay: number) => any, limit?: number, track?: boolean }): Promise<ISequenceResult | IArrayExt<any>>;
     }
 
     interface ISpex extends ISpexBase {
