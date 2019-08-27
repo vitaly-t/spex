@@ -1,5 +1,3 @@
-'use strict';
-
 try {
     eval('(function *(){})');
 } catch (e) {

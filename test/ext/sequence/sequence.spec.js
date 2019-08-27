@@ -1,5 +1,3 @@
-'use strict';
-
 const lib = require('../../header');
 const tools = require('../../tools');
 

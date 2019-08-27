@@ -2,8 +2,6 @@
 // Library header used in every test;
 /////////////////////////////////////
 
-'use strict';
-
 function isError(e, name) {
     var confirmed = e instanceof Error &&
         typeof e === 'object' &&

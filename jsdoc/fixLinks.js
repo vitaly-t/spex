@@ -1,5 +1,3 @@
-'use strict';
-
 // Automatic links:
 var links = {
     'promise.all': 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all',

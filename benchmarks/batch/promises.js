@@ -1,20 +1,18 @@
-'use strict';
+const $test = require('../test');
 
-var $test = require('../test');
-
-var $spex, // spex library instance;
+let $spex, // spex library instance;
     $lib, // name of the promise library;
     $p; // promise library;
 
 function run(size, done) {
-    var data = [];
-    for (var i = 0; i < size; i++) {
+    const data = [];
+    for (let i = 0; i < size; i++) {
         data.push($p.resolve(i));
     }
     $spex.batch(data)
-        .then(function (d) {
+        .then(d => {
             console.log($lib.name + '(' + $test.format(size) + '): ' + d.duration);
-            setTimeout(function () {
+            setTimeout(() => {
                 done();
             }, 100);
         });
@@ -24,10 +22,10 @@ function runAll(spex, lib, done) {
     $spex = spex;
     $lib = lib;
     $p = spex.$p;
-    var sizes = [10, 100, 1000, 10000, 100000];
+    const sizes = [10, 100, 1000, 10000, 100000];
 
     function loop(idx) {
-        run(sizes[idx], function () {
+        run(sizes[idx], () => {
             idx++;
             if (idx < sizes.length) {
                 loop(idx);

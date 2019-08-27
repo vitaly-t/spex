@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const lib = require('../../header');
 const promise = lib.promise;

@@ -1,7 +1,5 @@
-'use strict';
-
 // All the promise libraries to run the tests against;
-var libraries = {
+const libraries = {
     Native: Promise,
     Bluebird: require('bluebird'),
     Promise: require('Promise'),
@@ -15,7 +13,7 @@ libraries.Bluebird.config({
     longStackTraces: false
 });
 
-var spex = require('../lib/index');
+const spex = require('../lib/index');
 
 function run(test, name) {
     if (typeof test !== 'function') {
@@ -24,8 +22,8 @@ function run(test, name) {
     console.log('*******************************');
     console.log('** TEST-START:', name);
 
-    var libs = [];
-    for (var i in libraries) {
+    const libs = [];
+    for (const i in libraries) {
         libs.push({
             name: i,
             lib: libraries[i]
@@ -33,8 +31,8 @@ function run(test, name) {
     }
 
     function loop(idx) {
-        var l = libs[idx];
-        test(spex(l.lib), l, function () {
+        const l = libs[idx];
+        test(spex(l.lib), l, () => {
             idx++;
             if (idx === libs.length) {
                 console.log('** TEST-END:', name);
