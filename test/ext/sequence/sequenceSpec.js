@@ -1,50 +1,50 @@
 'use strict';
 
-var lib = require('../../header');
-var tools = require('../../tools');
+const lib = require('../../header');
+const tools = require('../../tools');
 
-var promise = lib.promise;
-var spex = lib.main(promise);
+const promise = lib.promise;
+const spex = lib.main(promise);
 
-var isError = lib.isError;
+const isError = lib.isError;
 
-var SequenceError = require('../../../lib/errors/sequence');
+const SequenceError = require('../../../lib/errors/sequence');
 
-describe('Sequence - negative', function () {
+describe('Sequence - negative', () => {
 
-    describe('with invalid parameters', function () {
-        var error;
-        beforeEach(function (done) {
+    describe('with invalid parameters', () => {
+        let error;
+        beforeEach(done => {
             spex.sequence()
-                .catch(function (e) {
+                .catch(e => {
                     error = e;
                     done();
                 });
         });
-        it('must reject an invalid source function', function () {
+        it('must reject an invalid source function', () => {
             expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
             expect(error.message).toBe('Parameter \'source\' must be a function.');
         });
     });
 
-    describe('source error', function () {
+    describe('source error', () => {
 
-        describe('as Error', function () {
-            var r, err = new Error('source error');
-            beforeEach(function (done) {
+        describe('as Error', () => {
+            let r, err = new Error('source error');
+            beforeEach(done => {
                 function source() {
                     throw err;
                 }
 
                 spex.sequence(source)
-                    .catch(function (e) {
+                    .catch(e => {
                         r = e;
                         done();
                     });
             });
 
-            it('must reject correctly', function () {
+            it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof SequenceError).toBe(true);
                 expect(r.index).toBe(0);
@@ -55,20 +55,20 @@ describe('Sequence - negative', function () {
             });
         });
 
-        describe('with a string value', function () {
-            var r, msg = 'source error';
-            beforeEach(function (done) {
+        describe('with a string value', () => {
+            let r, msg = 'source error';
+            beforeEach(done => {
 
-                spex.sequence(function () {
+                spex.sequence(() => {
                     throw msg;
                 })
-                    .catch(function (e) {
+                    .catch(e => {
                         r = e;
                         done();
                     });
             });
 
-            it('must reject correctly', function () {
+            it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof SequenceError).toBe(true);
                 expect(r.index).toBe(0);
@@ -80,20 +80,20 @@ describe('Sequence - negative', function () {
             });
         });
 
-        describe('with a non-string value', function () {
-            var r;
-            beforeEach(function (done) {
+        describe('with a non-string value', () => {
+            let r;
+            beforeEach(done => {
 
-                spex.sequence(function () {
+                spex.sequence(() => {
                     throw 123;
                 })
-                    .catch(function (e) {
+                    .catch(e => {
                         r = e;
                         done();
                     });
             });
 
-            it('must reject correctly', function () {
+            it('must reject correctly', () => {
                 expect(isError(r, 'SequenceError')).toBe(true);
                 expect(r.error).toBe(123);
                 expect(r.message).toBe('123');
@@ -102,22 +102,22 @@ describe('Sequence - negative', function () {
 
     });
 
-    describe('source reject', function () {
+    describe('source reject', () => {
 
-        var error, msg = 'source reject';
-        beforeEach(function (done) {
+        let error, msg = 'source reject';
+        beforeEach(done => {
             function source() {
                 return promise.reject(new Error(msg));
             }
 
             spex.sequence(source)
-                .catch(function (e) {
+                .catch(e => {
                     error = e;
                     done();
                 });
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(error)).toBe(true);
             expect(error instanceof SequenceError).toBe(true);
             expect(error.index).toBe(0);
@@ -128,23 +128,23 @@ describe('Sequence - negative', function () {
         });
     });
 
-    describe('source reject with a batch', function () {
+    describe('source reject with a batch', () => {
 
-        var r;
-        beforeEach(function (done) {
+        let r;
+        beforeEach(done => {
 
             function source() {
                 return spex.batch([promise.reject(new Error('123'))]);
             }
 
             spex.sequence(source)
-                .catch(function (e) {
+                .catch(e => {
                     r = e;
                     done();
                 });
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
             expect(r instanceof SequenceError).toBe(true);
             expect(r.index).toBe(0);
@@ -155,10 +155,10 @@ describe('Sequence - negative', function () {
         });
     });
 
-    describe('destination error', function () {
+    describe('destination error', () => {
 
-        var error, msg = 'destination error';
-        beforeEach(function (done) {
+        let error, msg = 'destination error';
+        beforeEach(done => {
             function source() {
                 return 123;
             }
@@ -168,13 +168,13 @@ describe('Sequence - negative', function () {
             }
 
             spex.sequence(source, {dest: dest})
-                .catch(function (e) {
+                .catch(e => {
                     error = e;
                     done();
                 });
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(error)).toBe(true);
             expect(error instanceof SequenceError).toBe(true);
             expect(error.message).toBe(msg);
@@ -184,10 +184,10 @@ describe('Sequence - negative', function () {
         });
     });
 
-    describe('destination reject', function () {
+    describe('destination reject', () => {
 
-        var r, msg = 'destination reject';
-        beforeEach(function (done) {
+        let r, msg = 'destination reject';
+        beforeEach(done => {
             function source() {
                 return 123;
             }
@@ -197,12 +197,12 @@ describe('Sequence - negative', function () {
             }
 
             spex.sequence(source, {dest: dest})
-                .catch(function (e) {
+                .catch(e => {
                     r = e;
                     done();
                 });
         });
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
             expect(r instanceof SequenceError).toBe(true);
             expect(r.index).toBe(0);
@@ -215,33 +215,33 @@ describe('Sequence - negative', function () {
 
 });
 
-describe('Sequence - positive', function () {
+describe('Sequence - positive', () => {
 
-    describe('with a limit', function () {
-        var result, limit = 100;
+    describe('with a limit', () => {
+        let result, limit = 100;
 
         function source() {
             return 123;
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.sequence(source, {limit: limit})
-                .then(function (data) {
+                .then(data => {
                     result = data;
                 })
-                .finally(function () {
+                .finally(() => {
                     done();
                 });
         });
-        it('must match the limit', function () {
+        it('must match the limit', () => {
             expect(result && typeof result === 'object').toBe(true);
             expect(result.total).toBe(limit);
             expect('duration' in result).toBe(true);
         });
     });
 
-    describe('tracking', function () {
-        var result, tracked = [];
+    describe('tracking', () => {
+        let result, tracked = [];
 
         function source(idx) {
             if (idx < 3) {
@@ -256,16 +256,16 @@ describe('Sequence - positive', function () {
             }
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.sequence(source, {dest: dest, track: true})
-                .then(function (data) {
+                .then(data => {
                     result = data;
                 })
-                .finally(function () {
+                .finally(() => {
                     done();
                 });
         });
-        it('must track and return the sequence', function () {
+        it('must track and return the sequence', () => {
             expect(result instanceof Array).toBe(true);
             expect('duration' in result).toBe(true);
             expect(result).toEqual([0, 1, 2]);
@@ -273,20 +273,20 @@ describe('Sequence - positive', function () {
         });
     });
 
-    describe('this context', function () {
-        var ctx, context = {};
+    describe('this context', () => {
+        let ctx, context = {};
 
         function source() {
             ctx = this;
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.sequence.call(context, source)
-                .then(function () {
+                .then(() => {
                     done();
                 });
         });
-        it('must be passed in correctly', function () {
+        it('must be passed in correctly', () => {
             expect(ctx).toBe(context);
         });
 

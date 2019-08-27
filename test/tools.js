@@ -1,6 +1,4 @@
-'use strict';
-
-var util = require('util');
+const util = require('util');
 
 function inspect(obj) {
     if (util.inspect.custom) {

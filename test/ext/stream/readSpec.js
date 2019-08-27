@@ -1,48 +1,48 @@
 'use strict';
 
-var fs = require('fs');
-var lib = require('../../header');
-var promise = lib.promise;
-var spex = lib.main(promise);
+const fs = require('fs');
+const lib = require('../../header');
+const promise = lib.promise;
+const spex = lib.main(promise);
 
-describe('Stream/Read - negative', function () {
+describe('Stream/Read - negative', () => {
 
-    var stm;
-    beforeEach(function () {
+    let stm;
+    beforeEach(() => {
         stm = fs.createReadStream(__filename);
     });
 
-    afterEach(function () {
+    afterEach(() => {
         stm.destroy();
     });
 
-    describe('invalid parameters', function () {
+    describe('invalid parameters', () => {
 
-        describe(' - stream', function () {
-            var error;
-            beforeEach(function (done) {
+        describe(' - stream', () => {
+            let error;
+            beforeEach(done => {
                 spex.stream.read(null)
-                    .catch(function (e) {
+                    .catch(e => {
                         error = e;
                         done();
                     });
             });
-            it('must reject', function () {
+            it('must reject', () => {
                 expect(error instanceof TypeError).toBe(true);
                 expect(error.message).toBe('Readable stream is required.');
             });
         });
 
-        describe(' - receiver', function () {
-            var error;
-            beforeEach(function (done) {
+        describe(' - receiver', () => {
+            let error;
+            beforeEach(done => {
                 spex.stream.read(stm)
-                    .catch(function (e) {
+                    .catch(e => {
                         error = e;
                         done();
                     });
             });
-            it('must reject', function () {
+            it('must reject', () => {
                 expect(error instanceof TypeError).toBe(true);
                 expect(error.message).toBe('Invalid stream receiver.');
             });
@@ -50,57 +50,57 @@ describe('Stream/Read - negative', function () {
 
     });
 
-    describe('error event', function () {
-        var error;
-        beforeEach(function (done) {
+    describe('error event', () => {
+        let error;
+        beforeEach(done => {
             function receiver() {
                 stm.emit('error', new Error('Ops!'));
             }
 
             spex.stream.read(stm, receiver)
-                .catch(function (err) {
+                .catch(err => {
                     error = err;
                     done();
                 });
         });
-        it('must reject with the right error', function () {
+        it('must reject with the right error', () => {
             expect(error instanceof Error).toBe(true);
             expect(error.message).toBe('Ops!');
         });
     });
 
-    describe('receiver rejecting', function () {
-        var error, err = new Error('stop');
-        beforeEach(function (done) {
+    describe('receiver rejecting', () => {
+        let error, err = new Error('stop');
+        beforeEach(done => {
             function receiver() {
                 return promise.reject(err);
             }
 
             spex.stream.read(stm, receiver)
-                .catch(function (e) {
+                .catch(e => {
                     error = e;
                     done();
                 });
         });
-        it('must reject with the right error', function () {
+        it('must reject with the right error', () => {
             expect(error).toBe(err);
         });
     });
 
-    describe('receiver throwing an error', function () {
-        var error;
-        beforeEach(function (done) {
+    describe('receiver throwing an error', () => {
+        let error;
+        beforeEach(done => {
             function receiver() {
                 throw new Error('stop');
             }
 
             spex.stream.read(stm, receiver)
-                .catch(function (err) {
+                .catch(err => {
                     error = err;
                     done();
                 });
         });
-        it('must reject with the right error', function () {
+        it('must reject with the right error', () => {
             expect(error instanceof Error).toBe(true);
             expect(error.message).toBe('stop');
         });
@@ -108,23 +108,23 @@ describe('Stream/Read - negative', function () {
 
 });
 
-describe('Stream/Read - positive', function () {
+describe('Stream/Read - positive', () => {
 
-    var stm;
+    let stm;
 
-    beforeEach(function () {
+    beforeEach(() => {
         stm = fs.createReadStream(__filename, {encoding: 'utf8'});
     });
 
-    afterEach(function () {
+    afterEach(() => {
         stm.destroy();
     });
 
-    describe('End-stream, returning promises', function () {
-        var result;
-        beforeEach(function (done) {
+    describe('End-stream, returning promises', () => {
+        let result;
+        beforeEach(done => {
             spex.stream.read(stm, receiver)
-                .then(function (data) {
+                .then(data => {
                     result = data;
                     done();
                 });
@@ -133,16 +133,16 @@ describe('Stream/Read - positive', function () {
                 return promise.resolve();
             }
         });
-        it('must resolve with full statistics', function () {
+        it('must resolve with full statistics', () => {
             testStat(result);
         });
     });
 
-    describe('Close-stream with empty receiver', function () {
-        var result;
-        beforeEach(function (done) {
+    describe('Close-stream with empty receiver', () => {
+        let result;
+        beforeEach(done => {
             spex.stream.read(stm, receiver, {closable: true})
-                .then(function (data) {
+                .then(data => {
                     result = data;
                     done();
                 });
@@ -151,7 +151,7 @@ describe('Stream/Read - positive', function () {
                 return promise.resolve();
             }
         });
-        it('must resolve with full statistics', function () {
+        it('must resolve with full statistics', () => {
             testStat(result);
         });
     });
@@ -165,11 +165,11 @@ describe('Stream/Read - positive', function () {
         expect(obj.duration >= 0).toBe(true);
     }
 
-    describe('Reduced readSize', function () {
-        var r;
-        beforeEach(function (done) {
+    describe('Reduced readSize', () => {
+        let r;
+        beforeEach(done => {
             spex.stream.read(stm, receiver, {readSize: 100})
-                .then(function () {
+                .then(() => {
                     done();
                 });
 
@@ -182,7 +182,7 @@ describe('Stream/Read - positive', function () {
             }
         });
 
-        it('must provide a delay', function () {
+        it('must provide a delay', () => {
             expect(r && typeof r === 'object').toBe(true);
             expect(r.index > 0).toBe(true);
             expect(r.data).toBeTruthy();
@@ -190,11 +190,11 @@ describe('Stream/Read - positive', function () {
         });
     });
 
-    describe('chunk read', function () {
-        var result;
-        beforeEach(function (done) {
+    describe('chunk read', () => {
+        let result;
+        beforeEach(done => {
             spex.stream.read(stm, receiver, {readChunks: true})
-                .then(function () {
+                .then(() => {
                     done();
                 });
 
@@ -202,7 +202,7 @@ describe('Stream/Read - positive', function () {
                 result = data;
             }
         });
-        it('must receive all the data', function () {
+        it('must receive all the data', () => {
             expect(Array.isArray(result)).toBe(true);
             expect(result.length).toBe(1);
             expect(result[0].length).toBeGreaterThan(500);

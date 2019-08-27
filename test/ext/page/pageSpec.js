@@ -1,50 +1,50 @@
 'use strict';
 
-var lib = require('../../header');
-var tools = require('../../tools');
+const lib = require('../../header');
+const tools = require('../../tools');
 
-var promise = lib.promise;
-var spex = lib.main(promise);
+const promise = lib.promise;
+const spex = lib.main(promise);
 
-var isError = lib.isError;
-var PageError = require('../../../lib/errors/page');
+const isError = lib.isError;
+const PageError = require('../../../lib/errors/page');
 
-describe('Page - negative', function () {
+describe('Page - negative', () => {
 
-    describe('with invalid parameters', function () {
-        var error;
-        beforeEach(function (done) {
+    describe('with invalid parameters', () => {
+        let error;
+        beforeEach(done => {
             spex.page()
-                .catch(function (e) {
+                .catch(e => {
                     error = e;
                     done();
                 });
         });
-        it('must reject an invalid source function', function () {
+        it('must reject an invalid source function', () => {
             expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
             expect(error.message).toBe('Parameter \'source\' must be a function.');
         });
     });
 
-    describe('source error', function () {
+    describe('source error', () => {
 
-        describe('with Error', function () {
-            var r, err = new Error('source error');
+        describe('with Error', () => {
+            let r, err = new Error('source error');
 
-            beforeEach(function (done) {
+            beforeEach(done => {
                 function source() {
                     throw err;
                 }
 
                 spex.page(source)
-                    .catch(function (reason) {
+                    .catch(reason => {
                         r = reason;
                         done();
                     });
             });
 
-            it('must reject correctly', function () {
+            it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof PageError).toBe(true);
                 expect(r.index).toBe(0);
@@ -56,21 +56,21 @@ describe('Page - negative', function () {
             });
         });
 
-        describe('with a string value', function () {
-            var r, err = 'source error';
+        describe('with a string value', () => {
+            let r, err = 'source error';
 
-            beforeEach(function (done) {
+            beforeEach(done => {
 
-                spex.page(function () {
+                spex.page(() => {
                     throw err;
                 })
-                    .catch(function (reason) {
+                    .catch(reason => {
                         r = reason;
                         done();
                     });
             });
 
-            it('must reject correctly', function () {
+            it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof PageError).toBe(true);
                 expect(r.index).toBe(0);
@@ -82,21 +82,21 @@ describe('Page - negative', function () {
             });
         });
 
-        describe('with a non-string value', function () {
-            var r, err = 123;
+        describe('with a non-string value', () => {
+            let r, err = 123;
 
-            beforeEach(function (done) {
+            beforeEach(done => {
 
-                spex.page(function () {
+                spex.page(() => {
                     throw err;
                 })
-                    .catch(function (reason) {
+                    .catch(reason => {
                         r = reason;
                         done();
                     });
             });
 
-            it('must reject correctly', function () {
+            it('must reject correctly', () => {
                 expect(isError(r, 'PageError')).toBe(true);
                 expect(r.error).toBe(err);
                 expect(r.message).toBe('123');
@@ -105,24 +105,24 @@ describe('Page - negative', function () {
 
     });
 
-    describe('source reject', function () {
+    describe('source reject', () => {
 
-        var r, err = new Error('source reject');
+        let r, err = new Error('source reject');
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             function source() {
                 return promise.reject(err);
             }
 
             spex.page(source)
-                .catch(function (reason) {
+                .catch(reason => {
                     r = reason;
                     done();
                 });
 
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError);
             expect(r.index).toBe(0);
@@ -133,10 +133,10 @@ describe('Page - negative', function () {
         });
     });
 
-    describe('destination error', function () {
+    describe('destination error', () => {
 
-        var r, err = new Error('destination error');
-        beforeEach(function (done) {
+        let r, err = new Error('destination error');
+        beforeEach(done => {
             function source() {
                 return [1, 2, 3];
             }
@@ -146,13 +146,13 @@ describe('Page - negative', function () {
             }
 
             spex.page(source, {dest: dest})
-                .catch(function (reason) {
+                .catch(reason => {
                     r = reason;
                     done();
                 });
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(0);
@@ -162,10 +162,10 @@ describe('Page - negative', function () {
         });
     });
 
-    describe('destination reject', function () {
+    describe('destination reject', () => {
 
-        var r, err = new Error('destination reject');
-        beforeEach(function (done) {
+        let r, err = new Error('destination reject');
+        beforeEach(done => {
             function source() {
                 return [1, 2, 3];
             }
@@ -175,13 +175,13 @@ describe('Page - negative', function () {
             }
 
             spex.page(source, {dest: dest})
-                .catch(function (reason) {
+                .catch(reason => {
                     r = reason;
                     done();
                 });
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(0);
@@ -192,8 +192,8 @@ describe('Page - negative', function () {
         });
     });
 
-    describe('page returns wrong value', function () {
-        var r, msg = 'Unexpected data returned from the source.';
+    describe('page returns wrong value', () => {
+        let r, msg = 'Unexpected data returned from the source.';
 
         function source(idx) {
             if (!idx) {
@@ -202,15 +202,15 @@ describe('Page - negative', function () {
             return 123;
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.page(source)
-                .catch(function (reason) {
+                .catch(reason => {
                     r = reason;
                     done();
                 });
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
             expect(r instanceof PageError).toBe(true);
             expect(r.index).toBe(1);
@@ -221,8 +221,8 @@ describe('Page - negative', function () {
         });
     });
 
-    describe('page data fail', function () {
-        var error, err = new Error('second');
+    describe('page data fail', () => {
+        let error, err = new Error('second');
 
         function source(idx) {
             if (idx > 1) {
@@ -231,15 +231,15 @@ describe('Page - negative', function () {
             return [];
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.page(source, {})
-                .catch(function (reason) {
+                .catch(reason => {
                     error = reason;
                     done();
                 });
         });
 
-        it('must reject correctly', function () {
+        it('must reject correctly', () => {
             expect(error.index).toBe(2);
             expect(error.error.name).toBe('BatchError');
             expect(error.error.data).toEqual([
@@ -264,11 +264,11 @@ describe('Page - negative', function () {
 
 });
 
-describe('Page - positive', function () {
+describe('Page - positive', () => {
 
-    describe('with mixed data types', function () {
+    describe('with mixed data types', () => {
 
-        var result, tracking = [];
+        let result, tracking = [];
 
         function val() {
             return spex.batch(['one']);
@@ -294,15 +294,15 @@ describe('Page - positive', function () {
             }
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.page(source, {dest: dest})
-                .then(function (data) {
+                .then(data => {
                     result = data;
                     done();
                 });
         });
 
-        it('must return all the data', function () {
+        it('must return all the data', () => {
             expect(result && typeof result === 'object').toBe(true);
             expect(result.pages).toBe(3);
             expect(result.total).toBe(7);
@@ -313,22 +313,22 @@ describe('Page - positive', function () {
         });
     });
 
-    describe('reaching limit', function () {
-        var result, limit = 100;
+    describe('reaching limit', () => {
+        let result, limit = 100;
 
         function source(idx) {
             return [1, idx, 'last'];
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.page(source, {limit: limit})
-                .then(function (data) {
+                .then(data => {
                     result = data;
                     done();
                 });
         });
 
-        it('must resolve correctly', function () {
+        it('must resolve correctly', () => {
             expect(result && typeof result === 'object').toBe(true);
             expect(result.pages).toBe(limit);
             expect(result.total).toBe(limit * 3);
@@ -336,20 +336,20 @@ describe('Page - positive', function () {
         });
     });
 
-    describe('this context', function () {
-        var ctx, context = {};
+    describe('this context', () => {
+        let ctx, context = {};
 
         function source() {
             ctx = this;
         }
 
-        beforeEach(function (done) {
+        beforeEach(done => {
             spex.page.call(context, source)
-                .then(function () {
+                .then(() => {
                     done();
                 });
         });
-        it('must be passed in correctly', function () {
+        it('must be passed in correctly', () => {
             expect(ctx).toBe(context);
         });
 
