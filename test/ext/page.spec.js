@@ -6,6 +6,7 @@ const spex = lib.main(promise);
 
 const isError = lib.isError;
 const PageError = require('../../lib/errors/page');
+const BatchError = require('../../lib/errors/batch');
 
 describe('Page - negative', () => {
 
@@ -245,6 +246,7 @@ describe('Page - negative', () => {
         it('must reject correctly', () => {
             expect(error.index).toBe(2);
             expect(error.error.name).toBe('BatchError');
+            expect(error.error instanceof BatchError).toBeTruthy();
             expect(error.error.data).toEqual([
                 {
                     success: true,
