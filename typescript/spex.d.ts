@@ -1,25 +1,25 @@
 ////////////////////////////////////////
-// Requires SPEX v3.0.0 or later.
+// Requires SPEX v3.1.0 or later.
 ////////////////////////////////////////
 
 declare namespace spex {
 
     interface IOriginData {
-        success: boolean;
-        result: any;
+        readonly success: boolean;
+        readonly result: any;
     }
 
     interface IBatchData {
-        success: boolean;
-        result: any;
-        origin?: IOriginData;
+        readonly success: boolean;
+        readonly result: any;
+        readonly origin?: IOriginData;
     }
 
     interface IBatchStat {
-        total: number;
-        succeeded: number;
-        failed: number;
-        duration: number;
+        readonly total: number;
+        readonly succeeded: number;
+        readonly failed: number;
+        readonly duration: number;
     }
 
     interface IStreamReadOptions {
@@ -29,25 +29,25 @@ declare namespace spex {
     }
 
     interface IStreamReadResult {
-        calls: number;
-        reads: number;
-        length: number;
-        duration: number;
+        readonly calls: number;
+        readonly reads: number;
+        readonly length: number;
+        readonly duration: number;
     }
 
     interface IPageResult {
-        pages: number;
-        total: number;
-        duration: number;
+        readonly pages: number;
+        readonly total: number;
+        readonly duration: number;
     }
 
     interface ISequenceResult {
-        total: number;
-        duration: number;
+        readonly total: number;
+        readonly duration: number;
     }
 
     interface IArrayExt<T> extends Array<T> {
-        duration: number;
+        readonly duration: number;
     }
 
     // Errors namespace
@@ -133,15 +133,24 @@ declare namespace spex {
     interface ISpexBase {
 
         // API: http://vitaly-t.github.io/spex/global.html#batch
-        batch<T>(values: (T | Promise<T>)[], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any}): Promise<IArrayExt<T>>;
+        batch<T>(values: (T | Promise<T>)[], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<IArrayExt<T>>;
+
         batch<T1, T2>(values: [T1 | Promise<T1>, T2 | Promise<T2>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2] & IArrayExt<T1 | T2>>;
+
         batch<T1, T2, T3>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3] & IArrayExt<T1 | T2 | T3>>;
+
         batch<T1, T2, T3, T4>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>, T4 | Promise<T4>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3, T4] & IArrayExt<T1 | T2 | T3 | T4>>;
+
         batch<T1, T2, T3, T4, T5>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>, T4 | Promise<T4>, T5 | Promise<T5>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3, T4, T5] & IArrayExt<T1 | T2 | T3 | T4 | T5>>;
+
         batch<T1, T2, T3, T4, T5, T6>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>, T4 | Promise<T4>, T5 | Promise<T5>, T6 | Promise<T6>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3, T4, T5, T6] & IArrayExt<T1 | T2 | T3 | T4 | T5 | T6>>;
+
         batch<T1, T2, T3, T4, T5, T6, T7>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>, T4 | Promise<T4>, T5 | Promise<T5>, T6 | Promise<T6>, T7 | Promise<T7>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3, T4, T5, T6, T7] & IArrayExt<T1 | T2 | T3 | T4 | T5 | T6 | T7>>;
+
         batch<T1, T2, T3, T4, T5, T6, T7, T8>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>, T4 | Promise<T4>, T5 | Promise<T5>, T6 | Promise<T6>, T7 | Promise<T7>, T8 | Promise<T8>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3, T4, T5, T6, T7, T8] & IArrayExt<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>>;
+
         batch<T1, T2, T3, T4, T5, T6, T7, T8, T9>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>, T4 | Promise<T4>, T5 | Promise<T5>, T6 | Promise<T6>, T7 | Promise<T7>, T8 | Promise<T8>, T9 | Promise<T9>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9] & IArrayExt<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>>;
+
         batch<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(values: [T1 | Promise<T1>, T2 | Promise<T2>, T3 | Promise<T3>, T4 | Promise<T4>, T5 | Promise<T5>, T6 | Promise<T6>, T7 | Promise<T7>, T8 | Promise<T8>, T9 | Promise<T9>, T10 | Promise<T10>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10] & IArrayExt<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10>>;
 
         // API: http://vitaly-t.github.io/spex/global.html#page
@@ -154,10 +163,10 @@ declare namespace spex {
     interface ISpex extends ISpexBase {
 
         // API: http://vitaly-t.github.io/spex/stream.html
-        stream: IStream;
+        readonly stream: IStream;
 
         // API: http://vitaly-t.github.io/spex/errors.html
-        errors: typeof errors;
+        readonly errors: typeof errors;
     }
 
 }
