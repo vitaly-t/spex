@@ -133,7 +133,7 @@ declare namespace spex {
     interface ISpexBase {
 
         // API: http://vitaly-t.github.io/spex/global.html#batch
-        batch<T>(values: (T | Promise<T>)[], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<IArrayExt<T>>;
+        batch<T = unknown>(values: (T | Promise<T>)[], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<IArrayExt<T>>;
 
         batch<T1, T2>(values: [T1 | Promise<T1>, T2 | Promise<T2>], options?: { cb?: (index: number, success: boolean, result: any, delay: number) => any }): Promise<[T1, T2] & IArrayExt<T1 | T2>>;
 
