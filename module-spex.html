@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li><li><a href="PromiseAdapter.html">PromiseAdapter</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -28,10 +28,6 @@
 <section>
 
 <header>
-    
-        
-            
-        
     
 </header>
 
@@ -57,78 +53,6 @@ const spex = require('spex')(promise);
         
 
         
-            
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>promiseLib</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-|
-
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Instance of a promise library to be used by this module.</p>
-<p>Some implementations use <code>Promise</code> constructor to create a new promise, while
-others use the module's function for it. Both types are supported the same.</p>
-<p>Alternatively, an object of type <a href="PromiseAdapter.html">PromiseAdapter</a> can be passed in, which provides
-compatibility with any promise library outside of the standard.</p>
-<p>Passing in a promise library that cannot be recognized will throw
-<code>Invalid promise library specified.</code></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
 
 
 <dl class="details">
@@ -184,46 +108,6 @@ compatibility with any promise library outside of the standard.</p>
 
     
 </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Namespace with all supported methods.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
 
 
         
