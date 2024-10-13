@@ -173,11 +173,7 @@ describe('Stream/Read - positive', () => {
                 });
 
             function receiver(index, data, delay) {
-                r = {
-                    index: index,
-                    data: data,
-                    delay: delay
-                };
+                r = {index, data, delay};
             }
         });
 

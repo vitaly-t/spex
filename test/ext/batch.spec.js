@@ -35,7 +35,7 @@ describe('Batch - negative', () => {
                     throw err;
                 }
 
-                spex.batch([1], {cb: cb})
+                spex.batch([1], {cb})
                     .catch(reason => {
                         r = reason;
                         done();
@@ -62,7 +62,7 @@ describe('Batch - negative', () => {
                     throw err;
                 }
 
-                spex.batch([promise.reject(rejectError)], {cb: cb})
+                spex.batch([promise.reject(rejectError)], {cb})
                     .catch(reason => {
                         r = reason;
                         done();
@@ -93,7 +93,7 @@ describe('Batch - negative', () => {
                 return promise.reject(err);
             }
 
-            spex.batch([1, 2], {cb: cb})
+            spex.batch([1, 2], {cb})
                 .catch(reason => {
                     r = reason;
                     done();
@@ -312,7 +312,7 @@ describe('Batch callback as generator', () => {
     }
 
     beforeEach(done => {
-        spex.batch.call(context, [1], {cb: cb})
+        spex.batch.call(context, [1], {cb})
             .then(data => {
                 result = data;
                 done();

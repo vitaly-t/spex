@@ -169,7 +169,7 @@ describe('Sequence - negative', () => {
                 throw new Error(msg);
             }
 
-            spex.sequence(source, {dest: dest})
+            spex.sequence(source, {dest})
                 .catch(e => {
                     error = e;
                     done();
@@ -198,7 +198,7 @@ describe('Sequence - negative', () => {
                 return promise.reject(new Error(msg));
             }
 
-            spex.sequence(source, {dest: dest})
+            spex.sequence(source, {dest})
                 .catch(e => {
                     r = e;
                     done();
@@ -228,7 +228,7 @@ describe('Sequence - positive', () => {
         }
 
         beforeEach(done => {
-            spex.sequence(source, {limit: limit})
+            spex.sequence(source, {limit})
                 .then(data => {
                     result = data;
                 })
@@ -261,7 +261,7 @@ describe('Sequence - positive', () => {
         }
 
         beforeEach(done => {
-            spex.sequence(source, {dest: dest, track: true})
+            spex.sequence(source, {dest, track: true})
                 .then(data => {
                     result = data;
                 })
@@ -316,7 +316,7 @@ describe('Sequence callbacks generators', () => {
     }
 
     beforeEach(done => {
-        spex.sequence.call(context, source, {dest: dest, track: true})
+        spex.sequence.call(context, source, {dest, track: true})
             .then(data => {
                 result = data;
                 done();

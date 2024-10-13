@@ -1,8 +1,10 @@
-# Specialized Promise Extensions
+SPEX
+----
 
-[![Build Status](https://travis-ci.org/vitaly-t/spex.svg?branch=master)](https://travis-ci.org/vitaly-t/spex)
-[![Coverage Status](https://coveralls.io/repos/vitaly-t/spex/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/spex?branch=master)
-[![Join the chat at https://gitter.im/vitaly-t/spex](https://badges.gitter.im/vitaly-t/spex.svg)](https://gitter.im/vitaly-t/spex?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Specialized Promise Extensions.
+
+[![Build Status](https://github.com/vitaly-t/spex/actions/workflows/ci.yml/badge.svg)](https://github.com/vitaly-t/spex/actions/workflows/ci.yml)
+[![Node Version](https://img.shields.io/badge/nodejs-14%20--%2020-green.svg?logo=node.js&style=flat)](https://nodejs.org)
 
 [batch], [page], [sequence] - promise methods for the following patterns:
 * [Data Throttling & Load Balancing](http://vitaly-t.github.io/spex/tutorial-throttling.html)

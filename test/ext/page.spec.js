@@ -149,7 +149,7 @@ describe('Page - negative', () => {
                 throw err;
             }
 
-            spex.page(source, {dest: dest})
+            spex.page(source, {dest})
                 .catch(reason => {
                     r = reason;
                     done();
@@ -178,7 +178,7 @@ describe('Page - negative', () => {
                 return promise.reject(err);
             }
 
-            spex.page(source, {dest: dest})
+            spex.page(source, {dest})
                 .catch(reason => {
                     r = reason;
                     done();
@@ -303,7 +303,7 @@ describe('Page - positive', () => {
         }
 
         beforeEach(done => {
-            spex.page(source, {dest: dest})
+            spex.page(source, {dest})
                 .then(data => {
                     result = data;
                     done();
@@ -330,7 +330,7 @@ describe('Page - positive', () => {
         }
 
         beforeEach(done => {
-            spex.page(source, {limit: limit})
+            spex.page(source, {limit})
                 .then(data => {
                     result = data;
                     done();
@@ -382,7 +382,7 @@ describe('Page callbacks generators', () => {
     }
 
     beforeEach(done => {
-        spex.page.call(context, source, {dest: dest, limit: 1})
+        spex.page.call(context, source, {dest, limit: 1})
             .then(data => {
                 result = data;
                 done();
