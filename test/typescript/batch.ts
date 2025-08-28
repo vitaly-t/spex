@@ -1,6 +1,7 @@
 import * as spexLib from '../../typescript/spex';
 
-const spex = spexLib(Promise);
+const spex = spexLib;
+
 
 type BatchError = spexLib.errors.BatchError;
 

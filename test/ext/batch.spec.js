@@ -1,10 +1,5 @@
-const lib = require('../header');
-const tools = require('../tools');
-
-const promise = lib.promise;
-const spex = lib.main(promise);
-
-const isError = lib.isError;
+const {isError, inspect} = require('./tools');
+const spex = require('../../lib');
 
 describe('Batch - negative', () => {
 
@@ -18,7 +13,6 @@ describe('Batch - negative', () => {
                 });
         });
         it('must reject an invalid array of values', () => {
-            expect(isError(error)).toBe(true);
             expect(error instanceof TypeError).toBe(true);
             expect(error.message).toBe('Method \'batch\' requires an array of values.');
         });
@@ -62,7 +56,7 @@ describe('Batch - negative', () => {
                     throw err;
                 }
 
-                spex.batch([promise.reject(rejectError)], {cb})
+                spex.batch([Promise.reject(rejectError)], {cb})
                     .catch(reason => {
                         r = reason;
                         done();
@@ -88,9 +82,9 @@ describe('Batch - negative', () => {
 
             function cb(index) {
                 if (index) {
-                    return promise.resolve();
+                    return Promise.resolve();
                 }
-                return promise.reject(err);
+                return Promise.reject(err);
             }
 
             spex.batch([1, 2], {cb})
@@ -255,7 +249,7 @@ describe('Batch - negative', () => {
                 expect(error.first).toEqual(err);
                 expect(error.getErrors()).toEqual([[err]]);
                 expect(error.message).toBe(err);
-                expect(tools.inspect(error)).toContain('stat: { total: 1, succeeded: 0, failed: 1, duration:');
+                expect(inspect(error)).toContain('stat: { total: 1, succeeded: 0, failed: 1, duration:');
             });
         });
 
@@ -308,7 +302,7 @@ describe('Batch callback as generator', () => {
 
     function* cb() {
         ctx = this;
-        return yield promise.resolve('yes');
+        return yield Promise.resolve('yes');
     }
 
     beforeEach(done => {

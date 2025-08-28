@@ -1,6 +1,4 @@
-/////////////////////////////////////
-// Library header used in every test;
-/////////////////////////////////////
+const util = require('util');
 
 function isError(e, name) {
     let confirmed = e instanceof Error &&
@@ -29,8 +27,11 @@ function isError(e, name) {
     return confirmed;
 }
 
-module.exports = {
-    promise: require('bluebird'), // test promise library;
-    main: require('../lib/index'),
-    isError: isError
-};
+function inspect(obj) {
+    if (util.inspect.custom) {
+        return obj[util.inspect.custom]();
+    }
+    return obj.inspect();
+}
+
+module.exports = {isError, inspect};

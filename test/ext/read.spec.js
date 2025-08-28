@@ -1,7 +1,6 @@
 const fs = require('fs');
-const lib = require('../header');
-const promise = lib.promise;
-const spex = lib.main(promise);
+
+const spex = require('../../lib');
 
 describe('Stream/Read - negative', () => {
 
@@ -72,7 +71,7 @@ describe('Stream/Read - negative', () => {
         let error;
         beforeEach(done => {
             function receiver() {
-                return promise.reject(err);
+                return Promise.reject(err);
             }
 
             spex.stream.read(stm, receiver)
@@ -129,7 +128,7 @@ describe('Stream/Read - positive', () => {
                 });
 
             function receiver() {
-                return promise.resolve();
+                return Promise.resolve();
             }
         });
         it('must resolve with full statistics', () => {
@@ -147,7 +146,7 @@ describe('Stream/Read - positive', () => {
                 });
 
             function receiver() {
-                return promise.resolve();
+                return Promise.resolve();
             }
         });
         it('must resolve with full statistics', () => {
