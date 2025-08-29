@@ -1,18 +1,13 @@
-import * as spexLib from '../../typescript/spex';
-import {IPageResult} from '../../typescript/spex';
-
-const spex = spexLib(Promise);
+import {page, errors, IPageResult} from '../../typescript/spex';
 
 function source() {
 
 }
 
-type PageError = spexLib.errors.PageError;
-
-spex.page(source)
+page(source)
     .then((data: IPageResult) => {
         const p: number = data.pages;
     })
-    .catch((error: PageError) => {
+    .catch((error: errors.PageError) => {
         const duration: number = error.duration;
     });
