@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -40,7 +40,7 @@
         
             <div class="description"><p>Namespace with methods that implement stream operations, and <a href="stream.html#.read">read</a> is the only method currently supported.</p>
 <p><strong>Synchronous Stream Processing</strong></p>
-<pre class="prettyprint source lang-js"><code>const stream = require('spex')(Promise).stream;
+<pre class="prettyprint source lang-js"><code>const {stream} = require('spex');
 const fs = require('fs');
 
 const rs = fs.createReadStream('values.txt');
@@ -58,7 +58,7 @@ stream.read(rs, receiver)
     });
 </code></pre>
 <p><strong>Asynchronous Stream Processing</strong></p>
-<pre class="prettyprint source lang-js"><code>const stream = require('spex')(Promise).stream;
+<pre class="prettyprint source lang-js"><code>const {stream} = require('spex');
 const fs = require('fs');
 
 const rs = fs.createReadStream('values.txt');
@@ -259,7 +259,7 @@ according to its protocol.</p>
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">ReadableStream</span>
 
 
             
@@ -550,7 +550,7 @@ to get all the data currently available in the buffer.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ext_stream_read.js.html">ext/stream/read.js</a>, <a href="ext_stream_read.js.html#line1">line 1</a>
+        <a href="ext_stream_read.js.html">ext/stream/read.js</a>, <a href="ext_stream_read.js.html#line3">line 3</a>
     </li></ul></dd>
     
 

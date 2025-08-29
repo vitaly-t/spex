@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -27,7 +27,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>const utils = require('../../utils');
+
+/**
  * @method stream.read
  * @description
  * Consumes and processes data from a $[Readable] stream.
@@ -38,7 +40,7 @@
  * **NOTE:** Once the method has finished, the onus is on the caller to release the stream
  * according to its protocol.
  *
- * @param {Object} stream
+ * @param {ReadableStream} stream
  * $[Readable] stream object.
  *
  * Passing in anything else will throw `Readable stream is required.`
@@ -94,16 +96,14 @@
  *  - event `error` emitted by the stream
  *  - receiver throws an error or returns a rejected promise
  */
-function read(stream, receiver, options, config) {
-
-    const $p = config.promise, utils = config.utils;
+function read(stream, receiver, options) {
 
     if (!utils.isReadableStream(stream)) {
-        return $p.reject(new TypeError('Readable stream is required.'));
+        return Promise.reject(new TypeError('Readable stream is required.'));
     }
 
     if (typeof receiver !== 'function') {
-        return $p.reject(new TypeError('Invalid stream receiver.'));
+        return Promise.reject(new TypeError('Invalid stream receiver.'));
     }
 
     receiver = utils.wrap(receiver);
@@ -114,7 +114,7 @@ function read(stream, receiver, options, config) {
         self = this, start = Date.now(), receiveEvent = options.readChunks ? 'data' : 'readable';
     let cbTime, ready, waiting, stop, reads = 0, length = 0, index = 0;
 
-    return $p((resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
         function onReceive(data) {
             ready = true;
@@ -192,7 +192,6 @@ function read(stream, receiver, options, config) {
                     .then(() => {
                         waiting = false;
                         process();
-                        return null; // this dummy return is just to prevent Bluebird warnings;
                     })
                     .catch(error => {
                         fail(error);
@@ -207,8 +206,8 @@ function read(stream, receiver, options, config) {
             cleanup();
             resolve({
                 calls: index,
-                reads: reads,
-                length: length,
+                reads,
+                length,
                 duration: Date.now() - start
             });
         }
@@ -228,11 +227,7 @@ function read(stream, receiver, options, config) {
     });
 }
 
-module.exports = function (config) {
-    return function (stream, receiver, options) {
-        return read.call(this, stream, receiver, options, config);
-    };
-};
+module.exports = read;
 </code></pre>
         </article>
     </section>

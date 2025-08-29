@@ -13,7 +13,7 @@
 <body>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="PromiseAdapter.html">PromiseAdapter</a></li><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-spex.html">spex</a></li></ul><h3>Externals</h3><ul><li><a href="external-Error.html">Error</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-TypeError.html">TypeError</a></li></ul><h3>Namespaces</h3><ul><li><a href="errors.html">errors</a></li><li><a href="stream.html">stream</a></li></ul><h3>Classes</h3><ul><li><a href="errors.BatchError.html">BatchError</a></li><li><a href="errors.PageError.html">PageError</a></li><li><a href="errors.SequenceError.html">SequenceError</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-batch.html">Batch Processing</a></li><li><a href="tutorial-client.html">Client-Side Usage</a></li><li><a href="tutorial-mixed.html">Mixed Values</a></li><li><a href="tutorial-sequencing.html">Linked and Detached Sequencing</a></li><li><a href="tutorial-streaming.html">Streaming and Paging</a></li><li><a href="tutorial-throttling.html">Data Throttling & Load Balancing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#batch">batch</a></li><li><a href="global.html#page">page</a></li><li><a href="global.html#sequence">sequence</a></li></ul>
     <div class="home-link">
         <a href="https://github.com/vitaly-t/spex">&lt;&lt; GitHub</a>
     </div>
@@ -28,6 +28,8 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const {PageError} = require('../errors/page');
+const batch = require('./batch');
+const utils = require('../utils');
 
 /**
  * @method page
@@ -97,12 +99,10 @@
  * When the method fails, it rejects with {@link errors.PageError PageError}.
  *
  */
-function page(source, options, config) {
-
-    const $p = config.promise, spex = config.spex, utils = config.utils;
+function page(source, options) {
 
     if (typeof source !== 'function') {
-        return $p.reject(new TypeError('Parameter \'source\' must be a function.'));
+        return Promise.reject(new TypeError('Parameter \'source\' must be a function.'));
     }
 
     options = options || {};
@@ -112,7 +112,7 @@ function page(source, options, config) {
         dest = utils.wrap(options.dest), self = this, start = Date.now();
     let request, srcTime, destTime, total = 0;
 
-    return $p((resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
         function loop(idx) {
             const srcNow = Date.now(),
@@ -123,7 +123,7 @@ function page(source, options, config) {
                     success();
                 } else {
                     if (value instanceof Array) {
-                        spex.batch(value)
+                        batch(value)
                             .then(data => {
                                 request = data;
                                 total += data.length;
@@ -146,7 +146,7 @@ function page(source, options, config) {
                                             .then(next)
                                             .catch(error => {
                                                 fail({
-                                                    error: error,
+                                                    error,
                                                     dest: data
                                                 }, 3, dest.name);
                                             });
@@ -156,12 +156,9 @@ function page(source, options, config) {
                                 } else {
                                     next();
                                 }
-                                return null; // this dummy return is just to prevent Bluebird warnings;
                             })
                             .catch(error => {
-                                fail({
-                                    error: error
-                                }, 0);
+                                fail({error}, 0);
                             });
                     } else {
                         fail({
@@ -183,13 +180,12 @@ function page(source, options, config) {
                 } else {
                     loop(idx);
                 }
-                return null; // this dummy return is just to prevent Bluebird warnings;
             }
 
             function success() {
                 resolve({
                     pages: idx,
-                    total: total,
+                    total,
                     duration: Date.now() - start
                 });
             }
@@ -204,11 +200,7 @@ function page(source, options, config) {
     });
 }
 
-module.exports = function (config) {
-    return function (source, options) {
-        return page.call(this, source, options, config);
-    };
-};
+module.exports = page;
 </code></pre>
         </article>
     </section>
