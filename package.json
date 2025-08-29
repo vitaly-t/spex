@@ -2,14 +2,14 @@
   "name": "spex",
   "version": "4.0.0",
   "description": "Specialized Promise Extensions",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "typings": "typescript/spex.d.ts",
   "scripts": {
-    "test": "jasmine-node test",
+    "test": "jasmine --config=./jasmine.json",
     "doc": "jsdoc -c ./jsdoc/jsDoc.js ./jsdoc/README.md -u ./jsdoc/tutorials",
     "coverage": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test",
     "browserify": "browserify lib/index.js -s spexLib -o spex.js",
-    "lint": "eslint ./lib ./test/**/*.spec.js"
+    "lint": "eslint ./src ./test/**/*.spec.js"
   },
   "files": [
     "lib",

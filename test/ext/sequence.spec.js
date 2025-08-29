@@ -1,14 +1,12 @@
 const {isError, inspect} = require('./tools');
-const spex = require('../../lib');
-
-const {SequenceError} = require('../../lib/errors/sequence');
+const {sequence, batch, errors} = require('../../src');
 
 describe('Sequence - negative', () => {
 
     describe('with invalid parameters', () => {
         let error;
         beforeEach(done => {
-            spex.sequence()
+            sequence()
                 .catch(e => {
                     error = e;
                     done();
@@ -31,7 +29,7 @@ describe('Sequence - negative', () => {
                     throw err;
                 }
 
-                spex.sequence(source)
+                sequence(source)
                     .catch(e => {
                         r = e;
                         done();
@@ -42,7 +40,7 @@ describe('Sequence - negative', () => {
                 expect(isError(r)).toBe(true);
                 expect(r.name).toBe('SequenceError');
                 expect(r instanceof Error).toBe(true);
-                expect(r instanceof SequenceError).toBe(true);
+                expect(r instanceof errors.SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
                 expect('source' in r).toBe(true);
@@ -56,7 +54,7 @@ describe('Sequence - negative', () => {
             let r;
             beforeEach(done => {
 
-                spex.sequence(() => {
+                sequence(() => {
                     throw msg;
                 })
                     .catch(e => {
@@ -67,7 +65,7 @@ describe('Sequence - negative', () => {
 
             it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
-                expect(r instanceof SequenceError).toBe(true);
+                expect(r instanceof errors.SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.message).toBe(msg);
                 expect(r.error).toBe(msg);
@@ -81,7 +79,7 @@ describe('Sequence - negative', () => {
             let r;
             beforeEach(done => {
 
-                spex.sequence(() => {
+                sequence(() => {
                     throw 123;
                 })
                     .catch(e => {
@@ -107,7 +105,7 @@ describe('Sequence - negative', () => {
                 return Promise.reject(new Error(msg));
             }
 
-            spex.sequence(source)
+            sequence(source)
                 .catch(e => {
                     error = e;
                     done();
@@ -116,7 +114,7 @@ describe('Sequence - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(error)).toBe(true);
-            expect(error instanceof SequenceError).toBe(true);
+            expect(error instanceof errors.SequenceError).toBe(true);
             expect(error.index).toBe(0);
             expect(error.message).toBe(msg);
             expect('source' in error).toBe(true);
@@ -131,10 +129,10 @@ describe('Sequence - negative', () => {
         beforeEach(done => {
 
             function source() {
-                return spex.batch([Promise.reject(new Error('123'))]);
+                return batch([Promise.reject(new Error('123'))]);
             }
 
-            spex.sequence(source)
+            sequence(source)
                 .catch(e => {
                     r = e;
                     done();
@@ -143,7 +141,7 @@ describe('Sequence - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof SequenceError).toBe(true);
+            expect(r instanceof errors.SequenceError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.message).toBe('123');
             expect('source' in r).toBe(true);
@@ -164,7 +162,7 @@ describe('Sequence - negative', () => {
                 throw new Error(msg);
             }
 
-            spex.sequence(source, {dest})
+            sequence(source, {dest})
                 .catch(e => {
                     error = e;
                     done();
@@ -173,7 +171,7 @@ describe('Sequence - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(error)).toBe(true);
-            expect(error instanceof SequenceError).toBe(true);
+            expect(error instanceof errors.SequenceError).toBe(true);
             expect(error.message).toBe(msg);
             expect(error.index).toBe(0);
             expect(error.dest).toBe(123);
@@ -193,7 +191,7 @@ describe('Sequence - negative', () => {
                 return Promise.reject(new Error(msg));
             }
 
-            spex.sequence(source, {dest})
+            sequence(source, {dest})
                 .catch(e => {
                     r = e;
                     done();
@@ -201,7 +199,7 @@ describe('Sequence - negative', () => {
         });
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof SequenceError).toBe(true);
+            expect(r instanceof errors.SequenceError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.message).toBe(msg);
             expect(r.dest).toBe(123);
@@ -223,7 +221,7 @@ describe('Sequence - positive', () => {
         }
 
         beforeEach(done => {
-            spex.sequence(source, {limit})
+            sequence(source, {limit})
                 .then(data => {
                     result = data;
                 })
@@ -256,7 +254,7 @@ describe('Sequence - positive', () => {
         }
 
         beforeEach(done => {
-            spex.sequence(source, {dest, track: true})
+            sequence(source, {dest, track: true})
                 .then(data => {
                     result = data;
                 })
@@ -281,7 +279,7 @@ describe('Sequence - positive', () => {
         }
 
         beforeEach(done => {
-            spex.sequence.call(context, source)
+            sequence.call(context, source)
                 .then(() => {
                     done();
                 });
@@ -311,7 +309,7 @@ describe('Sequence callbacks generators', () => {
     }
 
     beforeEach(done => {
-        spex.sequence.call(context, source, {dest, track: true})
+        sequence.call(context, source, {dest, track: true})
             .then(data => {
                 result = data;
                 done();

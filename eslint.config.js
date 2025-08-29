@@ -15,7 +15,7 @@ module.exports = [
                 ecmaFeatures: {globalReturn: true}
             },
             sourceType: 'commonjs',
-            ecmaVersion: 2022
+            ecmaVersion: 2020
         },
         rules: {
             'no-var': 'error',

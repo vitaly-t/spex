@@ -190,10 +190,10 @@ function read(stream, receiver, options) {
         }
 
         function cleanup() {
-            stream.removeEventListener(receiveEvent, onReceive);
-            stream.removeEventListener('close', onClose);
-            stream.removeEventListener('error', onError);
-            stream.removeEventListener('end', onEnd);
+            stream.removeListener(receiveEvent, onReceive);
+            stream.removeListener('close', onClose);
+            stream.removeListener('error', onError);
+            stream.removeListener('end', onEnd);
         }
     });
 }

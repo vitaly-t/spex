@@ -1,17 +1,23 @@
-const main = require('../lib/index');
+const {
+    batch,
+    page,
+    sequence,
+    stream,
+    errors
+} = require('../src');
 
 describe('main', () => {
     describe('protocol', () => {
         it('must contain all properties', () => {
-            expect(main.batch instanceof Function).toBe(true);
-            expect(main.page instanceof Function).toBe(true);
-            expect(main.sequence instanceof Function).toBe(true);
-            expect(main.stream && typeof main.stream === 'object').toBe(true);
-            expect(main.stream.read instanceof Function).toBe(true);
-            expect(main.errors && typeof main.errors === 'object').toBeTruthy();
-            expect(main.errors.BatchError instanceof Function).toBe(true);
-            expect(main.errors.PageError instanceof Function).toBe(true);
-            expect(main.errors.SequenceError instanceof Function).toBe(true);
+            expect(batch instanceof Function).toBe(true);
+            expect(page instanceof Function).toBe(true);
+            expect(sequence instanceof Function).toBe(true);
+            expect(stream && typeof stream === 'object').toBe(true);
+            expect(stream.read instanceof Function).toBe(true);
+            expect(errors && typeof errors === 'object').toBeTruthy();
+            expect(errors.BatchError instanceof Function).toBe(true);
+            expect(errors.PageError instanceof Function).toBe(true);
+            expect(errors.SequenceError instanceof Function).toBe(true);
         });
     });
 });

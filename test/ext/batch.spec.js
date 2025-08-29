@@ -1,12 +1,12 @@
 const {isError, inspect} = require('./tools');
-const spex = require('../../lib');
+const {batch} = require('../../src');
 
 describe('Batch - negative', () => {
 
     describe('with invalid parameters', () => {
         let error;
         beforeEach(done => {
-            spex.batch()
+            batch()
                 .catch(e => {
                     error = e;
                     done();
@@ -29,7 +29,7 @@ describe('Batch - negative', () => {
                     throw err;
                 }
 
-                spex.batch([1], {cb})
+                batch([1], {cb})
                     .catch(reason => {
                         r = reason;
                         done();
@@ -56,7 +56,7 @@ describe('Batch - negative', () => {
                     throw err;
                 }
 
-                spex.batch([Promise.reject(rejectError)], {cb})
+                batch([Promise.reject(rejectError)], {cb})
                     .catch(reason => {
                         r = reason;
                         done();
@@ -87,7 +87,7 @@ describe('Batch - negative', () => {
                 return Promise.reject(err);
             }
 
-            spex.batch([1, 2], {cb})
+            batch([1, 2], {cb})
                 .catch(reason => {
                     r = reason;
                     done();
@@ -120,7 +120,7 @@ describe('Batch - negative', () => {
         }
 
         beforeEach(done => {
-            spex.batch([value])
+            batch([value])
                 .catch(reason => {
                     r = reason;
                     done();
@@ -147,7 +147,7 @@ describe('Batch - negative', () => {
         }
 
         beforeEach(done => {
-            spex.batch([value])
+            batch([value])
                 .catch(reason => {
                     r = reason;
                     done();
@@ -175,7 +175,7 @@ describe('Batch - negative', () => {
         }
 
         beforeEach(done => {
-            spex.batch([value])
+            batch([value])
                 .catch(reason => {
                     r = reason;
                     done();
@@ -206,11 +206,11 @@ describe('Batch - negative', () => {
             }
 
             function value() {
-                return spex.batch([problem]);
+                return batch([problem]);
             }
 
             beforeEach(done => {
-                spex.batch([value])
+                batch([value])
                     .catch(reason => {
                         error = reason;
                         done();
@@ -233,11 +233,11 @@ describe('Batch - negative', () => {
             }
 
             function value() {
-                return spex.batch([problem]);
+                return batch([problem]);
             }
 
             beforeEach(done => {
-                spex.batch([value])
+                batch([value])
                     .catch(reason => {
                         error = reason;
                         done();
@@ -261,7 +261,7 @@ describe('Batch - positive', () => {
     describe('empty input', () => {
         let result;
         beforeEach(done => {
-            spex.batch([])
+            batch([])
                 .then(data => {
                     result = data;
                     done();
@@ -282,7 +282,7 @@ describe('Batch - positive', () => {
         }
 
         beforeEach(done => {
-            spex.batch.call(context, [test])
+            batch.call(context, [test])
                 .then(() => {
                     done();
                 });
@@ -306,7 +306,7 @@ describe('Batch callback as generator', () => {
     }
 
     beforeEach(done => {
-        spex.batch.call(context, [1], {cb})
+        batch.call(context, [1], {cb})
             .then(data => {
                 result = data;
                 done();

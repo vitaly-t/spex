@@ -1,3 +1,8 @@
+const npm = {
+    stream: require('stream'),
+    util: require('util')
+};
+
 //////////////////////////////////////////
 // Checks if the function is a generator,
 // and if so - wraps it up into a promise;
@@ -32,7 +37,7 @@ function resolve(value, params, onSuccess, onError) {
                 return;
             }
         }
-        if (npm.utils.isPromise(value)) {
+        if (isPromise(value)) {
             value
                 .then(data => {
                     delayed = true;
@@ -67,11 +72,6 @@ function asyncAdapter(generator) {
         return handle(g.next());
     };
 }
-
-const npm = {
-    stream: require('stream'),
-    util: require('util')
-};
 
 /////////////////////////////////////
 // Checks if the value is a promise;
