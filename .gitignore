@@ -1,7 +1,5 @@
 .idea/
 node_modules/
-API/
-benchmarks/node_modules/
 out/
 coverage/
 /spex.js
