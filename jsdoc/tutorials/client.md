@@ -16,14 +16,13 @@ $ npm install
 $ npm run browserify
 ```
 
-This generates file `spex.js` within the module's root folder, to be copied into your web project.
-
-The library exposes global variable `spexLib`, to be initialized as shown in the following example:
+This generates file `spex.js` within the module's root folder, to be copied into your web project,
+which exposes global variable `spexLib`:
 
 ```html
 <script src="spex.js"></script>
 <script>
-    const spex = spexLib(Promise); // Initializing with ES6 Promise;
+    const {batch, page, sequence, errors} = spexLib;
 </script>
 ```
 
