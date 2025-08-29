@@ -6,7 +6,7 @@ module.exports = {
     },
     opts: {
         recurse: true,
-        destination: './API'
+        destination: '../spex-api'
     },
     templates: {
         default: {
