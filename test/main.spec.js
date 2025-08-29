@@ -1,6 +1,6 @@
 const main = require('../lib/index');
 
-describe('Main', () => {
+describe('main', () => {
     describe('protocol', () => {
         it('must contain all properties', () => {
             expect(main.batch instanceof Function).toBe(true);
