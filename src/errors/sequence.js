@@ -1,27 +1,25 @@
 const npm = {
     u: require('util'),
     os: require('os'),
-    utils: require('../utils/static')
+    utils: require('../utils')
 };
 
 const errorReasons = {
-    0: 'Page with index %d rejected.',
-    1: 'Source %s returned a rejection at index %d.',
-    2: 'Source %s threw an error at index %d.',
-    3: 'Destination %s returned a rejection at index %d.',
-    4: 'Destination %s threw an error at index %d.',
-    5: 'Source %s returned a non-array value at index %d.'
+    0: 'Source %s returned a rejection at index %d.',
+    1: 'Source %s threw an error at index %d.',
+    2: 'Destination %s returned a rejection at index %d.',
+    3: 'Destination %s threw an error at index %d.'
 };
 
 /**
- * @class errors.PageError
+ * @class errors.SequenceError
  * @augments external:Error
  * @description
- * This type represents all errors rejected by method {@link page}, except for {@link external:TypeError TypeError}
+ * This type represents all errors rejected by method {@link sequence}, except for {@link external:TypeError TypeError}
  * when the method receives invalid input parameters.
  *
  * @property {string} name
- * Standard {@link external:Error Error} property - error type name = `PageError`.
+ * Standard {@link external:Error Error} property - error type name = `SequenceError`.
  *
  * @property {string} message
  * Standard {@link external:Error Error} property - the error message.
@@ -30,7 +28,7 @@ const errorReasons = {
  * Standard {@link external:Error Error} property - the stack trace.
  *
  * @property {} error
- * The error that was thrown, or the rejection reason.
+ * The error that was thrown or the rejection reason.
  *
  * @property {number} index
  * Index of the element in the sequence for which the error/rejection occurred.
@@ -51,12 +49,10 @@ const errorReasons = {
  *
  * It is only set when the error/rejection occurred inside the `dest` function.
  *
- * @see
- * {@link page},
- * {@link batch}
+ * @see {@link sequence}
  *
  */
-class PageError extends Error {
+class SequenceError extends Error {
 
     constructor(e, code, cbName, duration) {
 
@@ -69,6 +65,7 @@ class PageError extends Error {
                 message = npm.u.inspect(message);
             }
         }
+
         super(message);
         this.name = this.constructor.name;
 
@@ -78,26 +75,19 @@ class PageError extends Error {
 
         if ('source' in e) {
             this.source = e.source;
-        }
-
-        if ('dest' in e) {
+        } else {
             this.dest = e.dest;
         }
 
-        if (code) {
-            cbName = cbName ? ('\'' + cbName + '\'') : '<anonymous>';
-            this.reason = npm.u.format(errorReasons[code], cbName, e.index);
-        } else {
-            this.reason = npm.u.format(errorReasons[code], e.index);
-        }
+        cbName = cbName ? ('\'' + cbName + '\'') : '<anonymous>';
+        this.reason = npm.u.format(errorReasons[code], cbName, e.index);
 
         Error.captureStackTrace(this, this.constructor);
     }
-
 }
 
 /**
- * @method errors.PageError.toString
+ * @method errors.SequenceError.toString
  * @description
  * Creates a well-formatted multi-line string that represents the error.
  *
@@ -108,14 +98,14 @@ class PageError extends Error {
  *
  * @returns {string}
  */
-PageError.prototype.toString = function (level) {
+SequenceError.prototype.toString = function (level) {
 
     level = level > 0 ? parseInt(level) : 0;
 
     const gap0 = npm.utils.messageGap(level),
         gap1 = npm.utils.messageGap(level + 1),
         lines = [
-            'PageError {',
+            'SequenceError {',
             gap1 + 'message: ' + JSON.stringify(this.message),
             gap1 + 'reason: ' + this.reason,
             gap1 + 'index: ' + this.index,
@@ -127,9 +117,9 @@ PageError.prototype.toString = function (level) {
     return lines.join(npm.os.EOL);
 };
 
-npm.utils.addInspection(PageError, function () {
+npm.utils.addInspection(SequenceError, function () {
     return this.toString();
 });
 
-module.exports = {PageError};
+module.exports = {SequenceError};
 

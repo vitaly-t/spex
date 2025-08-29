@@ -1,7 +1,7 @@
 module.exports = {
     source: {
         include: [
-            'lib'
+            'src'
         ]
     },
     opts: {

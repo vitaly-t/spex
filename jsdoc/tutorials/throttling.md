@@ -24,7 +24,7 @@ The example below uses method [page] to initiate a sequence of 5 pages, and then
 The `source` function serves each page with a half-second delay.
 
 ```js
-const spex = require('spex')(Promise);
+const {page} = require('spex');
 
 function source(index, data, delay) {
     return new Promise((resolve, reject) => {
@@ -41,7 +41,7 @@ function logger(index, data, delay) {
     console.log('LOG:', data);
 }
 
-spex.page(source, {dest: logger, limit: 5})
+page(source, {dest: logger, limit: 5})
     .then(data => {
         console.log('FINISHED:', data);
     });
@@ -64,7 +64,7 @@ In the following example we have a [sequence] that returns data while the index 
 destination function that enforces a 1 second delay on processing each data resolved from the source.
  
 ```js 
-const spex = require('spex')(Promise);
+const {sequence} = require('spex');
 
 function source(index, data, delay) {
     console.log('SOURCE:', index, data, delay);
@@ -82,7 +82,7 @@ function dest(index, data, delay) {
     });
 }
 
-spex.sequence(source, {dest: dest})
+sequence(source, {dest: dest})
     .then(data => {
         console.log('DATA:', data);
     });

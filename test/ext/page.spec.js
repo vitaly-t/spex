@@ -1,19 +1,12 @@
-const lib = require('../header');
-const tools = require('../tools');
-
-const promise = lib.promise;
-const spex = lib.main(promise);
-
-const isError = lib.isError;
-const {PageError} = require('../../lib/errors/page');
-const {BatchError} = require('../../lib/errors/batch');
+const {isError, inspect} = require('./tools');
+const {page, batch, errors} = require('../../src');
 
 describe('Page - negative', () => {
 
     describe('with invalid parameters', () => {
         let error;
         beforeEach(done => {
-            spex.page()
+            page()
                 .catch(e => {
                     error = e;
                     done();
@@ -37,7 +30,7 @@ describe('Page - negative', () => {
                     throw err;
                 }
 
-                spex.page(source)
+                page(source)
                     .catch(reason => {
                         r = reason;
                         done();
@@ -47,14 +40,14 @@ describe('Page - negative', () => {
             it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
                 expect(r instanceof Error).toBe(true);
-                expect(r instanceof PageError).toBe(true);
+                expect(r instanceof errors.PageError).toBe(true);
                 expect(r.name).toBe('PageError');
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
                 expect('dest' in r).toBe(false);
-                expect(tools.inspect(r)).toContain('reason: Source \'source\' threw an error at index 0.');
+                expect(inspect(r)).toContain('reason: Source \'source\' threw an error at index 0.');
             });
         });
 
@@ -64,7 +57,7 @@ describe('Page - negative', () => {
 
             beforeEach(done => {
 
-                spex.page(() => {
+                page(() => {
                     throw err;
                 })
                     .catch(reason => {
@@ -75,13 +68,13 @@ describe('Page - negative', () => {
 
             it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
-                expect(r instanceof PageError).toBe(true);
+                expect(r instanceof errors.PageError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
                 expect('dest' in r).toBe(false);
-                expect(tools.inspect(r)).toContain('reason: Source <anonymous> threw an error at index 0.');
+                expect(inspect(r)).toContain('reason: Source <anonymous> threw an error at index 0.');
             });
         });
 
@@ -91,7 +84,7 @@ describe('Page - negative', () => {
 
             beforeEach(done => {
 
-                spex.page(() => {
+                page(() => {
                     throw err;
                 })
                     .catch(reason => {
@@ -115,10 +108,10 @@ describe('Page - negative', () => {
 
         beforeEach(done => {
             function source() {
-                return promise.reject(err);
+                return Promise.reject(err);
             }
 
-            spex.page(source)
+            page(source)
                 .catch(reason => {
                     r = reason;
                     done();
@@ -128,12 +121,12 @@ describe('Page - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof PageError);
+            expect(r instanceof errors.PageError);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
-            expect(tools.inspect(r)).toContain('reason: Source \'source\' returned a rejection at index 0.');
+            expect(inspect(r)).toContain('reason: Source \'source\' returned a rejection at index 0.');
         });
     });
 
@@ -149,7 +142,7 @@ describe('Page - negative', () => {
                 throw err;
             }
 
-            spex.page(source, {dest})
+            page(source, {dest})
                 .catch(reason => {
                     r = reason;
                     done();
@@ -158,11 +151,11 @@ describe('Page - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof PageError).toBe(true);
+            expect(r instanceof errors.PageError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
-            expect(tools.inspect(r)).toContain('reason: Destination \'dest\' threw an error at index 0.');
+            expect(inspect(r)).toContain('reason: Destination \'dest\' threw an error at index 0.');
         });
     });
 
@@ -175,10 +168,10 @@ describe('Page - negative', () => {
             }
 
             function dest() {
-                return promise.reject(err);
+                return Promise.reject(err);
             }
 
-            spex.page(source, {dest})
+            page(source, {dest})
                 .catch(reason => {
                     r = reason;
                     done();
@@ -187,12 +180,12 @@ describe('Page - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof PageError).toBe(true);
+            expect(r instanceof errors.PageError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.error).toBe(err);
             expect(r.dest).toEqual([1, 2, 3]);
-            expect(tools.inspect(r)).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
-            expect(tools.inspect(r) !== r.toString(1)).toBe(true);
+            expect(inspect(r)).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
+            expect(inspect(r) !== r.toString(1)).toBe(true);
         });
     });
 
@@ -202,13 +195,13 @@ describe('Page - negative', () => {
 
         function source(idx) {
             if (!idx) {
-                return [1, promise.resolve(2), 3];
+                return [1, Promise.resolve(2), 3];
             }
             return 123;
         }
 
         beforeEach(done => {
-            spex.page(source)
+            page(source)
                 .catch(reason => {
                     r = reason;
                     done();
@@ -217,12 +210,12 @@ describe('Page - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof PageError).toBe(true);
+            expect(r instanceof errors.PageError).toBe(true);
             expect(r.index).toBe(1);
             expect(r.error instanceof Error).toBe(true);
             expect(r.message).toBe(msg);
             expect(r.source).toEqual([1, 2, 3]);
-            expect(tools.inspect(r)).toContain('reason: Source \'source\' returned a non-array value at index 1.');
+            expect(inspect(r)).toContain('reason: Source \'source\' returned a non-array value at index 1.');
         });
     });
 
@@ -232,13 +225,13 @@ describe('Page - negative', () => {
 
         function source(idx) {
             if (idx > 1) {
-                return [1, promise.reject(err), 3];
+                return [1, Promise.reject(err), 3];
             }
             return [];
         }
 
         beforeEach(done => {
-            spex.page(source, {})
+            page(source, {})
                 .catch(reason => {
                     error = reason;
                     done();
@@ -248,7 +241,7 @@ describe('Page - negative', () => {
         it('must reject correctly', () => {
             expect(error.index).toBe(2);
             expect(error.error instanceof Error).toBeTruthy();
-            expect(error.error instanceof BatchError).toBeTruthy();
+            expect(error.error instanceof errors.BatchError).toBeTruthy();
             expect(error.error.name).toBe('BatchError');
             expect(error.error.data).toEqual([
                 {
@@ -266,7 +259,7 @@ describe('Page - negative', () => {
             ]);
             expect(isError(error)).toBe(true);
             expect(error.message).toBe('second');
-            expect(tools.inspect(error)).toContain('reason: Page with index 2 rejected.');
+            expect(inspect(error)).toContain('reason: Page with index 2 rejected.');
         });
     });
 
@@ -279,17 +272,17 @@ describe('Page - positive', () => {
         let result;
 
         function val() {
-            return spex.batch(['one']);
+            return batch(['one']);
         }
 
         function source(idx) {
             switch (idx) {
                 case 0:
-                    return [1, promise.resolve(2), 3];
+                    return [1, Promise.resolve(2), 3];
                 case 1:
                     return [];
                 case 2:
-                    return [undefined, promise.resolve(), true, val];
+                    return [undefined, Promise.resolve(), true, val];
                 default:
                     break;
             }
@@ -298,12 +291,12 @@ describe('Page - positive', () => {
         function dest(idx, data) {
             tracking.push(data);
             if (!idx) {
-                return promise.resolve();
+                return Promise.resolve();
             }
         }
 
         beforeEach(done => {
-            spex.page(source, {dest})
+            page(source, {dest})
                 .then(data => {
                     result = data;
                     done();
@@ -330,7 +323,7 @@ describe('Page - positive', () => {
         }
 
         beforeEach(done => {
-            spex.page(source, {limit})
+            page(source, {limit})
                 .then(data => {
                     result = data;
                     done();
@@ -354,7 +347,7 @@ describe('Page - positive', () => {
         }
 
         beforeEach(done => {
-            spex.page.call(context, source)
+            page.call(context, source)
                 .then(() => {
                     done();
                 });
@@ -373,16 +366,16 @@ describe('Page callbacks generators', () => {
 
     function* source() {
         ctx = this;
-        return yield promise.resolve(['src']);
+        return yield Promise.resolve(['src']);
     }
 
     function* dest(_, data) {
         this.data = data;
-        return yield promise.resolve('dest');
+        return yield Promise.resolve('dest');
     }
 
     beforeEach(done => {
-        spex.page.call(context, source, {dest, limit: 1})
+        page.call(context, source, {dest, limit: 1})
             .then(data => {
                 result = data;
                 done();

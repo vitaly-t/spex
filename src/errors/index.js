@@ -32,5 +32,3 @@ module.exports = {
     PageError,
     SequenceError
 };
-
-Object.freeze(module.exports);

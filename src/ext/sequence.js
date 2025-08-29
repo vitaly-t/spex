@@ -1,4 +1,5 @@
 const {SequenceError} = require('../errors/sequence');
+const utils = require('../utils');
 
 /**
  * @method sequence
@@ -77,12 +78,10 @@ const {SequenceError} = require('../errors/sequence');
  *
  * When the method fails, it rejects with {@link errors.SequenceError SequenceError}.
  */
-function sequence(source, options, config) {
-
-    const $p = config.promise, utils = config.utils;
+function sequence(source, options) {
 
     if (typeof source !== 'function') {
-        return $p.reject(new TypeError('Parameter \'source\' must be a function.'));
+        return Promise.reject(new TypeError('Parameter \'source\' must be a function.'));
     }
 
     source = utils.wrap(source);
@@ -94,7 +93,7 @@ function sequence(source, options, config) {
         self = this, start = Date.now();
     let data, srcTime, destTime, result = [];
 
-    return $p((resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
         function loop(idx) {
             const srcNow = Date.now(),
@@ -126,7 +125,6 @@ function sequence(source, options, config) {
                             destResult
                                 .then(() => {
                                     next(true);
-                                    return null; // this dummy return is just to prevent Bluebird warnings;
                                 })
                                 .catch(error => {
                                     fail({
@@ -155,10 +153,9 @@ function sequence(source, options, config) {
                     if (delayed) {
                         loop(idx);
                     } else {
-                        $p.resolve()
+                        Promise.resolve()
                             .then(() => {
                                 loop(idx);
-                                return null; // this dummy return is just to prevent Bluebird warnings;
                             });
                     }
                 }
@@ -187,8 +184,4 @@ function sequence(source, options, config) {
     });
 }
 
-module.exports = function (config) {
-    return function (source, options) {
-        return sequence.call(this, source, options, config);
-    };
-};
+module.exports = sequence;

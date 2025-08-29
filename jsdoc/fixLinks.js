@@ -5,11 +5,7 @@ const links = {
     'stream': 'https://github.com/vitaly-t/spex/blob/master/docs/concept/stream.md',
     'client-side': 'https://github.com/vitaly-t/spex/blob/master/docs/client.md',
     'Promise': 'https://github.com/then/promise',
-    'Bluebird': 'https://github.com/petkaantonov/bluebird',
     'When': 'https://github.com/cujojs/when',
-    'Q': 'https://github.com/kriskowal/q',
-    'RSVP': 'https://github.com/tildeio/rsvp.js',
-    'Lie': 'https://github.com/calvinmetcalf/lie',
     'Promises/A+': 'https://promisesaplus.com'
 };
 

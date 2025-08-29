@@ -1,13 +1,10 @@
-import * as spexLib from '../../typescript/spex';
-import {IStreamReadResult} from '../../typescript/spex';
-
-const spex = spexLib(Promise);
+import {stream, IStreamReadResult} from '../../typescript/spex';
 
 function cb() {
 
 }
 
-spex.stream.read(123, cb)
+stream.read(123, cb)
     .then((data: IStreamReadResult) => {
         const c: number = data.calls;
     })

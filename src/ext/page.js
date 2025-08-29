@@ -1,4 +1,6 @@
 const {PageError} = require('../errors/page');
+const batch = require('./batch');
+const utils = require('../utils');
 
 /**
  * @method page
@@ -68,12 +70,10 @@ const {PageError} = require('../errors/page');
  * When the method fails, it rejects with {@link errors.PageError PageError}.
  *
  */
-function page(source, options, config) {
-
-    const $p = config.promise, spex = config.spex, utils = config.utils;
+function page(source, options) {
 
     if (typeof source !== 'function') {
-        return $p.reject(new TypeError('Parameter \'source\' must be a function.'));
+        return Promise.reject(new TypeError('Parameter \'source\' must be a function.'));
     }
 
     options = options || {};
@@ -83,7 +83,7 @@ function page(source, options, config) {
         dest = utils.wrap(options.dest), self = this, start = Date.now();
     let request, srcTime, destTime, total = 0;
 
-    return $p((resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
         function loop(idx) {
             const srcNow = Date.now(),
@@ -94,7 +94,7 @@ function page(source, options, config) {
                     success();
                 } else {
                     if (value instanceof Array) {
-                        spex.batch(value)
+                        batch(value)
                             .then(data => {
                                 request = data;
                                 total += data.length;
@@ -127,7 +127,6 @@ function page(source, options, config) {
                                 } else {
                                     next();
                                 }
-                                return null; // this dummy return is just to prevent Bluebird warnings;
                             })
                             .catch(error => {
                                 fail({error}, 0);
@@ -152,7 +151,6 @@ function page(source, options, config) {
                 } else {
                     loop(idx);
                 }
-                return null; // this dummy return is just to prevent Bluebird warnings;
             }
 
             function success() {
@@ -173,8 +171,4 @@ function page(source, options, config) {
     });
 }
 
-module.exports = function (config) {
-    return function (source, options) {
-        return page.call(this, source, options, config);
-    };
-};
+module.exports = page;

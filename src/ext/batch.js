@@ -1,4 +1,5 @@
 const {BatchError} = require('../errors/batch');
+const utils = require('../utils');
 
 /**
  * @method batch
@@ -51,18 +52,16 @@ const {BatchError} = require('../errors/batch');
  *  - notification callback `cb` returned a rejected promise or threw an error
  *
  */
-function batch(values, options, config) {
-
-    const $p = config.promise, utils = config.utils;
+function batch(values, options) {
 
     if (!Array.isArray(values)) {
-        return $p.reject(new TypeError('Method \'batch\' requires an array of values.'));
+        return Promise.reject(new TypeError('Method \'batch\' requires an array of values.'));
     }
 
     if (!values.length) {
         const empty = [];
         utils.extend(empty, 'duration', 0);
-        return $p.resolve(empty);
+        return Promise.resolve(empty);
     }
 
     options = options || {};
@@ -70,7 +69,7 @@ function batch(values, options, config) {
     const cb = utils.wrap(options.cb),
         self = this, start = Date.now();
 
-    return $p((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         let cbTime, remaining = values.length;
         const errors = [], result = new Array(remaining);
         values.forEach((item, i) => {
@@ -138,14 +137,9 @@ function batch(values, options, config) {
                         resolve(result);
                     }
                 }
-                return null; // this dummy return is just to prevent Bluebird warnings;
             }
         }
     });
 }
 
-module.exports = function (config) {
-    return function (values, options) {
-        return batch.call(this, values, options, config);
-    };
-};
+module.exports = batch;

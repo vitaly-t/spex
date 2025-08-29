@@ -1,7 +1,6 @@
 const fs = require('fs');
-const lib = require('../header');
-const promise = lib.promise;
-const spex = lib.main(promise);
+
+const {stream} = require('../../src');
 
 describe('Stream/Read - negative', () => {
 
@@ -19,7 +18,7 @@ describe('Stream/Read - negative', () => {
         describe(' - stream', () => {
             let error;
             beforeEach(done => {
-                spex.stream.read(null)
+                stream.read(null)
                     .catch(e => {
                         error = e;
                         done();
@@ -34,7 +33,7 @@ describe('Stream/Read - negative', () => {
         describe(' - receiver', () => {
             let error;
             beforeEach(done => {
-                spex.stream.read(stm)
+                stream.read(stm)
                     .catch(e => {
                         error = e;
                         done();
@@ -55,7 +54,7 @@ describe('Stream/Read - negative', () => {
                 stm.emit('error', new Error('Ops!'));
             }
 
-            spex.stream.read(stm, receiver)
+            stream.read(stm, receiver)
                 .catch(err => {
                     error = err;
                     done();
@@ -72,10 +71,10 @@ describe('Stream/Read - negative', () => {
         let error;
         beforeEach(done => {
             function receiver() {
-                return promise.reject(err);
+                return Promise.reject(err);
             }
 
-            spex.stream.read(stm, receiver)
+            stream.read(stm, receiver)
                 .catch(e => {
                     error = e;
                     done();
@@ -93,7 +92,7 @@ describe('Stream/Read - negative', () => {
                 throw new Error('stop');
             }
 
-            spex.stream.read(stm, receiver)
+            stream.read(stm, receiver)
                 .catch(err => {
                     error = err;
                     done();
@@ -122,14 +121,14 @@ describe('Stream/Read - positive', () => {
     describe('End-stream, returning promises', () => {
         let result;
         beforeEach(done => {
-            spex.stream.read(stm, receiver)
+            stream.read(stm, receiver)
                 .then(data => {
                     result = data;
                     done();
                 });
 
             function receiver() {
-                return promise.resolve();
+                return Promise.resolve();
             }
         });
         it('must resolve with full statistics', () => {
@@ -140,14 +139,14 @@ describe('Stream/Read - positive', () => {
     describe('Close-stream with empty receiver', () => {
         let result;
         beforeEach(done => {
-            spex.stream.read(stm, receiver, {closable: true})
+            stream.read(stm, receiver, {closable: true})
                 .then(data => {
                     result = data;
                     done();
                 });
 
             function receiver() {
-                return promise.resolve();
+                return Promise.resolve();
             }
         });
         it('must resolve with full statistics', () => {
@@ -167,7 +166,7 @@ describe('Stream/Read - positive', () => {
     describe('Reduced readSize', () => {
         let r;
         beforeEach(done => {
-            spex.stream.read(stm, receiver, {readSize: 100})
+            stream.read(stm, receiver, {readSize: 100})
                 .then(() => {
                     done();
                 });
@@ -188,7 +187,7 @@ describe('Stream/Read - positive', () => {
     describe('chunk read', () => {
         let result;
         beforeEach(done => {
-            spex.stream.read(stm, receiver, {readChunks: true})
+            stream.read(stm, receiver, {readChunks: true})
                 .then(() => {
                     done();
                 });
@@ -229,7 +228,7 @@ describe('Stream.read', () => {
         beforeEach(done => {
             // NOTE: For some reasons, without setting readSize bigger than this stream file,
             // it would fail specifically under NodeJS v4 and v15 :)
-            spex.stream.read.call(context, stm, receiver, {readSize: 15000})
+            stream.read.call(context, stm, receiver, {readSize: 15000})
                 .then(data => {
                     result = data;
                     done();

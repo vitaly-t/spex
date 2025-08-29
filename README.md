@@ -20,17 +20,12 @@ $ npm i spex
 
 ## Usage
 
-* For any [Promises/A+] library: [Promise], [Bluebird], [When], [Q], [RSVP], etc.
+```ts
+import {batch, errors} from 'spex';
 
-```js
-const promise = require('bluebird');
-const spex = require('spex')(promise);
-```
-
-* For ES6 Promise:
-
-```js
-const spex = require('spex')(Promise);
+await batch([1, 2, 3])
+    .catch((err: errors.BatchError) => {
+    });
 ```
 
 See also: [client-side usage](http://vitaly-t.github.io/spex/tutorial-client.html).

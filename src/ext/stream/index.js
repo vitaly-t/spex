@@ -10,7 +10,7 @@ const npm = {
  * **Synchronous Stream Processing**
  *
  * ```js
- * const stream = require('spex')(Promise).stream;
+ * const {stream} = require('spex');
  * const fs = require('fs');
  *
  * const rs = fs.createReadStream('values.txt');
@@ -31,7 +31,7 @@ const npm = {
  * **Asynchronous Stream Processing**
  *
  * ```js
- * const stream = require('spex')(Promise).stream;
+ * const {stream} = require('spex');
  * const fs = require('fs');
  *
  * const rs = fs.createReadStream('values.txt');
@@ -56,10 +56,4 @@ const npm = {
  * Consumes and processes data from a $[Readable] stream.
  *
  */
-module.exports = function (config) {
-    const res = {
-        read: npm.read(config)
-    };
-    Object.freeze(res);
-    return res;
-};
+module.exports = npm;

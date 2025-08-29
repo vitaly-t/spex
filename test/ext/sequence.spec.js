@@ -1,19 +1,12 @@
-const lib = require('../header');
-const tools = require('../tools');
-
-const promise = lib.promise;
-const spex = lib.main(promise);
-
-const isError = lib.isError;
-
-const {SequenceError} = require('../../lib/errors/sequence');
+const {isError, inspect} = require('./tools');
+const {sequence, batch, errors} = require('../../src');
 
 describe('Sequence - negative', () => {
 
     describe('with invalid parameters', () => {
         let error;
         beforeEach(done => {
-            spex.sequence()
+            sequence()
                 .catch(e => {
                     error = e;
                     done();
@@ -36,7 +29,7 @@ describe('Sequence - negative', () => {
                     throw err;
                 }
 
-                spex.sequence(source)
+                sequence(source)
                     .catch(e => {
                         r = e;
                         done();
@@ -47,12 +40,12 @@ describe('Sequence - negative', () => {
                 expect(isError(r)).toBe(true);
                 expect(r.name).toBe('SequenceError');
                 expect(r instanceof Error).toBe(true);
-                expect(r instanceof SequenceError).toBe(true);
+                expect(r instanceof errors.SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.error).toBe(err);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
-                expect(tools.inspect(r)).toContain('reason: Source \'source\' threw an error at index 0.');
+                expect(inspect(r)).toContain('reason: Source \'source\' threw an error at index 0.');
             });
         });
 
@@ -61,7 +54,7 @@ describe('Sequence - negative', () => {
             let r;
             beforeEach(done => {
 
-                spex.sequence(() => {
+                sequence(() => {
                     throw msg;
                 })
                     .catch(e => {
@@ -72,13 +65,13 @@ describe('Sequence - negative', () => {
 
             it('must reject correctly', () => {
                 expect(isError(r)).toBe(true);
-                expect(r instanceof SequenceError).toBe(true);
+                expect(r instanceof errors.SequenceError).toBe(true);
                 expect(r.index).toBe(0);
                 expect(r.message).toBe(msg);
                 expect(r.error).toBe(msg);
                 expect('source' in r).toBe(true);
                 expect(r.source).toBeUndefined();
-                expect(tools.inspect(r)).toContain('reason: Source <anonymous> threw an error at index 0.');
+                expect(inspect(r)).toContain('reason: Source <anonymous> threw an error at index 0.');
             });
         });
 
@@ -86,7 +79,7 @@ describe('Sequence - negative', () => {
             let r;
             beforeEach(done => {
 
-                spex.sequence(() => {
+                sequence(() => {
                     throw 123;
                 })
                     .catch(e => {
@@ -109,10 +102,10 @@ describe('Sequence - negative', () => {
         let error;
         beforeEach(done => {
             function source() {
-                return promise.reject(new Error(msg));
+                return Promise.reject(new Error(msg));
             }
 
-            spex.sequence(source)
+            sequence(source)
                 .catch(e => {
                     error = e;
                     done();
@@ -121,12 +114,12 @@ describe('Sequence - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(error)).toBe(true);
-            expect(error instanceof SequenceError).toBe(true);
+            expect(error instanceof errors.SequenceError).toBe(true);
             expect(error.index).toBe(0);
             expect(error.message).toBe(msg);
             expect('source' in error).toBe(true);
             expect(error.source).toBeUndefined();
-            expect(tools.inspect(error)).toContain('reason: Source \'source\' returned a rejection at index 0.');
+            expect(inspect(error)).toContain('reason: Source \'source\' returned a rejection at index 0.');
         });
     });
 
@@ -136,10 +129,10 @@ describe('Sequence - negative', () => {
         beforeEach(done => {
 
             function source() {
-                return spex.batch([promise.reject(new Error('123'))]);
+                return batch([Promise.reject(new Error('123'))]);
             }
 
-            spex.sequence(source)
+            sequence(source)
                 .catch(e => {
                     r = e;
                     done();
@@ -148,12 +141,12 @@ describe('Sequence - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof SequenceError).toBe(true);
+            expect(r instanceof errors.SequenceError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.message).toBe('123');
             expect('source' in r).toBe(true);
             expect(r.source).toBeUndefined();
-            expect(tools.inspect(r)).toContain('error: BatchError {');
+            expect(inspect(r)).toContain('error: BatchError {');
         });
     });
 
@@ -169,7 +162,7 @@ describe('Sequence - negative', () => {
                 throw new Error(msg);
             }
 
-            spex.sequence(source, {dest})
+            sequence(source, {dest})
                 .catch(e => {
                     error = e;
                     done();
@@ -178,11 +171,11 @@ describe('Sequence - negative', () => {
 
         it('must reject correctly', () => {
             expect(isError(error)).toBe(true);
-            expect(error instanceof SequenceError).toBe(true);
+            expect(error instanceof errors.SequenceError).toBe(true);
             expect(error.message).toBe(msg);
             expect(error.index).toBe(0);
             expect(error.dest).toBe(123);
-            expect(tools.inspect(error)).toContain('reason: Destination \'dest\' threw an error at index 0.');
+            expect(inspect(error)).toContain('reason: Destination \'dest\' threw an error at index 0.');
         });
     });
 
@@ -195,10 +188,10 @@ describe('Sequence - negative', () => {
             }
 
             function dest() {
-                return promise.reject(new Error(msg));
+                return Promise.reject(new Error(msg));
             }
 
-            spex.sequence(source, {dest})
+            sequence(source, {dest})
                 .catch(e => {
                     r = e;
                     done();
@@ -206,12 +199,12 @@ describe('Sequence - negative', () => {
         });
         it('must reject correctly', () => {
             expect(isError(r)).toBe(true);
-            expect(r instanceof SequenceError).toBe(true);
+            expect(r instanceof errors.SequenceError).toBe(true);
             expect(r.index).toBe(0);
             expect(r.message).toBe(msg);
             expect(r.dest).toBe(123);
-            expect(tools.inspect(r)).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
-            expect(tools.inspect(r) !== r.toString(1)).toBe(true);
+            expect(inspect(r)).toContain('reason: Destination \'dest\' returned a rejection at index 0.');
+            expect(inspect(r) !== r.toString(1)).toBe(true);
         });
     });
 
@@ -228,7 +221,7 @@ describe('Sequence - positive', () => {
         }
 
         beforeEach(done => {
-            spex.sequence(source, {limit})
+            sequence(source, {limit})
                 .then(data => {
                     result = data;
                 })
@@ -256,12 +249,12 @@ describe('Sequence - positive', () => {
         function dest(idx, data) {
             tracked.push(data);
             if (idx) {
-                return promise.resolve();
+                return Promise.resolve();
             }
         }
 
         beforeEach(done => {
-            spex.sequence(source, {dest, track: true})
+            sequence(source, {dest, track: true})
                 .then(data => {
                     result = data;
                 })
@@ -286,7 +279,7 @@ describe('Sequence - positive', () => {
         }
 
         beforeEach(done => {
-            spex.sequence.call(context, source)
+            sequence.call(context, source)
                 .then(() => {
                     done();
                 });
@@ -306,17 +299,17 @@ describe('Sequence callbacks generators', () => {
     function* source(index) {
         ctx = this;
         if (!index) {
-            return yield promise.resolve('src');
+            return yield Promise.resolve('src');
         }
     }
 
     function* dest(_, data) {
         this.data = data;
-        return yield promise.resolve('dest');
+        return yield Promise.resolve('dest');
     }
 
     beforeEach(done => {
-        spex.sequence.call(context, source, {dest, track: true})
+        sequence.call(context, source, {dest, track: true})
             .then(data => {
                 result = data;
                 done();
