@@ -158,7 +158,7 @@ function read(stream, receiver, options) {
                 return;
             }
 
-            if (utils.isPromise(result)) {
+            if (result instanceof Promise) {
                 result
                     .then(() => {
                         waiting = false;

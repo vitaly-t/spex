@@ -121,7 +121,7 @@ function sequence(source, options) {
                             }, 3, dest.name);
                             return;
                         }
-                        if (utils.isPromise(destResult)) {
+                        if (destResult instanceof Promise) {
                             destResult
                                 .then(() => {
                                     next(true);

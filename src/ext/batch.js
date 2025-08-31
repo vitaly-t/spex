@@ -94,7 +94,7 @@ function batch(values, options) {
                 } catch (e) {
                     setError(e);
                 }
-                if (utils.isPromise(cbResult)) {
+                if (cbResult instanceof Promise) {
                     cbResult
                         .then(check)
                         .catch(error => {

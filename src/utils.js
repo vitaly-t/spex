@@ -37,7 +37,7 @@ function resolve(value, params, onSuccess, onError) {
                 return;
             }
         }
-        if (isPromise(value)) {
+        if (value instanceof Promise) {
             value
                 .then(data => {
                     delayed = true;
@@ -71,12 +71,6 @@ function asyncAdapter(generator) {
 
         return handle(g.next());
     };
-}
-
-/////////////////////////////////////
-// Checks if the value is a promise;
-function isPromise(value) {
-    return value && typeof value.then === 'function';
 }
 
 ////////////////////////////////////////////
@@ -136,7 +130,6 @@ function addInspection(type, cb) {
 
 module.exports = {
     formatError,
-    isPromise,
     isReadableStream,
     messageGap,
     extend,

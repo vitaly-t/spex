@@ -112,7 +112,7 @@ function page(source, options) {
                                         }, 4, dest.name);
                                         return;
                                     }
-                                    if (utils.isPromise(destResult)) {
+                                    if (destResult instanceof Promise) {
                                         destResult
                                             .then(next)
                                             .catch(error => {
