@@ -187,7 +187,7 @@ function read(stream, receiver, options) {
                 return;
             }
 
-            if (utils.isPromise(result)) {
+            if (result instanceof Promise) {
                 result
                     .then(() => {
                         waiting = false;
@@ -227,7 +227,7 @@ function read(stream, receiver, options) {
     });
 }
 
-module.exports = read;
+module.exports = {read};
 </code></pre>
         </article>
     </section>

@@ -28,7 +28,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const {PageError} = require('../errors/page');
-const batch = require('./batch');
+const {batch} = require('./batch');
 const utils = require('../utils');
 
 /**
@@ -141,7 +141,7 @@ function page(source, options) {
                                         }, 4, dest.name);
                                         return;
                                     }
-                                    if (utils.isPromise(destResult)) {
+                                    if (destResult instanceof Promise) {
                                         destResult
                                             .then(next)
                                             .catch(error => {
@@ -200,7 +200,7 @@ function page(source, options) {
     });
 }
 
-module.exports = page;
+module.exports = {page};
 </code></pre>
         </article>
     </section>

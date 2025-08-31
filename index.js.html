@@ -41,9 +41,9 @@
  * @see {@link batch}, {@link page}, {@link sequence}, {@link stream}
  */
 module.exports = {
-    batch: require('./ext/batch'),
-    page: require('./ext/page'),
-    sequence: require('./ext/sequence'),
+    batch: require('./ext/batch').batch,
+    page: require('./ext/page').page,
+    sequence: require('./ext/sequence').sequence,
     stream: require('./ext/stream'),
     errors: require('./errors')
 };

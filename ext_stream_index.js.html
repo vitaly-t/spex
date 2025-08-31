@@ -27,9 +27,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const npm = {
-    read: require('./read')
-};
+            <pre class="prettyprint source linenums"><code>const {read} = require('./read');
 
 /**
  * @namespace stream
@@ -85,7 +83,7 @@
  * Consumes and processes data from a $[Readable] stream.
  *
  */
-module.exports = npm;
+module.exports = {read};
 </code></pre>
         </article>
     </section>
