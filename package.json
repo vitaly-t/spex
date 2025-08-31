@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.34.0",
+    "@types/node": "24.3.0",
     "browserify": "17.0.1",
     "coveralls": "3.1.1",
     "eslint": "9.34.0",
