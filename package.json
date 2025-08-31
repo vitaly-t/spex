@@ -1,6 +1,6 @@
 {
   "name": "spex",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Specialized Promise Extensions",
   "main": "src/index.js",
   "typings": "typescript/spex.d.ts",
@@ -9,7 +9,8 @@
     "doc": "jsdoc -c ./jsdoc/jsDoc.js ./jsdoc/README.md -u ./jsdoc/tutorials",
     "coverage": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test",
     "browserify": "browserify src/index.js -s spexLib -o spex.js",
-    "lint": "eslint ./src ./test/**/*.spec.js"
+    "lint": "eslint ./src ./test/**/*.spec.js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "files": [
     "src",
