@@ -184,4 +184,4 @@ function sequence(source, options) {
     });
 }
 
-module.exports = sequence;
+module.exports = {sequence};

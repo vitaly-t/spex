@@ -142,4 +142,4 @@ function batch(values, options) {
     });
 }
 
-module.exports = batch;
+module.exports = {batch};

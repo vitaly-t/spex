@@ -1,6 +1,4 @@
-const npm = {
-    read: require('./read')
-};
+const {read} = require('./read');
 
 /**
  * @namespace stream
@@ -56,4 +54,4 @@ const npm = {
  * Consumes and processes data from a $[Readable] stream.
  *
  */
-module.exports = npm;
+module.exports = {read};

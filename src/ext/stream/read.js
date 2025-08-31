@@ -198,4 +198,4 @@ function read(stream, receiver, options) {
     });
 }
 
-module.exports = read;
+module.exports = {read};

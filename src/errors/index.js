@@ -2,7 +2,6 @@ const {BatchError} = require('./batch');
 const {PageError} = require('./page');
 const {SequenceError} = require('./sequence');
 
-
 /**
  * @namespace errors
  * @description

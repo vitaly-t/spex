@@ -1,5 +1,5 @@
 const {PageError} = require('../errors/page');
-const batch = require('./batch');
+const {batch} = require('./batch');
 const utils = require('../utils');
 
 /**
@@ -171,4 +171,4 @@ function page(source, options) {
     });
 }
 
-module.exports = page;
+module.exports = {page};

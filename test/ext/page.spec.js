@@ -1,7 +1,7 @@
 const {isError, inspect} = require('./tools');
 const {page, batch, errors} = require('../../src');
 
-describe('Page - negative', () => {
+describe('page - negative', () => {
 
     describe('with invalid parameters', () => {
         let error;
@@ -265,7 +265,7 @@ describe('Page - negative', () => {
 
 });
 
-describe('Page - positive', () => {
+describe('page - positive', () => {
 
     describe('with mixed data types', () => {
         const tracking = [];

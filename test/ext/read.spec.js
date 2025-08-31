@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const {stream} = require('../../src');
 
-describe('Stream/Read - negative', () => {
+describe('stream/read - negative', () => {
 
     let stm;
     beforeEach(() => {
@@ -106,7 +106,7 @@ describe('Stream/Read - negative', () => {
 
 });
 
-describe('Stream/Read - positive', () => {
+describe('stream/read - positive', () => {
 
     let stm;
 
@@ -118,7 +118,7 @@ describe('Stream/Read - positive', () => {
         stm.destroy();
     });
 
-    describe('End-stream, returning promises', () => {
+    describe('end-stream, returning promises', () => {
         let result;
         beforeEach(done => {
             stream.read(stm, receiver)
@@ -136,7 +136,7 @@ describe('Stream/Read - positive', () => {
         });
     });
 
-    describe('Close-stream with empty receiver', () => {
+    describe('close-stream with empty receiver', () => {
         let result;
         beforeEach(done => {
             stream.read(stm, receiver, {closable: true})
@@ -163,7 +163,7 @@ describe('Stream/Read - positive', () => {
         expect(obj.duration >= 0).toBe(true);
     }
 
-    describe('Reduced readSize', () => {
+    describe('reduced readSize', () => {
         let r;
         beforeEach(done => {
             stream.read(stm, receiver, {readSize: 100})
@@ -204,7 +204,7 @@ describe('Stream/Read - positive', () => {
     });
 });
 
-describe('Stream.read', () => {
+describe('stream.read', () => {
 
     let stm;
 
@@ -226,8 +226,6 @@ describe('Stream.read', () => {
         }
 
         beforeEach(done => {
-            // NOTE: For some reasons, without setting readSize bigger than this stream file,
-            // it would fail specifically under NodeJS v4 and v15 :)
             stream.read.call(context, stm, receiver, {readSize: 15000})
                 .then(data => {
                     result = data;

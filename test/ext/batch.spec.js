@@ -1,7 +1,7 @@
 const {isError, inspect} = require('./tools');
 const {batch} = require('../../src');
 
-describe('Batch - negative', () => {
+describe('batch - negative', () => {
 
     describe('with invalid parameters', () => {
         let error;
@@ -256,7 +256,7 @@ describe('Batch - negative', () => {
     });
 });
 
-describe('Batch - positive', () => {
+describe('batch - positive', () => {
 
     describe('empty input', () => {
         let result;
