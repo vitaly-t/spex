@@ -25,9 +25,9 @@ div#main {
     max-width: 1500px;
 }
 
-code {
+p > code {
     background-color: LightYellow;
-    color: Maroon !important;
+    color: Maroon;
 }
 
 code span {
@@ -83,4 +83,143 @@ nav h2 {
 .home-link a {
     font-size: 16px;
     font-weight: bold;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    html, body, section {
+        color: #A0A0A0;
+        background-color: #151515;
+    }
+
+    nav {
+        background-color: #300000;
+        border-right: 1px solid #550000;
+    }
+
+    section article pre.prettyprint.source:not(.linenums) code {
+        padding: 20px;
+    }
+
+    section article pre.prettyprint.source {
+        border-color: #707070;
+
+        code {
+            background-color: #252525;
+        }
+    }
+
+    p {
+        color: #A0A0A0;
+    }
+
+    h2 {
+        color: #718c00;
+    }
+
+    h3 {
+        color: skyblue;
+    }
+
+    table.params {
+        th {
+            border-color: #707070;
+            background-color: #24425C;
+            color: #A0A0A0;
+        }
+
+        td {
+            border-color: #707070;
+        }
+    }
+
+    table.props {
+        th {
+            border-color: #707070;
+            background-color: #24425C;
+            color: #A0A0A0;
+        }
+
+        td {
+            border-color: #707070;
+        }
+
+        td.name code {
+            color: pink;
+        }
+
+        td.type {
+            color: yellowgreen;
+        }
+
+        td.attributes {
+            color: seagreen;
+        }
+
+        td.default {
+            color: gold;
+        }
+    }
+
+    table.params {
+        td.attributes {
+            color: seagreen;
+        }
+    }
+
+    table.params th,
+    table.props th {
+        color: #C0C0C0;
+    }
+
+    table.params td.name code {
+        background-color: transparent;
+    }
+
+    table.params td.name code {
+        color: pink;
+    }
+
+    table.params td.type .param-type {
+        color: yellowgreen;
+    }
+
+    h4.name {
+        background-color: #070707;
+        color: rgb(136, 191, 190);
+    }
+
+    pre.prettyprint:not(pre.source) {
+        border-color: #707070;
+        background-color: #252525;
+    }
+
+    pre.prettyprint code {
+
+        .pln, .pun {
+            color: #D0D0D0;
+        }
+
+        .com {
+            color: #707070;
+        }
+
+        .str {
+            color: #619552;
+        }
+
+        .kwd {
+            color: darkorange;
+        }
+    }
+
+    p > code, .description code {
+        background-color: transparent;
+        color: pink;
+        font-weight: normal;
+    }
+
+    thead tr {
+        background-color: #24425C;
+    }
 }
