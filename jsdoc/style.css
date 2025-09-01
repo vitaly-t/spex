@@ -145,7 +145,7 @@ nav h2 {
         }
 
         td.name code {
-            /*color: red !important;*/
+            color: pink;
         }
 
         td.type {
@@ -161,6 +161,12 @@ nav h2 {
         }
     }
 
+    table.params {
+        td.attributes {
+            color: seagreen;
+        }
+    }
+
     table.params th,
     table.props th {
         color: #C0C0C0;
@@ -171,7 +177,11 @@ nav h2 {
     }
 
     table.params td.name code {
-        /*color: pink !important;*/
+        color: pink;
+    }
+
+    table.params td.type .param-type {
+        color: yellowgreen;
     }
 
     h4.name {
