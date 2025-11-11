@@ -13,7 +13,6 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        # We cannot use NodeJS < 18 with CI because the latest ESLint doesn't support it.
         node-version: [18.x, 20.x, 24.x]
 
     steps:

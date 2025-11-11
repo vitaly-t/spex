@@ -4,7 +4,7 @@ SPEX
 Specialized Promise Extensions.
 
 [![Build Status](https://github.com/vitaly-t/spex/actions/workflows/ci.yml/badge.svg)](https://github.com/vitaly-t/spex/actions/workflows/ci.yml)
-[![Node Version](https://img.shields.io/badge/nodejs-14%20--%2024-green.svg?logo=node.js&style=flat)](https://nodejs.org)
+[![Node Version](https://img.shields.io/badge/nodejs-18%20--%2024-green.svg?logo=node.js&style=flat)](https://nodejs.org)
 
 [batch], [page], [sequence] - promise methods for the following patterns:
 * [Data Throttling & Load Balancing](http://vitaly-t.github.io/spex/tutorial-throttling.html)
