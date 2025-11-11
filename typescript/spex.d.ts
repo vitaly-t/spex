@@ -51,7 +51,7 @@ export interface IArrayExt<T> extends Array<T> {
 export namespace errors {
 
     // API: http://vitaly-t.github.io/spex/errors.BatchError.html
-    interface BatchError extends Error {
+    class BatchError extends Error {
 
         // standard error properties:
         name: string;
@@ -73,7 +73,7 @@ export namespace errors {
     }
 
     // API: http://vitaly-t.github.io/spex/errors.PageError.html
-    interface PageError extends Error {
+    class PageError extends Error {
 
         // standard error properties:
         name: string;
@@ -93,7 +93,7 @@ export namespace errors {
     }
 
     // API: http://vitaly-t.github.io/spex/errors.SequenceError.html
-    interface SequenceError extends Error {
+    class SequenceError extends Error {
 
         // standard error properties:
         name: string;
